@@ -1,0 +1,1940 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#F8775F">
+<!-- PWA: manifest.json sebagai Data URI (disesuaikan ulang oleh JS agar start_url benar) -->
+<link rel="manifest" id="ag-manifest" href="data:application/manifest+json;base64,eyJuYW1lIjogIkd1cnVLdSAtIEFkbWluaXN0cmFzaSBHdXJ1IiwgInNob3J0X25hbWUiOiAiR3VydUt1IiwgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsICJzdGFydF91cmwiOiAiLiIsICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNGREUzRDgiLCAidGhlbWVfY29sb3IiOiAiI0Y4Nzc1RiIsICJsYW5nIjogImlkIiwgImljb25zIjogW3sic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owbmFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jbklIWnBaWGRDYjNnOUp6QWdNQ0ExTVRJZ05URXlKejQ4WkdWbWN6NDhiR2x1WldGeVIzSmhaR2xsYm5RZ2FXUTlKMmNuSUhneFBTY3dKeUI1TVQwbk1DY2dlREk5SnpFbklIa3lQU2N4Sno0OGMzUnZjQ0J2Wm1aelpYUTlKekFuSUhOMGIzQXRZMjlzYjNJOUp5TTRRemREUmpBbkx6NDhjM1J2Y0NCdlptWnpaWFE5SnpFbklITjBiM0F0WTI5c2IzSTlKeU0yUkRWQ1JUQW5MejQ4TDJ4cGJtVmhja2R5WVdScFpXNTBQand2WkdWbWN6NDhjbVZqZENCM2FXUjBhRDBuTlRFeUp5Qm9aV2xuYUhROUp6VXhNaWNnY25nOUp6RXlNQ2NnWm1sc2JEMG5kWEpzS0NObktTY3ZQanh3WVhSb0lHUTlKMDB5TURBZ016WXdiRFl3TFRJd09FMHlPVEFnTXpZd2JEWXdMVEl3T0NjZ2MzUnliMnRsUFNkM2FHbDBaU2NnYzNSeWIydGxMWGRwWkhSb1BTY3pPQ2NnYzNSeWIydGxMV3hwYm1WallYQTlKM0p2ZFc1a0p5Qm1hV3hzUFNkdWIyNWxKeTgrUEM5emRtYysiLCAic2l6ZXMiOiAiNTEyeDUxMiIsICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiLCAicHVycG9zZSI6ICJhbnkifV19">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>GuruKu - Administrasi Guru</title>
+<style id="ag-style">
+#ag{
+  --ink:#26223F;--text:#6E6A80;--muted:#B1AEBD;--line:#EEEDF3;
+  --coral1:#FFA88A;--coral2:#F8775F;--vio1:#8C7CF0;--vio2:#6D5BE0;
+  --pink1:#FF8DAA;--pink2:#F25C85;--ora1:#FFC19A;--ora2:#FF9F6E;--blue1:#8DB8FF;--blue2:#5B93F5;
+  --ok:#34C38F;--warn:#F6B94C;--bad:#F2617A;--glass:rgba(255,255,255,.74);
+  position:fixed;inset:0;z-index:2147483000;overflow:hidden;
+  font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:14px;line-height:1.5;color:var(--text);
+  background:radial-gradient(900px 600px at 8% 0%,#fff0e8 0%,transparent 60%),radial-gradient(800px 600px at 100% 100%,#f6bfae 0%,transparent 62%),linear-gradient(135deg,#FDE3D8,#F9CDBE);
+  -webkit-font-smoothing:antialiased;
+  *{box-sizing:border-box}
+  h1,h2,h3,h4,p{margin:0}
+  button,input,select,textarea{font:inherit;color:inherit}
+  button{cursor:pointer;border:0;background:none;padding:0}
+  svg{flex:none}
+  .sp{flex:1}
+  .hide{display:none!important}
+
+  /* ===== Shell ===== */
+  .shell{position:absolute;inset:22px;border-radius:32px;background:var(--glass);backdrop-filter:blur(26px) saturate(1.4);-webkit-backdrop-filter:blur(26px) saturate(1.4);box-shadow:0 30px 80px rgba(210,110,80,.22),inset 0 0 0 1px rgba(255,255,255,.7);display:grid;grid-template-columns:232px minmax(0,1fr);overflow:hidden}
+  .side{padding:22px 16px;display:flex;flex-direction:column;gap:16px;background:rgba(248,248,250,.55);border-right:1px solid var(--line);overflow-y:auto}
+  .brand{display:flex;align-items:center;gap:10px;padding:0 6px;font-size:20px;color:var(--ink)}
+  .brand b{font-weight:800;letter-spacing:-.02em}
+  .logo{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--vio1),var(--vio2));box-shadow:0 8px 18px rgba(109,91,224,.35)}
+  .nav{display:flex;flex-direction:column;gap:4px}
+  .nav-i{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:16px;color:var(--text);font-weight:600;font-size:13.5px;text-align:left;width:100%;transition:.2s}
+  .nav-i:hover{background:rgba(255,255,255,.85);color:var(--ink)}
+  .nav-i.on{background:linear-gradient(135deg,var(--coral1),var(--coral2));color:#fff;box-shadow:0 10px 22px rgba(248,119,95,.32)}
+  .sidecard{margin-top:auto;background:#fff;border-radius:24px;padding:18px 14px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;box-shadow:0 8px 30px rgba(120,100,160,.08)}
+  .sidecard b{color:var(--ink);font-size:14px}
+  .sidecard small{color:var(--muted);font-size:12px;margin-bottom:8px}
+  .trophy{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--vio1),var(--vio2));box-shadow:0 10px 22px rgba(109,91,224,.35);margin-bottom:6px}
+  .logout{display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:18px;font-weight:600;color:var(--ink);transition:.2s}
+  .logout:hover{background:rgba(255,255,255,.85)}
+  .lo-ic{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--coral1),var(--coral2));box-shadow:0 8px 18px rgba(248,119,95,.35)}
+  .main{display:flex;flex-direction:column;min-width:0;min-height:0}
+  .top{display:flex;align-items:center;gap:16px;padding:22px 28px 14px}
+  .mbrand{display:none;align-items:center;gap:8px;font-weight:800;color:var(--ink);font-size:17px}
+  .mbrand .logo{width:32px;height:32px}
+  .search{flex:1;max-width:560px;display:flex;align-items:center;gap:10px;background:#fff;border-radius:20px;padding:0 18px;height:50px;color:var(--muted);box-shadow:0 8px 30px rgba(120,100,160,.07)}
+  .search input{border:0;outline:0;background:none;width:100%;font-size:13.5px;color:var(--ink)}
+  .top-r{margin-left:auto;display:flex;align-items:center;gap:8px}
+  .iconbtn{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:var(--ink);position:relative;transition:.2s}
+  .iconbtn:hover{background:rgba(255,255,255,.9)}
+  .dot{position:absolute;top:8px;right:9px;width:9px;height:9px;border-radius:50%;background:var(--vio1);border:2px solid #fff;display:none}
+  .avatar-btn{width:40px;height:40px;border-radius:50%;font-weight:800;color:#fff;font-size:13px;background:linear-gradient(135deg,var(--blue1),var(--vio2));box-shadow:0 8px 18px rgba(109,91,224,.3)}
+  .content{flex:1;overflow:auto;padding:4px 28px 32px;scroll-behavior:smooth}
+  .loading{display:grid;place-items:center;height:260px}
+  .spin{width:34px;height:34px;border-radius:50%;border:4px solid var(--line);border-top-color:var(--coral2);animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes pop{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+  .view{animation:pop .3s ease}
+
+  /* ===== Page head ===== */
+  .phead{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin:6px 0 18px}
+  .phead h1{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1.2}
+  .phead h1 small{font-size:15px;font-weight:500;color:var(--text);letter-spacing:0;margin-left:8px}
+  .acts{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .sec-h{display:flex;align-items:center;gap:10px;margin:22px 0 12px}
+  .sec-h h2{font-size:20px;font-weight:500;color:var(--ink)}
+  .sec-h h2 b{font-weight:800}
+
+  /* ===== Buttons & chips ===== */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 18px;border-radius:999px;font-weight:700;font-size:13px;transition:.2s;white-space:nowrap;background:#fff;color:var(--ink);box-shadow:0 4px 14px rgba(120,100,160,.1)}
+  .btn:hover{transform:translateY(-2px)}
+  .btn:active{transform:scale(.97)}
+  .btn:disabled{opacity:.55;pointer-events:none}
+  .btn.pri{background:linear-gradient(135deg,var(--coral1),var(--coral2));color:#fff;box-shadow:0 10px 22px rgba(248,119,95,.3)}
+  .btn.vio{background:linear-gradient(135deg,var(--vio1),var(--vio2));color:#fff;box-shadow:0 10px 22px rgba(109,91,224,.3)}
+  .btn.bad{background:#fff0f3;color:var(--bad);box-shadow:none}
+  .btn.ghost{background:rgba(255,255,255,.7);box-shadow:none;border:1px solid var(--line)}
+  .btn.wht{background:#fff;color:var(--ink);box-shadow:0 8px 18px rgba(0,0,0,.12)}
+  .btn.sm{padding:7px 13px;font-size:12px}
+  .btn.ic{padding:8px;width:34px;height:34px}
+  .ib{width:32px;height:32px;border-radius:50%;display:inline-grid;place-items:center;color:var(--text);transition:.2s}
+  .ib:hover{background:#fff;color:var(--ink)}
+  .ib.bad:hover{background:#fff0f3;color:var(--bad)}
+  .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-size:11.5px;font-weight:700;background:#f1f0f6;color:var(--text);white-space:nowrap}
+  .b-ok{background:#e4f8f0;color:#1f9a6d}.b-warn{background:#fff5df;color:#b9811a}.b-bad{background:#ffe9ee;color:#d8435f}.b-vio{background:#eeeafe;color:#6D5BE0}.b-ora{background:#ffeede;color:#e0722f}.b-pink{background:#ffe6ee;color:#e0467a}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;background:rgba(255,255,255,.6);padding:5px;border-radius:999px;width:fit-content;max-width:100%;overflow:auto;margin-bottom:16px}
+  .tab{padding:8px 16px;border-radius:999px;font-weight:700;font-size:13px;color:var(--text);white-space:nowrap;transition:.2s}
+  .tab:hover{color:var(--ink)}
+  .tab.on{background:linear-gradient(135deg,var(--coral1),var(--coral2));color:#fff;box-shadow:0 8px 18px rgba(248,119,95,.3)}
+  .tab em{font-style:normal;opacity:.8;margin-left:4px}
+
+  /* ===== Cards, tables ===== */
+  .card{background:#fff;border-radius:24px;padding:20px;box-shadow:0 8px 30px rgba(120,100,160,.08)}
+  .card.flat{box-shadow:none;border:1px solid var(--line)}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  .inp,.fld input,.fld select,.fld textarea{width:100%;padding:10px 14px;border:1.5px solid var(--line);border-radius:14px;background:#fff;outline:none;transition:.2s;color:var(--ink);font-size:13.5px}
+  .inp:focus,.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--vio1);box-shadow:0 0 0 4px rgba(140,124,240,.15)}
+  .inp:disabled,.fld input:disabled,.fld select:disabled,.fld textarea:disabled{background:#f7f7fa;color:var(--text)}
+  .toolbar .inp{width:auto;min-width:150px;max-width:260px}
+  .tbl-wrap{overflow:auto;border-radius:18px}
+  .tbl{width:100%;border-collapse:collapse;font-size:13px}
+  .tbl th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);text-align:left;padding:10px 12px;font-weight:700;white-space:nowrap;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:1}
+  .tbl td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle;color:var(--ink)}
+  .tbl tr:last-child td{border-bottom:0}
+  .tbl tbody tr:hover td{background:#fbfaff}
+  .tbl .r{text-align:right;white-space:nowrap}.tbl .c{text-align:center}
+  .tbl td.muted,.muted{color:var(--muted)}
+  .who{display:flex;align-items:center;gap:10px;min-width:150px}
+  .who b{display:block;color:var(--ink);font-weight:700;line-height:1.25}
+  .who small{color:var(--muted);font-size:11.5px}
+  .avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:12px;flex:none;border:2px solid #fff}
+  .stack{display:flex}.stack .avatar{margin-left:-8px}.stack .avatar:first-child{margin-left:0}
+  .g-vio{background:linear-gradient(160deg,#B8A6F5,#7E6BE8)}.g-pink{background:linear-gradient(160deg,#FF8FA8,#F0647F)}.g-ora{background:linear-gradient(160deg,#FFB58A,#FF9B6A)}.g-blue{background:linear-gradient(160deg,#8DB8FF,#5B93F5)}.g-coral{background:linear-gradient(160deg,#FFA88A,#F8775F)}
+  .empty{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:42px 20px;color:var(--text)}
+  .empty .ei{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--vio1),var(--vio2));box-shadow:0 12px 26px rgba(109,91,224,.3)}
+  .empty b{color:var(--ink);font-size:15px}
+  .bulk{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:#eeeafe;border-radius:16px;padding:10px 14px;margin-bottom:12px;color:#6D5BE0;font-weight:700}
+  .pager{display:flex;align-items:center;gap:10px;justify-content:flex-end;padding-top:12px;font-size:12.5px;color:var(--text)}
+  input[type=checkbox].cb{width:17px;height:17px;accent-color:var(--coral2);cursor:pointer}
+
+  /* ===== Dashboard ===== */
+  .dash{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .stat{background:#fff;border-radius:22px;padding:14px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 30px rgba(120,100,160,.07)}
+  .bub{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;flex:none;box-shadow:0 8px 18px rgba(0,0,0,.14),inset 0 -4px 8px rgba(0,0,0,.08)}
+  .stat b{display:block;font-size:20px;color:var(--ink);line-height:1.1;font-weight:800}
+  .stat small{color:var(--text);font-size:11.5px}
+  .qa{display:grid;grid-template-columns:repeat(3,1fr) 120px;gap:14px}
+  .qcard{position:relative;overflow:hidden;border-radius:26px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:2px;min-height:158px;box-shadow:0 14px 28px rgba(120,100,160,.2)}
+  .qcard:after{content:"";position:absolute;right:-26px;top:-26px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.18)}
+  .qcard .qi{width:38px;height:38px;border-radius:12px;background:#fff;display:grid;place-items:center;margin-bottom:12px;position:relative;z-index:1}
+  .qcard.g-vio .qi{color:#7E6BE8}.qcard.g-pink .qi{color:#F0647F}.qcard.g-ora .qi{color:#FF9B6A}
+  .qcard b{font-size:17px;font-weight:800;position:relative;z-index:1}
+  .qcard small{opacity:.85;font-size:12px;margin-bottom:auto;position:relative;z-index:1}
+  .qcard .btn{margin-top:10px;position:relative;z-index:1}
+  .qmore{border-radius:26px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--ink);font-weight:700;box-shadow:0 8px 30px rgba(120,100,160,.08);cursor:pointer;transition:.2s}
+  .qmore:hover{transform:translateY(-3px)}
+  .qmore .mb{width:40px;height:40px;border-radius:50%;background:#2c2842;color:#fff;display:grid;place-items:center}
+  .dcard{background:rgba(255,255,255,.8);border-radius:28px;padding:18px;box-shadow:0 8px 30px rgba(120,100,160,.07)}
+  .strip{display:flex;gap:6px;overflow:auto;background:#f6f5fa;border-radius:20px;padding:8px;margin-bottom:14px}
+  .day{flex:1;min-width:48px;border-radius:14px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;transition:.2s;color:var(--ink)}
+  .day b{font-size:14px;font-weight:800}.day small{font-size:10.5px;color:var(--muted)}
+  .day:hover{background:#fff}
+  .day.on{background:linear-gradient(135deg,var(--coral1),var(--coral2));color:#fff;box-shadow:0 8px 18px rgba(248,119,95,.3)}
+  .day.on small{color:#fff;opacity:.85}
+  .trow{display:grid;grid-template-columns:54px 1fr;gap:10px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--line)}
+  .trow:last-child{border-bottom:0}
+  .tt{font-size:12px;font-weight:700;color:var(--muted)}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;color:#fff;font-size:12.5px;font-weight:700;transition:.2s;box-shadow:0 8px 16px rgba(120,100,160,.2);text-align:left;overflow:hidden;white-space:nowrap}
+  .pill small{opacity:.85;font-weight:500;overflow:hidden;text-overflow:ellipsis}
+  .pill.sel{outline:3px solid rgba(38,34,63,.18);outline-offset:2px}
+  .pill:hover{transform:translateY(-2px)}
+  .c0{background:linear-gradient(90deg,#B7A8F7,#8C7CF0)}.c1{background:linear-gradient(90deg,#FFB59A,#F8775F)}.c2{background:linear-gradient(90deg,#FF9DB5,#F25C85)}.c3{background:linear-gradient(90deg,#FFD0A8,#FF9F6E)}
+  .prog{display:flex;align-items:center;gap:12px;margin-top:12px}
+  .prog .bar{flex:1;height:30px;border-radius:999px;background:#fff;border:2px solid var(--vio1);overflow:hidden;position:relative}
+  .prog .bar i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--vio1),var(--vio2));border-radius:999px}
+  .prog .bar span{position:absolute;left:14px;top:0;line-height:26px;font-size:12px;font-weight:700;color:#fff;z-index:1}
+  .prog b{color:var(--vio2);font-size:12.5px}
+  .rpanel{background:rgba(247,247,250,.85);border-radius:28px;padding:22px;display:flex;flex-direction:column;gap:16px}
+  .rpanel h2{font-size:22px;font-weight:500;color:var(--ink)}.rpanel h2 b{font-weight:800}
+  .rpanel .desc{font-size:12px;color:var(--muted);margin-top:-8px}
+  .irow{display:flex;align-items:center;gap:14px}
+  .irow small{display:block;color:var(--muted);font-size:12px}
+  .irow b{color:var(--ink);font-size:13.5px}
+
+  /* ===== Forms & modal ===== */
+  .frm{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .fld{display:flex;flex-direction:column;gap:6px}
+  .fld.full{grid-column:1/-1}
+  .fld>label{font-size:12px;font-weight:700;color:var(--ink)}
+  .fld textarea{resize:vertical;min-height:70px}
+  .sw{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;color:var(--ink);padding:8px 0}
+  .sw input{width:18px;height:18px;accent-color:var(--coral2)}
+  .modal-bg{position:absolute;inset:0;z-index:50;background:rgba(38,34,63,.38);backdrop-filter:blur(6px);display:grid;place-items:center;padding:18px;opacity:0;transition:.2s}
+  .modal-bg.show{opacity:1}.modal-bg.top{z-index:80}
+  .modal{background:#fff;border-radius:28px;width:min(560px,100%);max-height:calc(100% - 10px);display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(38,34,63,.3);animation:pop .25s ease}
+  .modal.wide{width:min(860px,100%)}.modal.sm{width:min(380px,100%)}
+  .m-h{display:flex;align-items:center;padding:20px 22px 6px}
+  .m-h h3{font-size:18px;color:var(--ink);font-weight:800;flex:1}
+  .m-b{padding:12px 22px;overflow:auto}
+  .m-f{display:flex;gap:8px;align-items:center;padding:12px 22px 20px}
+  .conf-ic{width:54px;height:54px;border-radius:50%;background:#ffe9ee;color:var(--bad);display:grid;place-items:center;margin:8px auto 12px}
+  .conf-t{text-align:center;color:var(--ink);font-weight:600}
+  .note{background:#f6f5fa;border-radius:14px;padding:10px 14px;font-size:12.5px;margin-top:12px}
+  .toasts,#toasts{position:absolute;right:20px;bottom:20px;z-index:99;display:flex;flex-direction:column;gap:8px;align-items:flex-end;pointer-events:none}
+  .toast{display:flex;align-items:center;gap:10px;background:#26223F;color:#fff;padding:11px 16px;border-radius:16px;font-weight:600;font-size:13px;box-shadow:0 14px 30px rgba(0,0,0,.25);animation:pop .25s ease;transition:.3s;max-width:360px}
+  .toast.bad{background:#d8435f}.toast.ok svg{color:#6ee7b7}.toast.out{opacity:0;transform:translateY(8px)}
+  .pop{position:absolute;top:76px;right:26px;z-index:60;width:min(330px,calc(100% - 28px));background:#fff;border-radius:22px;padding:10px;box-shadow:0 24px 60px rgba(38,34,63,.25);animation:pop .2s ease}
+  .pop h4{padding:8px 10px;color:var(--ink);font-size:14px}
+  .pop-i{display:flex;gap:10px;align-items:center;padding:10px;border-radius:14px;width:100%;text-align:left;color:var(--ink);font-weight:600;font-size:13px}
+  .pop-i:hover{background:#f6f5fa}
+  .pop .empty{padding:20px}
+
+  /* ===== Login ===== */
+  .login{position:absolute;inset:0;display:grid;place-items:center;padding:18px;overflow:auto}
+  .lcard{width:min(420px,100%);background:var(--glass);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);border-radius:32px;padding:34px 30px;box-shadow:0 30px 80px rgba(210,110,80,.25),inset 0 0 0 1px rgba(255,255,255,.8);display:flex;flex-direction:column;gap:16px}
+  .lcard .brand{justify-content:center;font-size:26px}
+  .lcard .logo{width:48px;height:48px}
+  .lcard h2{text-align:center;color:var(--ink);font-size:18px;font-weight:700}
+  .lcard .sub{text-align:center;font-size:13px;margin-top:-10px}
+  .lcard .tabs{width:100%;margin:0}.lcard .tabs .tab{flex:1;text-align:center}
+  .lcard form{display:flex;flex-direction:column;gap:14px}
+
+  /* ===== Jadwal ===== */
+  .jgrid table{width:100%;border-collapse:separate;border-spacing:6px;table-layout:fixed}
+  .jgrid th{font-size:12px;font-weight:800;color:var(--ink);padding:8px;background:#f6f5fa;border-radius:14px}
+  .jgrid th.today{background:linear-gradient(135deg,var(--coral1),var(--coral2));color:#fff}
+  .jgrid td{vertical-align:top;height:74px;padding:0}
+  .jgrid td.jt{width:78px;background:none;text-align:center;vertical-align:middle}
+  .jt b{display:block;color:var(--ink);font-size:15px}.jt small{font-size:10.5px;color:var(--muted)}
+  .slot{width:100%;height:100%;min-height:66px;border-radius:16px;color:#fff;padding:8px 10px;text-align:left;display:flex;flex-direction:column;gap:1px;transition:.2s;box-shadow:0 8px 16px rgba(120,100,160,.18)}
+  .slot:hover{transform:translateY(-2px)}
+  .slot b{font-size:13px}.slot span{font-size:11.5px;opacity:.95}.slot i{font-style:normal;font-size:10.5px;opacity:.8}
+  .slot-add{width:100%;height:100%;min-height:66px;border-radius:16px;border:1.5px dashed #e3e0ee;color:#cfcbe0;display:grid;place-items:center;transition:.2s}
+  .slot-add:hover{border-color:var(--coral1);color:var(--coral2);background:#fff7f4}
+  .jlist{display:none}
+  .jrow{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:stretch;margin-bottom:8px}
+  .jrow .jt{background:#fff;border-radius:16px;padding:8px 0;display:flex;flex-direction:column;justify-content:center;text-align:center}
+
+  /* ===== Absensi / Nilai ===== */
+  .seg{display:inline-flex;gap:5px}
+  .seg button{width:36px;height:36px;border-radius:12px;background:#f3f2f8;color:var(--text);font-weight:800;font-size:13px;transition:.15s}
+  .seg button:hover{background:#e9e7f3}
+  .seg button.on.H{background:var(--ok);color:#fff}.seg button.on.S{background:var(--warn);color:#fff}.seg button.on.I{background:var(--blue2);color:#fff}.seg button.on.A{background:var(--bad);color:#fff}.seg button.on.D{background:var(--vio2);color:#fff}
+  .counts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .cnt{padding:8px 14px;border-radius:16px;background:#fff;font-weight:700;color:var(--ink);font-size:13px;box-shadow:0 4px 14px rgba(120,100,160,.08)}
+  .cnt i{font-style:normal;margin-right:6px;display:inline-block;width:20px;height:20px;border-radius:7px;text-align:center;line-height:20px;color:#fff;font-size:11px}
+  .cnt .H{background:var(--ok)}.cnt .S{background:var(--warn)}.cnt .I{background:var(--blue2)}.cnt .A{background:var(--bad)}.cnt .D{background:var(--vio2)}
+  .ket{max-width:200px;padding:7px 10px!important;font-size:12.5px!important}
+  .matrix{border-collapse:separate;border-spacing:0;font-size:12.5px;min-width:100%}
+  .matrix th,.matrix td{padding:8px 9px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}
+  .matrix th{background:#fff;font-size:11px;color:var(--muted);position:sticky;top:0;z-index:2;font-weight:700}
+  .matrix .nm{text-align:left;position:sticky;left:0;background:#fff;z-index:1;min-width:170px;box-shadow:6px 0 8px -6px rgba(120,100,160,.15)}
+  .matrix th.nm{z-index:3}
+  .matrix tfoot td{background:#faf9fd;font-weight:800;color:var(--ink)}
+  .m-H{color:var(--ok);font-weight:800}.m-S{color:#d99a1a;font-weight:800}.m-I{color:var(--blue2);font-weight:800}.m-A{color:var(--bad);font-weight:800}.m-D{color:var(--vio2);font-weight:800}
+  .nl-in{width:66px;text-align:center;padding:7px 4px;border:1.5px solid var(--line);border-radius:12px;outline:none;font-weight:700;color:var(--ink);background:#fff}
+  .nl-in:focus{border-color:var(--vio1);box-shadow:0 0 0 3px rgba(140,124,240,.15)}
+  .nl-in.dirty{border-color:var(--coral2);background:#fff7f4}
+  .nl-in.low{color:var(--bad)}
+  .jn{display:inline-block;padding:2px 9px;border-radius:999px;font-size:10.5px;font-weight:800;color:#fff;margin-bottom:3px}
+  .j-Tugas{background:var(--blue2)}.j-UH{background:var(--vio2)}.j-UTS{background:var(--ora2)}.j-UAS{background:var(--pink2)}.j-Praktik{background:var(--ok)}
+  .matrix th b{display:block;color:var(--ink);font-size:12px;text-transform:none;letter-spacing:0;max-width:110px;overflow:hidden;text-overflow:ellipsis;margin:0 auto}
+  .matrix th small{display:block;font-weight:500;text-transform:none;letter-spacing:0}
+  .sumcards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+
+  /* ===== Bimbingan ===== */
+  .aspek3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
+  .acard{border-radius:24px;padding:16px;color:#fff;position:relative;overflow:hidden;box-shadow:0 14px 28px rgba(120,100,160,.2)}
+  .acard:after{content:"";position:absolute;right:-24px;top:-24px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.18)}
+  .acard b{display:block;font-size:26px;font-weight:800;line-height:1.1}.acard small{opacity:.9;font-size:12.5px}
+  .bim-wrap{display:grid;grid-template-columns:300px minmax(0,1fr);gap:18px;align-items:start}
+  .bim-list{display:flex;flex-direction:column;gap:6px;max-height:calc(100vh - 360px);min-height:200px;overflow:auto;padding:2px}
+  .bim-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:18px;background:#fff;text-align:left;width:100%;transition:.2s;box-shadow:0 4px 14px rgba(120,100,160,.06)}
+  .bim-item:hover{transform:translateX(3px)}
+  .bim-item.on{outline:2px solid var(--coral1);background:#fff7f4}
+  .bim-item b{display:block;color:var(--ink);font-size:13px;line-height:1.25}.bim-item small{color:var(--muted);font-size:11.5px}
+  .nt{position:relative;padding:14px 16px;border-radius:20px;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+  .nt h4{color:var(--ink);font-size:14px}
+  .nt .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+  .nt .tl{background:#faf9fd;border-radius:12px;padding:8px 12px;font-size:12.5px}
+  .back{display:none}
+
+  /* ===== Mobile nav ===== */
+  .bnav{display:none}
+  .sheet{position:absolute;left:14px;right:14px;bottom:92px;z-index:55;background:#fff;border-radius:26px;padding:14px;box-shadow:0 24px 60px rgba(38,34,63,.28);display:grid;grid-template-columns:repeat(3,1fr);gap:8px;animation:pop .2s ease}
+  .sheet button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 4px;border-radius:18px;font-size:11.5px;font-weight:700;color:var(--ink)}
+  .sheet button:hover{background:#f6f5fa}
+  .sheet .bub{width:40px;height:40px}
+
+  .cellw{display:flex;flex-direction:column;gap:5px;height:100%}
+  .cellw .slot{min-height:58px;height:auto}
+  .slot-add.mini{min-height:24px;height:24px;border-radius:12px}
+  div.slot{cursor:default}div.slot:hover{transform:none}
+  .slot em{font-style:normal;font-size:10.5px;opacity:.9;font-weight:700}
+  .ro-tag{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:999px;background:#fff6e5;color:#b5760a;font-size:12px;font-weight:700}
+  .pglist{display:flex;flex-direction:column;gap:8px;max-height:56vh;overflow:auto;padding:2px}
+  .pgrow{display:grid;grid-template-columns:minmax(120px,1fr) minmax(160px,1.4fr);gap:12px;align-items:center;padding:8px 12px;border:1.5px solid var(--line);border-radius:16px;background:#fff;transition:.2s}
+  .pgrow.on{border-color:var(--vio1);background:#faf9ff}
+  .pgrow .sw{padding:0}
+  .pgrow select{padding:8px 12px}
+  .pgrow select:disabled{opacity:.45}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:12px;background:#f3f1fb;color:var(--ink);font-size:12px;font-weight:600}
+  .chip b{color:var(--vio2)}
+  .chip small{color:var(--muted);font-weight:500}
+  .pgm td.pg{cursor:pointer;font-size:11.5px;min-width:86px}
+  .pgm td.pg.has{background:#f3f1fb;color:var(--vio2);font-weight:700}
+  .pgm td.pg:hover{outline:2px solid var(--vio1);outline-offset:-2px}
+  @media (max-width:1180px){
+    .dash{grid-template-columns:1fr}
+    .rpanel{order:2}
+  }
+  @media (max-width:860px){
+    .shell{inset:0;border-radius:0;grid-template-columns:1fr}
+    .side{display:none}
+    .top{padding:calc(14px + env(safe-area-inset-top)) 16px 10px}
+    .mbrand{display:flex}
+    .search{height:42px;border-radius:16px;max-width:none}
+    .search input{font-size:13px}
+    .content{padding:2px 16px 118px}
+    .phead h1{font-size:24px}
+    .phead h1 small{display:block;margin:2px 0 0}
+    .stats{grid-template-columns:1fr 1fr}
+    .qa{grid-template-columns:1fr 1fr}
+    .qmore{min-height:80px;flex-direction:row}
+    .frm{grid-template-columns:1fr}
+    .pgrow{grid-template-columns:1fr}
+    .bnav{display:flex;position:absolute;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));height:66px;z-index:40;background:rgba(255,255,255,.82);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);border-radius:26px;box-shadow:0 18px 40px rgba(120,100,160,.28),inset 0 0 0 1px rgba(255,255,255,.8);padding:7px;gap:4px}
+    .bnav button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:20px;font-size:10px;font-weight:700;color:var(--text);transition:.2s}
+    .bnav button.on{background:linear-gradient(135deg,var(--coral1),var(--coral2));color:#fff;box-shadow:0 8px 18px rgba(248,119,95,.35)}
+    .jgrid{display:none}.jlist{display:block}
+    .bim-wrap{grid-template-columns:1fr}
+    .bim-wrap.has-sel .bim-side{display:none}
+    .bim-wrap:not(.has-sel) .bim-detail{display:none}
+    .back{display:inline-flex}
+    .aspek3{grid-template-columns:1fr}
+    .sumcards{grid-template-columns:1fr 1fr}
+    .modal-bg{align-items:end;padding:0}
+    .modal{border-radius:28px 28px 0 0;width:100%!important;max-height:92%}
+    .modal.sm{border-radius:28px;margin:18px;width:calc(100% - 36px)!important}
+    .modal-bg.top{align-items:center}
+    .pop{top:70px;right:14px}
+    .bim-list{max-height:none}
+  }
+}
+</style>
+</head>
+<body>
+<div id="ag"></div>
+<script type="module">
+/* =====================================================================
+   GURUKU — Administrasi Guru SMP  (Supabase • PWA • 1 file • Glassmorphism)
+   ===================================================================== */
+// KONFIGURASI APLIKASI
+const IS_PREVIEW = true; // Set false JIKA SUDAH TERHUBUNG KE SUPABASE
+// PASTE SUPABASE URL & ANON KEY ANDA DI SINI
+const SUPABASE_URL = "https://kymyymjlteyrqpsfzuwu.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_M_Kqt6tdSlIlncRBodWSLw_1L6W1bGl";
+
+let sb = null, sbError = null;
+let GURU_TOKEN = null; // token sesi guru (dari RPC login_pengguna), dikirim di header x-guru-token agar RLS bisa memvalidasi
+const tokenFetch = (input, init = {}) => {
+  const h = new Headers(init.headers || (input && input.headers) || undefined);
+  if (GURU_TOKEN) h.set('x-guru-token', GURU_TOKEN);
+  return fetch(input, { ...init, headers: h });
+};
+if (!IS_PREVIEW) {
+  try {
+    const mod = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm');
+    sb = mod.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { global: { fetch: tokenFetch } });
+  } catch (e) { sbError = e; }
+}
+const root = document.getElementById('ag');
+
+/* ------------------------- Konstanta & state ------------------------- */
+const HARI = ['', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+const BLN = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+const JENIS = ['Tugas', 'UH', 'UTS', 'UAS', 'Praktik'];
+const BOBOT_KEY = { Tugas: 'bobot_tugas', UH: 'bobot_uh', UTS: 'bobot_uts', UAS: 'bobot_uas', Praktik: 'bobot_praktik' };
+const STATUS = { H: 'Hadir', S: 'Sakit', I: 'Izin', A: 'Alpa', D: 'Dispensasi' };
+const ASPEK = ['Akademik', 'Karakter', 'Keterampilan'];
+const ASPEK_CLS = { Akademik: 'g-vio', Karakter: 'g-pink', Keterampilan: 'g-ora' };
+const ASPEK_BADGE = { Akademik: 'b-vio', Karakter: 'b-pink', Keterampilan: 'b-ora' };
+const NAV = [
+  { id: 'dashboard', l: 'Dashboard', i: 'dash', c: 'g-coral' },
+  { id: 'kelas', l: 'Data Kelas', i: 'school', c: 'g-vio', r: 'a' },
+  { id: 'siswa', l: 'Data Siswa', i: 'users', c: 'g-blue' },
+  { id: 'mapel', l: 'Mata Pelajaran', lg: 'Mapel Saya', i: 'grad', c: 'g-coral' },
+  { id: 'jadwal', l: 'Jadwal Pelajaran', i: 'cal', c: 'g-ora' },
+  { id: 'jurnal', l: 'Jurnal Mengajar', i: 'book', c: 'g-pink' },
+  { id: 'absensi', l: 'Daftar Hadir', i: 'check', c: 'g-vio' },
+  { id: 'nilai', l: 'Buku Nilai', i: 'chart', c: 'g-coral' },
+  { id: 'bimbingan', l: 'Bimbingan Wali', i: 'heart', c: 'g-pink' },
+  { id: 'pengaturan', l: 'Pengaturan', i: 'gear', c: 'g-blue' }
+];
+const S = {
+  user: null, role: null, route: 'dashboard', loginTab: 'guru', dashDate: null, dashSel: null,
+  sf: { kelas: '', bim: '', q: '', page: 1, sel: new Set() },
+  jf: { kelas: '', hari: 1 }, jr: {}, ab: { tab: 'input' }, nl: { tab: 'input' }, pm: { tab: 'daftar' },
+  bim: { sid: null, aspek: 'Semua', kelas: '' }, pg: { tab: 'profil' }, notif: [], _tok: 0
+};
+const D = { sekolah: {}, tahun_ajaran: [], kelas: [], siswa: [], mapel: [], jam_pelajaran: [], jadwal: [], penugasan: [], guru: [] };
+const PAGES = {}, ACT = {}, CH = {}, INP = {}, FORM = {}, EDIT = {};
+let MF = null;
+
+/* ------------------------------ Utilitas ------------------------------ */
+const $ = (s, r = root) => r.querySelector(s);
+const $$ = (s, r = root) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const pad = n => String(n).padStart(2, '0');
+const dstr = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const today = () => dstr(new Date());
+const pd = s => { const [y, m, d] = String(s).slice(0, 10).split('-').map(Number); return new Date(y, m - 1, d); };
+const addDays = (s, n) => { const d = pd(s); d.setDate(d.getDate() + n); return dstr(d); };
+const hariIdx = s => { const g = pd(s).getDay(); return g === 0 ? 7 : g; };
+const fmtD = s => { if (!s) return '-'; const d = pd(s); return `${d.getDate()} ${BLN[d.getMonth()].slice(0, 3)} ${d.getFullYear()}`; };
+const fmtLong = s => { const d = pd(s); return `${HARI[hariIdx(s)]}, ${d.getDate()} ${BLN[d.getMonth()]} ${d.getFullYear()}`; };
+const hm = t => t ? String(t).slice(0, 5) : '';
+const uid = () => (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : 'id' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+const f1 = n => (n == null || isNaN(n)) ? '-' : (Math.round(n * 10) / 10).toString().replace('.', ',');
+const byNama = (a, b) => String(a.nama).localeCompare(String(b.nama), 'id');
+const ini = n => String(n || '?').split(' ').filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+const hashN = s => { let h = 0; for (const c of String(s)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h; };
+const AVC = ['g-vio', 'g-pink', 'g-ora', 'g-blue', 'g-coral'];
+const avatar = (n, big) => `<span class="avatar ${AVC[hashN(n) % 5]}" ${big ? 'style="width:46px;height:46px;font-size:15px"' : ''}>${esc(ini(n))}</span>`;
+const K = id => D.kelas.find(k => k.id === id);
+const M = id => D.mapel.find(m => m.id === id);
+const SW = id => D.siswa.find(s => s.id === id);
+const jamOf = n => D.jam_pelajaran.find(j => j.jam_ke === n);
+const taAktif = () => D.tahun_ajaran.find(t => t.aktif) || D.tahun_ajaran[0];
+const colorIdx = id => Math.max(0, D.kelas.findIndex(k => k.id === id)) % 4;
+const setPath = (obj, path, v) => { const p = path.split('.'); let o = obj; while (p.length > 1) o = o[p.shift()]; o[p[0]] = v; };
+const defMapel = () => (D.mapel[0] || {}).id || '';
+const kkmOf = mid => Number((M(mid) || {}).kkm) || Number(D.sekolah.kkm_default) || 75;
+
+/* ------------- Peran (Admin = kelola & rekap, Guru = input) & cakupan data ------------- */
+const isAdmin = () => S.role === 'admin';
+const ME = () => (S.role === 'guru' && S.user) ? S.user.id : null;
+const GR = id => (D.guru || []).find(g => g.id === id);
+const guruNama = id => (id && id === ME()) ? (S.user.nama || S.user.username) : ((GR(id) || {}).nama || (GR(id) || {}).username || '-');
+const guruShort = id => String(guruNama(id)).split(',')[0];
+const pgOf = (m, k) => D.penugasan.find(p => p.mapel_id === m && p.kelas_id === k);
+const guruIdOf = (m, k) => (pgOf(m, k) || {}).guru_id || null;
+const guruTtd = id => {
+  if (id && id === ME()) return { nama: S.user.nama || S.user.username, nip: S.user.nip || '-' };
+  const g = id ? GR(id) : null; if (g) return { nama: g.nama || g.username, nip: g.nip || '-' };
+  if (!isAdmin() && S.user) return { nama: S.user.nama || S.user.username, nip: S.user.nip || '-' };
+  return { nama: '..............', nip: '-' };
+};
+const navFor = () => NAV.filter(n => !n.r || isAdmin());
+const navLabel = n => (!isAdmin() && n.lg) || n.l;
+const bnavItems = () => isAdmin()
+  ? [['dashboard', 'dash', 'Beranda'], ['siswa', 'users', 'Siswa'], ['mapel', 'grad', 'Mapel'], ['absensi', 'check', 'Rekap']]
+  : [['dashboard', 'dash', 'Beranda'], ['absensi', 'check', 'Hadir'], ['jurnal', 'book', 'Jurnal'], ['nilai', 'chart', 'Nilai']];
+/* kelas & mapel yang boleh dipakai: Guru = hanya penugasannya; Admin = semua (untuk rekap) */
+const kelasScope = () => isAdmin() ? D.kelas : D.kelas.filter(k => D.penugasan.some(p => p.kelas_id === k.id));
+const mapelFor = kid => { const ids = new Set(D.penugasan.filter(p => p.kelas_id === kid).map(p => p.mapel_id)); return D.mapel.filter(m => ids.has(m.id)).sort(byNama); };
+const kOpts = () => kelasScope().map(k => ({ v: k.id, l: k.nama }));
+const mOpts = kid => mapelFor(kid).map(m => ({ v: m.id, l: m.nama }));
+const kmOpts = () => D.penugasan.filter(p => K(p.kelas_id) && M(p.mapel_id))
+  .sort((a, b) => (K(a.kelas_id).tingkat - K(b.kelas_id).tingkat) || K(a.kelas_id).nama.localeCompare(K(b.kelas_id).nama, 'id') || M(a.mapel_id).nama.localeCompare(M(b.mapel_id).nama, 'id'))
+  .map(p => ({ v: `${p.kelas_id}|${p.mapel_id}`, l: `${K(p.kelas_id).nama} — ${M(p.mapel_id).nama}${isAdmin() ? ' (' + guruShort(p.guru_id) + ')' : ''}` }));
+const kmSplit = v => String(v || '').split('|');
+const roTag = (t = 'Hanya lihat') => `<span class="ro-tag">${ic('lock', 13)} ${t}</span>`;
+
+const IC = {
+  dash: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+  school: '<path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/><path d="M12 9h.01"/>',
+  users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  cal: '<rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+  book: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+  check: '<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>',
+  chart: '<path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/>',
+  heart: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+  gear: '<path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3"/><path d="M14 2v4M8 10v4M16 18v4"/>',
+  out: '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/>',
+  search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+  bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+  plus: '<path d="M5 12h14M12 5v14"/>',
+  edit: '<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>',
+  trash: '<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',
+  x: '<path d="M18 6 6 18M6 6l12 12"/>',
+  chevR: '<path d="m9 18 6-6-6-6"/>', chevL: '<path d="m15 18-6-6 6-6"/>',
+  dl: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/>',
+  ul: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5M12 3v12"/>',
+  print: '<path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>',
+  trophy: '<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>',
+  clock: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  pin: '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+  ok: '<path d="M20 6 9 17l-5-5"/>',
+  more: '<circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>',
+  grad: '<path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/>',
+  file: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>',
+  slash: '<path d="m7 17 4-10M13 17l4-10"/>',
+  pen: '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+  lock: '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>'
+};
+const ic = (n, s = 18) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n] || ''}</svg>`;
+const bub = (i, c, s) => `<span class="bub ${c}" ${s ? `style="width:${s}px;height:${s}px"` : ''}>${ic(i, 20)}</span>`;
+
+/* ----------------------- Unduh / cetak / CSV ----------------------- */
+function download(name, content, mime = 'text/csv;charset=utf-8') {
+  const b = new Blob([content], { type: mime }), a = document.createElement('a');
+  a.href = URL.createObjectURL(b); a.download = name; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 600);
+}
+const csvCell = v => { v = v == null ? '' : String(v); return /[",;\n\r]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+const toCSV = rows => '\ufeff' + rows.map(r => r.map(csvCell).join(';')).join('\r\n');
+function parseCSV(text) {
+  text = text.replace(/^\ufeff/, '');
+  const first = text.split(/\r?\n/)[0] || '';
+  const cnt = c => (first.match(new RegExp(c === '\t' ? '\\t' : '\\' + c, 'g')) || []).length;
+  const sep = [',', ';', '\t'].sort((a, b) => cnt(b) - cnt(a))[0];
+  const rows = []; let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) { if (c === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += c; }
+    else if (c === '"') q = true;
+    else if (c === sep) { row.push(cell); cell = ''; }
+    else if (c === '\n' || c === '\r') { if (c === '\r' && text[i + 1] === '\n') i++; row.push(cell); cell = ''; rows.push(row); row = []; }
+    else cell += c;
+  }
+  if (cell !== '' || row.length) { row.push(cell); rows.push(row); }
+  return rows.filter(r => r.some(x => String(x).trim() !== ''));
+}
+function printHTML(title, body, landscape, ttd) {
+  const f = document.createElement('iframe');
+  f.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0';
+  document.body.appendChild(f);
+  const s = D.sekolah || {}, d = f.contentWindow.document, g = ttd || guruTtd();
+  d.open();
+  d.write(`<html><head><title>${esc(title)}</title><style>
+  @page{size:A4 ${landscape ? 'landscape' : 'portrait'};margin:14mm}
+  body{font-family:Arial,sans-serif;font-size:11px;color:#111}
+  .kop{text-align:center;border-bottom:2px solid #111;padding-bottom:6px;margin-bottom:10px}.kop b{font-size:15px;display:block}.kop span{font-size:10.5px}
+  h2{font-size:14px;margin:8px 0 2px;text-align:center}.meta{text-align:center;margin-bottom:8px;font-size:11px}
+  table{width:100%;border-collapse:collapse}th,td{border:1px solid #444;padding:4px 5px;text-align:left;vertical-align:top}th{background:#eee;text-align:center}
+  td.c{text-align:center}.ttd{margin-top:26px;display:flex;justify-content:space-between}.ttd div{text-align:center;width:44%;line-height:1.4}.ttd i{display:block;height:54px}
+  </style></head><body><div class="kop"><b>${esc((s.nama_sekolah || 'SEKOLAH').toUpperCase())}</b><span>${esc(s.alamat || '')}${s.npsn ? ' • NPSN ' + esc(s.npsn) : ''}</span></div>
+  <h2>${esc(title)}</h2>${body}
+  <div class="ttd"><div>Mengetahui,<br>Kepala Sekolah<i></i><b><u>${esc(s.kepala_sekolah || '..............')}</u></b><br>NIP. ${esc(s.nip_kepsek || '-')}</div>
+  <div>${esc((s.alamat || '').split(',').pop().trim() || '')}, ${fmtD(today())}<br>Guru Mata Pelajaran<i></i><b><u>${esc(g.nama || '..............')}</u></b><br>NIP. ${esc(g.nip || '-')}</div></div>
+  </body></html>`);
+  d.close();
+  setTimeout(() => { try { f.contentWindow.focus(); f.contentWindow.print(); } catch (e) { toastErr(e); } setTimeout(() => f.remove(), 2000); }, 350);
+}
+const tableHTML = (head, rows) => `<table><thead><tr>${head.map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(r => `<tr>${r.map(c => `<td>${esc(c ?? '')}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+
+/* ------------------------- Lapisan Database ------------------------- */
+const MEM = {};
+const CASCADE = {
+  kelas: [['penugasan', 'kelas_id', 'del'], ['jadwal', 'kelas_id', 'del'], ['jurnal', 'kelas_id', 'del'], ['absensi', 'kelas_id', 'del'], ['penilaian', 'kelas_id', 'del'], ['siswa', 'kelas_id', 'null']],
+  siswa: [['absensi', 'siswa_id', 'del'], ['nilai', 'siswa_id', 'del'], ['bimbingan', 'siswa_id', 'del']],
+  penilaian: [['nilai', 'penilaian_id', 'del']],
+  pengguna: [['penugasan', 'guru_id', 'del'], ['siswa', 'guru_wali_id', 'null']],
+  mapel: [['penugasan', 'mapel_id', 'del'], ['jadwal', 'mapel_id', 'del'], ['jurnal', 'mapel_id', 'del'], ['absensi', 'mapel_id', 'del'], ['penilaian', 'mapel_id', 'del']]
+};
+const UNIQ = { siswa: [['nis']], mapel: [['kode']], jam_pelajaran: [['jam_ke']], jadwal: [['hari', 'jam_ke', 'kelas_id']], penugasan: [['mapel_id', 'kelas_id']], pengguna: [['username']] };
+const match = (row, filters) => (filters || []).every(([c, op, v]) => {
+  const x = row[c];
+  if (op === 'eq') return x === v;
+  if (op === 'gte') return x >= v;
+  if (op === 'lte') return x <= v;
+  if (op === 'in') return v.includes(x);
+  return true;
+});
+function chkUniq(t, row, exceptId) {
+  for (const cols of (UNIQ[t] || [])) {
+    if (cols.some(c => row[c] == null || row[c] === '')) continue;
+    if ((MEM[t] || []).some(r => r.id !== exceptId && cols.every(c => r[c] === row[c]))) throw new Error('duplicate key value: data tersebut sudah ada');
+  }
+}
+function memDelete(t, id) {
+  MEM[t] = (MEM[t] || []).filter(r => r.id !== id);
+  for (const [ct, col, mode] of (CASCADE[t] || [])) {
+    (MEM[ct] || []).filter(r => r[col] === id).forEach(r => { if (mode === 'del') memDelete(ct, r.id); else r[col] = null; });
+  }
+}
+/* Emulasi RLS di mode Preview (di Supabase asli dilakukan oleh kebijakan RLS di SQL) */
+const INPUT_T = ['jurnal', 'absensi', 'penilaian', 'nilai', 'bimbingan'];
+function pvScope(t, rows) {
+  if (S.role === 'admin' || !S.role) return rows;
+  const me = S.user && S.user.id, mine = (MEM.penugasan || []).filter(p => p.guru_id === me), SI = MEM.siswa || [];
+  const punya = (m, k) => mine.some(p => p.mapel_id === m && p.kelas_id === k), ampuK = k => mine.some(p => p.kelas_id === k), wali = x => x.guru_wali_id === me;
+  switch (t) {
+    case 'pengguna': throw new Error('permission denied for table pengguna');
+    case 'mapel': return rows.filter(r => mine.some(p => p.mapel_id === r.id));
+    case 'kelas': return rows.filter(r => ampuK(r.id) || SI.some(x => x.kelas_id === r.id && wali(x)));
+    case 'siswa': return rows.filter(r => wali(r) || ampuK(r.kelas_id));
+    case 'penugasan': return rows.filter(r => r.guru_id === me);
+    case 'jadwal': case 'jurnal': case 'absensi': case 'penilaian': return rows.filter(r => punya(r.mapel_id, r.kelas_id));
+    case 'nilai': return rows.filter(r => { const p = (MEM.penilaian || []).find(x => x.id === r.penilaian_id); return !!p && punya(p.mapel_id, p.kelas_id); });
+    case 'bimbingan': return rows.filter(r => { const x = SI.find(y => y.id === r.siswa_id); return !!x && wali(x); });
+  }
+  return rows;
+}
+function pvWriteOK(t, row) {
+  if (!S.role) return;
+  if (S.role === 'admin') { if (INPUT_T.includes(t)) throw new Error('permission denied for table ' + t); return; }
+  if (!INPUT_T.includes(t)) throw new Error('permission denied for table ' + t);
+  if (!row) return;
+  if (!pvScope(t, [row]).length || (t === 'absensi' && !(MEM.siswa || []).some(x => x.id === row.siswa_id && x.kelas_id === row.kelas_id)))
+    throw new Error(`new row violates row-level security policy for table "${t}"`);
+}
+async function dbList(t, o = {}) {
+  if (IS_PREVIEW) {
+    let r = pvScope(t, (MEM[t] || []).filter(x => match(x, o.f)).map(x => ({ ...x })));
+    for (const [c, asc = true] of [...(o.order || [])].reverse()) r.sort((a, b) => (a[c] > b[c] ? 1 : a[c] < b[c] ? -1 : 0) * (asc ? 1 : -1));
+    return r;
+  }
+  let out = [], from = 0; const size = 1000;
+  while (true) {
+    let q = sb.from(t).select('*');
+    for (const [c, op, v] of (o.f || [])) q = q[op](c, v);
+    for (const [c, asc = true] of (o.order || [])) q = q.order(c, { ascending: asc });
+    q = q.order('id');
+    const { data, error } = await q.range(from, from + size - 1);
+    if (error) throw error;
+    out = out.concat(data);
+    if (data.length < size) break;
+    from += size;
+  }
+  return out;
+}
+async function dbInsert(t, rows) {
+  rows = Array.isArray(rows) ? rows : [rows];
+  if (IS_PREVIEW) {
+    MEM[t] = MEM[t] || []; const out = [];
+    for (const r of rows) { pvWriteOK(t, r); chkUniq(t, r); const n = { id: uid(), created_at: new Date().toISOString(), ...r }; MEM[t].push(n); out.push({ ...n }); }
+    return out;
+  }
+  const out = [];
+  for (let i = 0; i < rows.length; i += 500) {
+    const { data, error } = await sb.from(t).insert(rows.slice(i, i + 500)).select();
+    if (error) throw error; out.push(...data);
+  }
+  return out;
+}
+async function dbUpdate(t, id, patch) {
+  if (IS_PREVIEW) {
+    const r = (MEM[t] || []).find(x => x.id === id); if (!r) throw new Error('Data tidak ditemukan');
+    pvWriteOK(t, r); pvWriteOK(t, { ...r, ...patch }); chkUniq(t, { ...r, ...patch }, id); Object.assign(r, patch); return { ...r };
+  }
+  const { data, error } = await sb.from(t).update(patch).eq('id', id).select();
+  if (error) throw error; return data && data[0];
+}
+async function dbUpsert(t, rows, conflict) {
+  rows = Array.isArray(rows) ? rows : [rows];
+  if (!rows.length) return;
+  if (IS_PREVIEW) {
+    MEM[t] = MEM[t] || []; const cols = conflict.split(',');
+    for (const r of rows) {
+      const ex = MEM[t].find(x => cols.every(c => x[c] === r[c]));
+      pvWriteOK(t, r); if (ex) pvWriteOK(t, ex);
+      if (ex) Object.assign(ex, r); else MEM[t].push({ id: uid(), created_at: new Date().toISOString(), ...r });
+    }
+    return;
+  }
+  for (let i = 0; i < rows.length; i += 500) {
+    const { error } = await sb.from(t).upsert(rows.slice(i, i + 500), { onConflict: conflict });
+    if (error) throw error;
+  }
+}
+async function dbDelete(t, filters) {
+  if (IS_PREVIEW) { pvWriteOK(t, null); pvScope(t, (MEM[t] || []).filter(r => match(r, filters))).forEach(r => memDelete(t, r.id)); return; }
+  let q = sb.from(t).delete();
+  for (const [c, op, v] of filters) q = q[op](c, v);
+  const { error } = await q; if (error) throw error;
+}
+async function dbRpc(name, args) {
+  if (!IS_PREVIEW) { const { data, error } = await sb.rpc(name, args); if (error) throw error; return data; }
+  const P = MEM.pengguna = MEM.pengguna || [];
+  switch (name) {
+    case 'login_pengguna': {
+      const u = P.find(x => x.username.toLowerCase() === String(args.p_username).toLowerCase() && x.password_hash === args.p_password && x.aktif !== false);
+      return u ? { id: u.id, username: u.username, nama: u.nama, nip: u.nip || null, token: 'preview-token' } : null;
+    }
+    case 'logout_guru': return true;
+    case 'sesi_valid': return true;
+    case 'setup_dibutuhkan': return false;
+    case 'ganti_password_pengguna': {
+      const u = P.find(x => x.username === args.p_username && x.password_hash === args.p_lama);
+      if (!u) throw new Error('Password lama salah'); u.password_hash = args.p_baru; return true;
+    }
+    case 'admin_set_pengguna': {
+      if (S.role !== 'admin') throw new Error('Hanya Admin yang dapat mengelola akun guru');
+      let u = P.find(x => x.username.toLowerCase() === String(args.p_username).toLowerCase());
+      if (!u) { if (!args.p_password) throw new Error('Password wajib diisi untuk akun baru'); u = { id: uid(), username: args.p_username, aktif: true, password_hash: args.p_password, created_at: new Date().toISOString() }; P.push(u); }
+      u.nama = args.p_nama; u.nip = args.p_nip || null; if (args.p_password) u.password_hash = args.p_password; return true;
+    }
+    case 'seed_awal': seedPreview(); return true;
+  }
+  return null;
+}
+const ORD = { guru: [['nama']], kelas: [['tingkat'], ['nama']], siswa: [['nama']], mapel: [['nama']], jam_pelajaran: [['jam_ke']], jadwal: [['hari'], ['jam_ke']], tahun_ajaran: [['tahun', false], ['semester']] };
+async function reload(...ns) {
+  await Promise.all(ns.map(async n => {
+    if (n === 'sekolah') { const r = await dbList('sekolah'); D.sekolah = r[0] || {}; }
+    else if (n === 'guru') D.guru = isAdmin() ? await dbList('pengguna', { order: ORD.guru }) : [];
+    else D[n] = await dbList(n, { order: ORD[n] || [] });
+  }));
+}
+
+/* ------------------- Setup database otomatis & data uji ------------------- */
+function seedPreview() {
+  if (MEM.__seeded) return; MEM.__seeded = true;
+  let seed = 11; const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+  const t = today(), now = new Date(), y = now.getFullYear(), mo = now.getMonth() + 1, ganjil = mo >= 7;
+  const mk = (name, rows) => { MEM[name] = rows.map(r => ({ id: uid(), created_at: new Date().toISOString(), ...r })); return MEM[name]; };
+  mk('sekolah', [{ nama_sekolah: 'SMP Negeri 1 Contoh', npsn: '10000001', alamat: 'Jl. Pendidikan No. 1, Jambi', kepala_sekolah: 'Drs. Ahmad Fauzi, M.Pd.', nip_kepsek: '19700101 199512 1 001', kkm_default: 75, bobot_tugas: 20, bobot_uh: 25, bobot_uts: 20, bobot_uas: 25, bobot_praktik: 10 }]);
+  const ta = mk('tahun_ajaran', [{ tahun: ganjil ? `${y}/${y + 1}` : `${y - 1}/${y}`, semester: ganjil ? 'Ganjil' : 'Genap', aktif: true }])[0];
+  const [g1, g2] = mk('pengguna', [{ username: 'guru', nama: 'Siti Rahmawati, S.Pd.', nip: '19900505 201503 2 002', password_hash: 'guru123', aktif: true }, { username: 'guru2', nama: 'Budi Santoso, S.Pd.', nip: '19850212 201001 1 003', password_hash: 'guru123', aktif: true }]);
+  const mp = mk('mapel', [['PAI', 'Pendidikan Agama'], ['PKN', 'PPKn'], ['BIN', 'Bahasa Indonesia'], ['MTK', 'Matematika'], ['IPA', 'IPA'], ['IPS', 'IPS'], ['BIG', 'Bahasa Inggris'], ['PJK', 'PJOK'], ['INF', 'Informatika'], ['SBK', 'Seni Budaya'], ['PKY', 'Prakarya'], ['BDA', 'Bahasa Daerah']].map(([kode, nama]) => ({ kode, nama, kkm: 75 })));
+  const jam = mk('jam_pelajaran', [[1, '07:00', '07:40'], [2, '07:40', '08:20'], [3, '08:20', '09:00'], [4, '09:15', '09:55'], [5, '09:55', '10:35'], [6, '10:35', '11:15'], [7, '11:15', '11:55'], [8, '12:30', '13:10']].map(([jam_ke, mulai, selesai]) => ({ jam_ke, mulai, selesai, keterangan: jam_ke === 4 ? 'Setelah istirahat' : null })));
+  const kl = mk('kelas', [['7A', 7, 'Budi Santoso, S.Pd.'], ['7B', 7, 'Rina Marlina, S.Pd.'], ['8A', 8, 'Dedi Kurniawan, S.Pd.']].map(([nama, tingkat, wali_kelas]) => ({ nama, tingkat, wali_kelas, tahun_ajaran_id: ta.id })));
+  const mpid = nm => mp.find(m => m.nama === nm).id, ipa = mpid('IPA'), bin = mpid('Bahasa Indonesia');
+  mk('penugasan', [[g1, 'Matematika', 0], [g1, 'Matematika', 1], [g1, 'Matematika', 2], [g2, 'IPA', 0], [g2, 'IPA', 1], [g2, 'IPA', 2], [g2, 'Bahasa Indonesia', 0]].map(([g, mn, ki]) => ({ mapel_id: mpid(mn), kelas_id: kl[ki].id, guru_id: g.id })));
+  const F = ['Ahmad', 'Budi', 'Citra', 'Dewi', 'Eka', 'Fajar', 'Gita', 'Hadi', 'Intan', 'Joko', 'Kiki', 'Lestari', 'Maya', 'Nanda', 'Oka', 'Putri', 'Rizky', 'Sari', 'Tegar', 'Utami', 'Vina', 'Wahyu', 'Yusuf', 'Zahra'];
+  const L = ['Pratama', 'Saputra', 'Wulandari', 'Nugroho', 'Hidayat', 'Ramadhan', 'Kusuma', 'Lestari', 'Maharani', 'Setiawan'];
+  const sis = [];
+  kl.forEach((k, ki) => {
+    for (let i = 0; i < 16; i++) {
+      const nama = `${F[(i * 3 + ki * 5) % F.length]} ${L[(i + ki * 2) % L.length]}`;
+      sis.push({ nis: `26${k.tingkat}${ki + 1}${pad(i + 1)}`, nisn: `00${Math.floor(rnd() * 90000000 + 10000000)}`, nama, jk: i % 2 ? 'P' : 'L', tempat_lahir: 'Jambi', tgl_lahir: `${y - 12 - (k.tingkat - 7)}-${pad(1 + (i % 12))}-${pad(1 + ((i * 3) % 27))}`, alamat: 'Kota Jambi', nama_ortu: `Orang tua ${nama.split(' ')[0]}`, no_hp_ortu: `08121${Math.floor(rnd() * 900000 + 100000)}`, kelas_id: k.id, bimbingan_wali: (ki === 0 && i < 5) || (ki === 1 && i < 2), guru_wali_id: ki === 0 && i < 3 ? g1.id : (ki === 0 && i < 5) || (ki === 1 && i < 2) ? g2.id : null, aktif: true });
+    }
+  });
+  mk('siswa', sis);
+  const mtk = mp.find(m => m.nama === 'Matematika');
+  const plan = { 1: [[0, 1, 2], [2, 4, 5]], 2: [[1, 2, 3], [0, 6, 6]], 3: [[2, 1, 2], [1, 5, 6]], 4: [[0, 3, 4], [1, 7, 7]], 5: [[1, 1, 2], [2, 4, 4]], 6: [[0, 1, 2], [2, 3, 4]] };
+  const jd = [];
+  Object.entries(plan).forEach(([h, arr]) => arr.forEach(([ki, a, b]) => { for (let j = a; j <= b; j++) jd.push({ hari: Number(h), jam_ke: j, kelas_id: kl[ki].id, mapel_id: mtk.id, ruang: `R. ${ki + 1}0${ki + 1}` }); }));
+  [[1, 1, 1, 2, ipa], [2, 0, 1, 2, ipa], [3, 0, 3, 4, ipa], [4, 2, 1, 2, ipa], [5, 0, 3, 4, ipa], [4, 0, 5, 6, bin]].forEach(([h, ki, a, b, mid]) => { for (let j = a; j <= b; j++) jd.push({ hari: h, jam_ke: j, kelas_id: kl[ki].id, mapel_id: mid, ruang: `R. ${ki + 1}0${ki + 1}` }); });
+  mk('jadwal', jd);
+  const k7a = kl[0], sis7a = MEM.siswa.filter(s => s.kelas_id === k7a.id), abs = [];
+  let dd = addDays(t, -1), n = 0;
+  while (n < 6) {
+    if (hariIdx(dd) !== 7) {
+      sis7a.forEach(s => { const r = rnd(); abs.push({ tanggal: dd, kelas_id: k7a.id, mapel_id: mtk.id, siswa_id: s.id, status: r < .06 ? 'S' : r < .1 ? 'I' : r < .12 ? 'A' : 'H', keterangan: null }); });
+      n++;
+    }
+    dd = addDays(dd, -1);
+  }
+  { let d2 = addDays(t, -2), n2 = 0; while (n2 < 3) { if (hariIdx(d2) !== 7) { sis7a.forEach(s => abs.push({ tanggal: d2, kelas_id: k7a.id, mapel_id: ipa, siswa_id: s.id, status: rnd() < .08 ? 'S' : 'H', keterangan: null })); n2++; } d2 = addDays(d2, -1); } }
+  mk('absensi', abs);
+  const pn = mk('penilaian', [['Tugas', 'Tugas 1 - Bilangan Bulat', -24], ['UH', 'UH 1 - Pecahan', -14], ['UTS', 'Ujian Tengah Semester', -6]].map(([jenis, judul, off]) => ({ kelas_id: k7a.id, mapel_id: mtk.id, tahun_ajaran_id: ta.id, jenis, judul, tanggal: addDays(t, off) })).concat([{ kelas_id: k7a.id, mapel_id: ipa, tahun_ajaran_id: ta.id, jenis: 'UH', judul: 'UH 1 - Gaya dan Gerak', tanggal: addDays(t, -9) }]));
+  const nl = []; pn.forEach(p => sis7a.forEach(s => nl.push({ penilaian_id: p.id, siswa_id: s.id, nilai: Math.round(58 + rnd() * 40) })));
+  mk('nilai', nl);
+  mk('jurnal', [[-1, k7a, 'Bilangan bulat dan operasinya', 'Ceramah, tanya jawab, latihan soal', '1-2'], [-3, kl[1], 'Pecahan senilai', 'Diskusi kelompok dan presentasi', '2-3'], [-7, k7a, 'Perbandingan', 'Pembelajaran berbasis masalah', '1-2']].map(([off, k, materi, kegiatan, jam_ke]) => ({ tanggal: addDays(t, off), kelas_id: k.id, mapel_id: mtk.id, jam_ke, materi, kegiatan, catatan: 'Siswa antusias mengikuti pembelajaran.' })).concat([{ tanggal: addDays(t, -2), kelas_id: kl[0].id, mapel_id: ipa, jam_ke: '3-4', materi: 'Gaya dan gerak benda', kegiatan: 'Praktikum sederhana dan diskusi', catatan: null }]));
+  const w = MEM.siswa.filter(s => s.bimbingan_wali);
+  mk('bimbingan', [[0, 'Akademik', 'Kesulitan operasi pecahan', 'Nilai UH 1 di bawah KKM, sering ragu saat mengerjakan soal cerita.', 'Remedial dan latihan tambahan 2x seminggu.', 'Proses', -5], [0, 'Karakter', 'Kedisiplinan', 'Beberapa kali terlambat masuk kelas pada jam pertama.', 'Komunikasi dengan orang tua.', 'Selesai', -9], [1, 'Keterampilan', 'Minat ekstrakurikuler', 'Menunjukkan bakat di bidang seni lukis.', 'Disarankan mengikuti ekskul seni rupa.', 'Baru', -3], [2, 'Akademik', 'Motivasi belajar', 'Perlu dorongan agar aktif bertanya di kelas.', 'Beri tugas presentasi singkat.', 'Proses', -2], [3, 'Karakter', 'Kerja sama', 'Mudah bekerja dalam kelompok dan membantu teman.', 'Dipercaya menjadi ketua kelompok.', 'Selesai', -12]].map(([si, aspek, topik, catatan, tindak_lanjut, status, off]) => ({ siswa_id: w[si].id, tanggal: addDays(t, off), aspek, topik, catatan, tindak_lanjut, status })));
+}
+async function autoSetupDatabase() {
+  if (IS_PREVIEW) { seedPreview(); return; }
+  try {
+    // cek apakah tabel masih kosong (select dijalankan di dalam fungsi SQL karena belum ada yang login)
+    const perlu = await dbRpc('setup_dibutuhkan', {});
+    if (perlu) await dbRpc('seed_awal', {});        // suntik data awal: akun guru, profil, tahun ajaran, jam, mapel
+  } catch (e) { console.warn('autoSetupDatabase:', e); S.setupErr = e; }
+}
+
+/* ------------------------------ UI helpers ------------------------------ */
+function toast(msg, type = 'ok') {
+  let c = $('#toasts'); if (!c) { c = document.createElement('div'); c.id = 'toasts'; root.appendChild(c); }
+  const t = document.createElement('div'); t.className = 'toast ' + type;
+  t.innerHTML = `${ic(type === 'ok' ? 'ok' : 'x', 16)}<span>${esc(msg)}</span>`; c.appendChild(t);
+  setTimeout(() => t.classList.add('out'), 2800); setTimeout(() => t.remove(), 3200);
+}
+const toastErr = e => {
+  console.error(e); let m = (e && e.message) || String(e);
+  if (/duplicate key/i.test(m)) m = 'Data duplikat: nilai tersebut sudah ada (mis. NIS/kode yang sama).';
+  else if (/does not exist|schema cache|Could not find the table/i.test(m)) m = 'Tabel belum dibuat. Jalankan SQL di Supabase terlebih dahulu.';
+  else if (/row-level security|permission denied/i.test(m)) m = 'Akses ditolak oleh kebijakan keamanan (RLS). Periksa akun/SQL Anda.';
+  toast(m, 'bad');
+};
+const optHTML = (arr, val, ph) => (ph !== undefined ? `<option value="">${esc(ph)}</option>` : '') + arr.map(o => `<option value="${esc(o.v)}"${String(o.v) === String(val ?? '') ? ' selected' : ''}>${esc(o.l)}</option>`).join('');
+const kelasOpts = () => D.kelas.map(k => ({ v: k.id, l: k.nama }));
+const mapelOpts = () => D.mapel.map(m => ({ v: m.id, l: m.nama }));
+const empty = (i, t, sub, btn = '') => `<div class="empty"><span class="ei">${ic(i, 28)}</span><b>${t}</b>${sub ? `<span>${sub}</span>` : ''}${btn}</div>`;
+const phead = (t, sub, acts = '') => `<div class="phead"><h1>${t}${sub ? `<small>${sub}</small>` : ''}</h1><div class="acts">${acts}</div></div>`;
+const selCtl = (path, opts, val, ph, extra = '') => `<select class="inp" data-ch="set" data-p="${path}" ${extra}>${optHTML(opts, val, ph)}</select>`;
+const adminOnly = () => { if (S.role !== 'admin') { toast('Hanya Admin yang dapat mengubah bagian ini', 'bad'); return false; } return true; };
+
+function fieldHTML(f, v) {
+  const val = v == null ? '' : v;
+  let inp;
+  if (f.t === 'select') inp = `<select name="${f.k}" ${f.req ? 'required' : ''}>${optHTML(f.o, val, f.ph)}</select>`;
+  else if (f.t === 'textarea') inp = `<textarea name="${f.k}" rows="${f.rows || 3}" placeholder="${esc(f.ph || '')}">${esc(val)}</textarea>`;
+  else if (f.t === 'check') return `<div class="fld ${f.w || ''}"><label class="sw"><input type="checkbox" name="${f.k}" ${v ? 'checked' : ''}> ${esc(f.l)}</label></div>`;
+  else inp = `<input type="${f.t || 'text'}" name="${f.k}" value="${esc(val)}" placeholder="${esc(f.ph || '')}" ${f.req ? 'required' : ''} ${f.ro ? 'readonly' : ''} ${f.step ? `step="${f.step}"` : ''} ${f.min != null ? `min="${f.min}"` : ''} ${f.max != null ? `max="${f.max}"` : ''}>`;
+  return `<div class="fld ${f.w || ''}"><label>${esc(f.l)}${f.req ? ' *' : ''}</label>${inp}</div>`;
+}
+function readForm(form, fields) {
+  const o = {};
+  fields.forEach(f => {
+    const el = form.elements[f.k]; if (!el) return;
+    if (f.t === 'check') { o[f.k] = el.checked; return; }
+    let v = String(el.value).trim();
+    if (v === '') v = null;
+    else if (f.t === 'number' || f.num) v = Number(v);
+    o[f.k] = v;
+  });
+  return o;
+}
+function openModal(title, body, opt = {}) {
+  closeModal();
+  const o = document.createElement('div'); o.className = 'modal-bg'; o.id = 'modal';
+  o.innerHTML = `<div class="modal ${opt.wide ? 'wide' : ''}"><div class="m-h"><h3>${title}</h3><button class="iconbtn" data-act="closeModal" aria-label="Tutup">${ic('x')}</button></div><div class="m-b">${body}</div></div>`;
+  o.addEventListener('mousedown', e => { if (e.target === o) closeModal(); });
+  root.appendChild(o); requestAnimationFrame(() => o.classList.add('show'));
+  return o;
+}
+function closeModal() { const m = $('#modal'); if (m) m.remove(); MF = null; }
+function openForm({ title, fields, values = {}, submit = 'Simpan', onSubmit, onDelete, wide, note = '' }) {
+  const body = `<form data-form="modal" autocomplete="off"><div class="frm">${fields.map(f => fieldHTML(f, values[f.k])).join('')}</div>${note}
+  <div class="m-f" style="padding:16px 0 6px">${onDelete ? `<button type="button" class="btn bad" data-act="mfDelete">${ic('trash', 16)} Hapus</button>` : ''}<span class="sp"></span><button type="button" class="btn ghost" data-act="closeModal">Batal</button><button class="btn pri" type="submit">${submit}</button></div></form>`;
+  const el = openModal(title, body, { wide });
+  MF = { fields, onSubmit, onDelete, el };
+  const first = el.querySelector('input:not([type=checkbox]):not([type=hidden]),select,textarea');
+  if (first && window.innerWidth > 860) setTimeout(() => first.focus(), 60);
+  return el;
+}
+FORM.modal = async f => {
+  if (!MF) return;
+  const vals = readForm(f, MF.fields), btn = f.querySelector('[type=submit]'), h = MF; btn.disabled = true;
+  try { await h.onSubmit(vals); if (MF === h) closeModal(); } catch (e) { toastErr(e); btn.disabled = false; }
+};
+ACT.closeModal = () => closeModal();
+ACT.mfDelete = async () => {
+  if (!MF || !MF.onDelete) return;
+  const h = MF;
+  if (!await confirmBox('Hapus data ini? Data terkait ikut terhapus.')) return;
+  try { await h.onDelete(); closeModal(); } catch (e) { toastErr(e); }
+};
+function confirmBox(msg, ok = 'Hapus') {
+  return new Promise(res => {
+    const o = document.createElement('div'); o.className = 'modal-bg show top';
+    o.innerHTML = `<div class="modal sm"><div class="m-b"><div class="conf-ic">${ic('trash', 22)}</div><p class="conf-t">${esc(msg)}</p></div><div class="m-f"><span class="sp"></span><button class="btn ghost" data-r="0">Batal</button><button class="btn bad" data-r="1">${esc(ok)}</button></div></div>`;
+    o.addEventListener('click', e => { e.stopPropagation(); const b = e.target.closest('[data-r]'); if (b || e.target === o) { o.remove(); res(b ? b.dataset.r === '1' : false); } });
+    root.appendChild(o);
+  });
+}
+function crudForm({ table, title, fields, rec, defaults = {}, rl, after, wide, map }) {
+  const keys = rl || [table];
+  openForm({
+    title: (rec ? 'Ubah ' : 'Tambah ') + title, fields, values: rec || defaults, wide,
+    onSubmit: async v => {
+      if (map) v = map(v);
+      if (rec) await dbUpdate(table, rec.id, v); else await dbInsert(table, [{ ...defaults, ...v }]);
+      await reload(...keys); toast('Data tersimpan'); after ? after() : renderView(true);
+    },
+    onDelete: rec ? async () => { await dbDelete(table, [['id', 'eq', rec.id]]); await reload(...keys); toast('Data dihapus'); renderView(true); } : null
+  });
+}
+ACT.edit = el => { const f = EDIT[el.dataset.t]; if (f) f(el.dataset.id || null, el.dataset); };
+ACT.del = async el => {
+  if (!await confirmBox(el.dataset.msg || 'Hapus data ini? Data terkait ikut terhapus.')) return;
+  try {
+    await dbDelete(el.dataset.t, [['id', 'eq', el.dataset.id]]);
+    await reload(...(el.dataset.rl || el.dataset.t).split(',')); toast('Data dihapus'); renderView(true);
+  } catch (e) { toastErr(e); }
+};
+CH.set = el => { setPath(S, el.dataset.p, el.value); renderView(true); };
+
+/* ---------------------------- Popover & sheet ---------------------------- */
+function closePop() { const p = $('#pop'); if (p) p.remove(); }
+function openPop(html) { closePop(); const p = document.createElement('div'); p.id = 'pop'; p.className = 'pop'; p.innerHTML = html; root.appendChild(p); }
+function closeSheet() { const s = $('#sheet'); if (s) s.remove(); }
+ACT.avatar = () => {
+  if ($('#pop')) { closePop(); return; }
+  openPop(`<h4>${esc(S.user.nama || S.user.email || 'Pengguna')}</h4><div style="padding:0 10px 8px"><span class="badge ${S.role === 'admin' ? 'b-vio' : 'b-ok'}">${S.role === 'admin' ? 'Admin' : 'Guru'}</span></div>
+  <button class="pop-i" data-go="pengaturan" data-tab="akun">${bub('user', 'g-blue', 34)} Akun saya</button>
+  <button class="pop-i" data-act="logout">${bub('out', 'g-coral', 34)} Keluar</button>`);
+};
+ACT.bell = () => {
+  if ($('#pop')) { closePop(); return; }
+  const n = S.notif;
+  openPop(`<h4>Pengingat Hari Ini</h4>${n.length ? n.map(x => `<button class="pop-i" data-go="${x.go}">${bub(x.go === 'absensi' ? 'check' : 'book', x.go === 'absensi' ? 'g-vio' : 'g-pink', 34)}<span>${esc(x.t)}</span></button>`).join('') : empty('ok', 'Semua beres', 'Tidak ada pengingat untuk hari ini.')}`);
+};
+ACT.more = () => {
+  if ($('#sheet')) { closeSheet(); return; }
+  const s = document.createElement('div'); s.id = 'sheet'; s.className = 'sheet';
+  const bn = bnavItems().map(x => x[0]);
+  s.innerHTML = navFor().filter(n => !bn.includes(n.id)).map(n => `<button data-go="${n.id}">${bub(n.i, n.c, 40)}${navLabel(n)}</button>`).join('') + `<button data-act="logout">${bub('out', 'g-coral', 40)}Keluar</button>`;
+  root.appendChild(s);
+};
+
+/* --------------------------- PWA (1 file) --------------------------- */
+function iconDataURI() {
+  const svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#8C7CF0'/><stop offset='1' stop-color='#6D5BE0'/></linearGradient></defs><rect width='512' height='512' rx='120' fill='url(#g)'/><path d='M200 360l60-208M290 360l60-208' stroke='white' stroke-width='38' stroke-linecap='round' fill='none'/></svg>";
+  return 'data:image/svg+xml;base64,' + btoa(svg);
+}
+function setupPWA() {
+  try {
+    const base = location.href.split('#')[0];
+    const manifest = { name: 'GuruKu - Administrasi Guru', short_name: 'GuruKu', description: 'Administrasi guru SMP: kelas, siswa, jadwal, jurnal, absensi, nilai, bimbingan wali.', start_url: base, scope: base, display: 'standalone', orientation: 'portrait-primary', background_color: '#FDE3D8', theme_color: '#F8775F', lang: 'id', icons: [{ src: iconDataURI(), sizes: '512x512', type: 'image/svg+xml', purpose: 'any' }] };
+    let l = document.getElementById('ag-manifest') || document.querySelector('link[rel=manifest]');
+    if (!l) { l = document.createElement('link'); l.rel = 'manifest'; l.id = 'ag-manifest'; document.head.appendChild(l); }
+    l.href = 'data:application/manifest+json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(manifest))));
+    if (!document.querySelector('meta[name=theme-color]')) { const m = document.createElement('meta'); m.name = 'theme-color'; m.content = '#F8775F'; document.head.appendChild(m); }
+    if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+      const code = `const C='guruku-v1';self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('activate',e=>e.waitUntil(clients.claim()));self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(fetch(e.request).then(r=>{const c=r.clone();if(r.ok&&e.request.url.startsWith(self.location.origin))caches.open(C).then(x=>x.put(e.request,c)).catch(()=>{});return r;}).catch(()=>caches.match(e.request)));});`;
+      const url = URL.createObjectURL(new Blob([code], { type: 'text/javascript' }));
+      navigator.serviceWorker.register(url).catch(err => console.info('Service Worker tidak aktif di lingkungan ini:', err && err.message));
+    }
+  } catch (e) { console.info('PWA setup dilewati:', e && e.message); }
+}
+
+/* ------------------- Auth hybrid, shell, router ------------------- */
+function renderLogin() {
+  const g = S.loginTab === 'guru';
+  root.innerHTML = `<div class="login"><div class="lcard">
+    <div class="brand"><span class="logo">${ic('slash', 26)}</span><b>GuruKu.</b></div>
+    <h2>Administrasi Guru SMP</h2><p class="sub">Admin mengelola data &amp; melihat rekap. Guru menginput absensi, jurnal, nilai dan bimbingan.</p>
+    <div class="tabs"><button class="tab ${g ? 'on' : ''}" data-act="loginTab" data-t="guru">Guru</button><button class="tab ${g ? '' : 'on'}" data-act="loginTab" data-t="admin">Admin</button></div>
+    <form data-form="login" data-mode="${g ? 'guru' : 'admin'}" autocomplete="on">
+      <div class="fld"><label>${g ? 'Username / ID' : 'Email Admin'}</label><input name="u" ${g ? 'type="text" autocomplete="username"' : 'type="email" autocomplete="email"'} placeholder="${g ? 'mis. guru' : 'admin@sekolah.id'}" required></div>
+      <div class="fld"><label>Password</label><input name="p" type="password" autocomplete="current-password" placeholder="••••••••" required></div>
+      <button class="btn pri" type="submit" style="padding:13px">Masuk</button>
+    </form>
+    ${IS_PREVIEW ? `<div class="note"><b>Mode Preview</b> (data uji, tidak disimpan ke Supabase).<br>Guru: <b>guru</b> atau <b>guru2</b> / <b>guru123</b><br>Admin: <b>admin@sekolah.id</b> / <b>admin123</b></div>` : ''}
+    ${S.setupErr ? `<div class="note" style="background:#ffe9ee;color:#d8435f">Database belum siap. Jalankan SQL di Supabase terlebih dahulu.</div>` : ''}
+  </div></div><div id="toasts"></div>`;
+}
+ACT.loginTab = el => { S.loginTab = el.dataset.t; renderLogin(); };
+FORM.login = async f => {
+  const mode = f.dataset.mode, u = f.elements.u.value.trim(), p = f.elements.p.value, btn = f.querySelector('[type=submit]');
+  btn.disabled = true;
+  try {
+    if (mode === 'guru') {
+      const r = await dbRpc('login_pengguna', { p_username: u, p_password: p });
+      if (!r) throw new Error('Username atau password salah');
+      S.user = r; S.role = 'guru'; GURU_TOKEN = r.token || null;
+    } else if (IS_PREVIEW) {
+      if (u.toLowerCase() !== 'admin@sekolah.id' || p !== 'admin123') throw new Error('Email atau password admin salah');
+      S.user = { email: u, nama: 'Admin' }; S.role = 'admin';
+    } else {
+      const { data, error } = await sb.auth.signInWithPassword({ email: u, password: p });
+      if (error) throw new Error('Login admin gagal: ' + error.message);
+      S.user = { email: data.user.email, nama: 'Admin' }; S.role = 'admin';
+    }
+    try { localStorage.setItem('ag_sess', JSON.stringify({ role: S.role, user: S.user })); } catch (e) { /* abaikan */ }
+    await enterApp();
+  } catch (e) { toastErr(e); btn.disabled = false; }
+};
+async function bootAuth() {
+  if (!IS_PREVIEW && sb) {
+    try { const { data } = await sb.auth.getSession(); if (data.session) { S.user = { email: data.session.user.email, nama: 'Admin' }; S.role = 'admin'; return true; } } catch (e) { /* lanjut */ }
+  }
+  try {
+    const o = JSON.parse(localStorage.getItem('ag_sess') || 'null');
+    if (o && o.role === 'guru' && o.user) {
+      GURU_TOKEN = o.user.token || null;
+      if (!IS_PREVIEW) { // pastikan token sesi masih berlaku
+        let ok = false; try { ok = await dbRpc('sesi_valid', {}); } catch (e) { ok = false; }
+        if (!ok) { GURU_TOKEN = null; localStorage.removeItem('ag_sess'); return false; }
+      }
+      if (IS_PREVIEW) { const u = (MEM.pengguna || []).find(x => x.username === o.user.username && x.aktif !== false); if (!u) return false; o.user = { id: u.id, username: u.username, nama: u.nama, nip: u.nip || null, token: 'preview-token' }; }
+      S.user = o.user; S.role = 'guru'; return true;
+    }
+    if (o && o.role === 'admin' && IS_PREVIEW) { S.user = o.user; S.role = 'admin'; return true; }
+  } catch (e) { /* abaikan */ }
+  return false;
+}
+ACT.logout = async () => {
+  try { if (!IS_PREVIEW && sb && S.role === 'admin') await sb.auth.signOut(); } catch (e) { /* abaikan */ }
+  try { if (S.role === 'guru') await dbRpc('logout_guru', {}); } catch (e) { /* abaikan */ }
+  try { localStorage.removeItem('ag_sess'); } catch (e) { /* abaikan */ }
+  GURU_TOKEN = null; S.user = null; S.role = null; S.route = 'dashboard'; S.loginTab = 'guru'; S.notif = [];
+  Object.assign(S, { sf: { kelas: '', bim: '', q: '', page: 1, sel: new Set() }, jf: { kelas: '', hari: 1 }, jr: {}, ab: { tab: 'input' }, nl: { tab: 'input' }, pm: { tab: 'daftar' }, bim: { sid: null, aspek: 'Semua', kelas: '' }, pg: { tab: 'profil' }, dashDate: null, dashSel: null });
+  D.kelas = []; D.siswa = []; D.mapel = []; D.jadwal = []; D.penugasan = []; D.guru = [];
+  closePop(); renderLogin();
+};
+async function enterApp() {
+  root.innerHTML = `<div class="login"><div class="spin"></div></div>`;
+  try { await reload('sekolah', 'tahun_ajaran', 'kelas', 'siswa', 'mapel', 'jam_pelajaran', 'jadwal', 'penugasan', 'guru'); } catch (e) { toastErr(e); }
+  if (!navFor().some(n => n.id === S.route)) S.route = 'dashboard';
+  renderShell(); await go(S.route || 'dashboard');
+}
+function renderShell() {
+  const nav = navFor().map(n => `<button class="nav-i" data-go="${n.id}">${ic(n.i, 18)}<span>${navLabel(n)}</span></button>`).join('');
+  const ta = taAktif();
+  const bn = bnavItems().map(([id, i, l]) => `<button data-go="${id}">${ic(i, 20)}<span>${l}</span></button>`).join('') + `<button data-act="more">${ic('more', 20)}<span>Lainnya</span></button>`;
+  root.innerHTML = `<div class="shell">
+  <aside class="side">
+    <div class="brand"><span class="logo">${ic('slash', 20)}</span><b>GuruKu.</b></div>
+    <nav class="nav">${nav}</nav>
+    <div class="sidecard"><span class="trophy">${ic('trophy', 26)}</span><b>Tahun Ajaran</b><small>${ta ? esc(ta.tahun) + ' • ' + esc(ta.semester) : 'Belum diatur'}</small><button class="btn pri sm" data-go="pengaturan" data-tab="ta">Atur</button></div>
+    <button class="logout" data-act="logout"><span class="lo-ic">${ic('out', 18)}</span>Keluar</button>
+  </aside>
+  <div class="main">
+    <header class="top">
+      <div class="mbrand"><span class="logo">${ic('slash', 16)}</span>GuruKu.</div>
+      <label class="search">${ic('search', 18)}<input id="gsearch" data-in="gsearch" placeholder="Cari siswa (nama / NIS)…" autocomplete="off"></label>
+      <div class="top-r"><button class="iconbtn" data-act="bell" data-pop aria-label="Pengingat">${ic('bell', 20)}<i class="dot" id="bdot"></i></button><button class="avatar-btn" data-act="avatar" data-pop aria-label="Akun">${esc(ini(S.user.nama || S.user.email))}</button></div>
+    </header>
+    <main class="content" id="content"><div class="view" id="view"></div></main>
+  </div>
+  <nav class="bnav">${bn}</nav>
+</div><div id="toasts"></div>`;
+  const gs = $('#gsearch');
+  gs.addEventListener('keydown', e => { if (e.key === 'Enter') { S.sf.q = gs.value.trim(); S.sf.page = 1; gs.value = ''; gs.blur(); go('siswa'); } });
+}
+function renderNav() { $$('[data-go]').forEach(b => { if (b.closest('.nav,.bnav')) b.classList.toggle('on', b.dataset.go === S.route); }); }
+async function go(route, patch) {
+  if (patch) Object.assign(S, patch);
+  if (!navFor().some(n => n.id === route)) route = 'dashboard';
+  S.route = route; closeModal(); closePop(); closeSheet(); renderNav();
+  await renderView(false);
+  const c = $('#content'); if (c) c.scrollTop = 0;
+}
+async function renderView(keep) {
+  const v = $('#view'); if (!v) return;
+  const tok = ++S._tok, c = $('#content'), sc = c ? c.scrollTop : 0, p = PAGES[S.route];
+  if (!keep) v.innerHTML = `<div class="loading"><span class="spin"></span></div>`;
+  try {
+    const html = await p.render();
+    if (tok !== S._tok) return;
+    v.innerHTML = html; if (p.after) p.after();
+    if (keep && c) c.scrollTop = sc;
+  } catch (e) {
+    if (tok !== S._tok) return;
+    console.error(e);
+    v.innerHTML = empty('x', 'Terjadi kesalahan', esc(e.message || e));
+    toastErr(e);
+  }
+  refreshNotif();
+}
+async function refreshNotif() {
+  try {
+    const t = today(), jd = D.jadwal.filter(j => j.hari === hariIdx(t)), n = [];
+    if (isAdmin() && jd.length) {
+      const [jur, abs] = await Promise.all([dbList('jurnal', { f: [['tanggal', 'eq', t]] }), dbList('absensi', { f: [['tanggal', 'eq', t]] })]);
+      const ses = sessionsOf(hariIdx(t), jur, abs), ba = ses.filter(x => !x.absen).length, bj = ses.filter(x => !x.jurnal).length;
+      if (ba) n.push({ t: `${ba} sesi hari ini belum ada absensi dari guru`, go: 'absensi' });
+      if (bj) n.push({ t: `${bj} sesi hari ini belum ada jurnal dari guru`, go: 'jurnal' });
+    } else if (jd.length) {
+      const [jur, abs] = await Promise.all([dbList('jurnal', { f: [['tanggal', 'eq', t]] }), dbList('absensi', { f: [['tanggal', 'eq', t]] })]);
+      const seen = new Set();
+      jd.forEach(j => {
+        const key = j.kelas_id + j.mapel_id; if (seen.has(key)) return; seen.add(key);
+        const kn = (K(j.kelas_id) || {}).nama, mn = (M(j.mapel_id) || {}).nama;
+        if (!abs.some(a => a.kelas_id === j.kelas_id && a.mapel_id === j.mapel_id)) n.push({ t: `Absensi ${kn} • ${mn} belum diisi`, go: 'absensi' });
+        if (!jur.some(a => a.kelas_id === j.kelas_id && a.mapel_id === j.mapel_id)) n.push({ t: `Jurnal ${kn} • ${mn} belum diisi`, go: 'jurnal' });
+      });
+    }
+    S.notif = n;
+  } catch (e) { S.notif = []; }
+  const d = $('#bdot'); if (d) d.style.display = S.notif.length ? 'block' : 'none';
+}
+
+/* sesi mengajar (gabungan jam berurutan) untuk satu hari */
+function sessionsOf(hi, jur = [], abs = []) {
+  const by = new Map();
+  D.jadwal.filter(j => j.hari === hi).sort((a, b) => a.jam_ke - b.jam_ke).forEach(j => {
+    const key = j.kelas_id + ':' + j.mapel_id, arr = by.get(key) || []; by.set(key, arr);
+    const l = arr[arr.length - 1];
+    if (l && j.jam_ke === l.jam_to + 1) l.jam_to = j.jam_ke;
+    else arr.push({ kelas_id: j.kelas_id, mapel_id: j.mapel_id, ruang: j.ruang, jam_from: j.jam_ke, jam_to: j.jam_ke });
+  });
+  const ses = [].concat(...by.values()).sort((a, b) => a.jam_from - b.jam_from || String((K(a.kelas_id) || {}).nama).localeCompare(String((K(b.kelas_id) || {}).nama), 'id'));
+  ses.forEach(s => {
+    s.key = `${s.kelas_id}:${s.mapel_id}:${s.jam_from}`;
+    s.guru_id = guruIdOf(s.mapel_id, s.kelas_id);
+    s.jurnal = jur.some(x => x.kelas_id === s.kelas_id && x.mapel_id === s.mapel_id);
+    s.absen = abs.some(x => x.kelas_id === s.kelas_id && x.mapel_id === s.mapel_id);
+    s.mulai = (jamOf(s.jam_from) || {}).mulai; s.selesai = (jamOf(s.jam_to) || {}).selesai;
+    s.jamTxt = s.jam_from === s.jam_to ? `${s.jam_from}` : `${s.jam_from}-${s.jam_to}`;
+  });
+  return ses;
+}
+
+/* delegasi event */
+root.addEventListener('click', e => {
+  if (!e.target.closest('.pop,[data-pop]')) closePop();
+  if (!e.target.closest('.sheet,[data-act=more]')) closeSheet();
+  const g = e.target.closest('[data-go]');
+  if (g) { if (g.dataset.tab) S.pg.tab = g.dataset.tab; go(g.dataset.go); return; }
+  const a = e.target.closest('[data-act]');
+  if (a && ACT[a.dataset.act]) ACT[a.dataset.act](a, e);
+});
+root.addEventListener('change', e => { const c = e.target.closest('[data-ch]'); if (c && CH[c.dataset.ch]) CH[c.dataset.ch](c, e); });
+root.addEventListener('input', e => { const c = e.target.closest('[data-in]'); if (c && INP[c.dataset.in]) INP[c.dataset.in](c, e); });
+root.addEventListener('submit', e => { const f = e.target.closest('form[data-form]'); if (f && FORM[f.dataset.form]) { e.preventDefault(); FORM[f.dataset.form](f, e); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closePop(); closeSheet(); } });
+/* =========================== DASHBOARD =========================== */
+PAGES.dashboard = {
+  async render() {
+    const t = today(), sel = S.dashDate || t, hi = hariIdx(sel), mStart = t.slice(0, 8) + '01';
+    const [jur, abs, jm, pen] = await Promise.all([
+      dbList('jurnal', { f: [['tanggal', 'eq', sel]] }), dbList('absensi', { f: [['tanggal', 'eq', sel]] }),
+      dbList('jurnal', { f: [['tanggal', 'gte', mStart], ['tanggal', 'lte', t]] }), dbList('penilaian', {})
+    ]);
+    const ses = sessionsOf(hi, jur, abs); S._ses = ses;
+    const cur = ses.find(s => s.key === S.dashSel) || ses.find(s => !s.jurnal) || ses[0];
+    const done = ses.filter(s => s.jurnal).length, pct = ses.length ? Math.round(done / ses.length * 100) : 0;
+    const aktif = D.siswa.filter(s => s.aktif !== false);
+    const hN = abs.filter(a => a.status === 'H' || a.status === 'D').length, hP = abs.length ? Math.round(hN / abs.length * 100) + '%' : '–';
+    const wali = aktif.filter(s => s.bimbingan_wali && (isAdmin() || s.guru_wali_id === ME()));
+    const dd = pd(sel);
+    const strip = Array.from({ length: 9 }, (_, i) => addDays(t, i - 3)).map(ds => `<button class="day ${ds === sel ? 'on' : ''}" data-act="dashDay" data-d="${ds}"><b>${pad(pd(ds).getDate())}</b><small>${HARI[hariIdx(ds)].slice(0, 3)}</small></button>`).join('');
+    const rows = ses.map(s => {
+      const k = K(s.kelas_id) || {}, m = M(s.mapel_id) || {}, w = Math.min(100, 46 + (s.jam_to - s.jam_from) * 22);
+      return `<div class="trow"><span class="tt">${hm(s.mulai)}</span><div><button class="pill c${colorIdx(s.kelas_id)} ${cur && cur.key === s.key ? 'sel' : ''}" style="width:${w}%;min-width:200px;max-width:100%" data-act="dashSel" data-k="${s.key}"><b>${esc(k.nama)}</b><small>${esc(m.nama)} • jam ${s.jamTxt}${isAdmin() ? ' • ' + esc(guruShort(s.guru_id)) : ''}</small><span class="sp"></span>${s.absen ? ic('check', 14) : ''}${s.jurnal ? ic('ok', 14) : ''}</button></div></div>`;
+    }).join('');
+    const emptyTl = hi === 7 ? empty('cal', 'Hari Minggu', 'Libur — tidak ada jadwal mengajar.') : empty('cal', 'Tidak ada jadwal', isAdmin() ? 'Belum ada jadwal mengajar pada hari ini.' : 'Belum ada jadwal mengajar Anda pada hari ini. Jadwal diatur oleh Admin.', isAdmin() ? `<button class="btn pri sm" data-go="jadwal">Atur Jadwal</button>` : '');
+    let detail;
+    if (cur) {
+      const k = K(cur.kelas_id) || {}, m = M(cur.mapel_id) || {}, n = aktif.filter(s => s.kelas_id === cur.kelas_id).length;
+      detail = `<div><h2>Detail <b>Kelas</b></h2></div><p class="desc">${esc(m.nama)} — Kelas ${esc(k.nama)}, jam ke-${cur.jamTxt}</p>
+      <div class="irow">${bub('cal', 'g-blue')}<div><small>${fmtD(sel)}</small><b>${hm(cur.mulai)} - ${hm(cur.selesai)}</b></div></div>
+      <div class="irow">${bub('pin', 'g-ora')}<div><small>Ruang</small><b>${esc(cur.ruang || '-')}</b></div></div>
+      <div class="irow">${bub('users', 'g-coral')}<div><small>Jumlah siswa</small><b>${n} siswa</b></div></div>
+      ${isAdmin() ? `<div class="irow">${bub('user', 'g-vio')}<div><small>Guru pengampu</small><b>${esc(guruNama(cur.guru_id))}</b></div></div>` : ''}
+      <div class="irow">${bub('check', 'g-pink')}<div><small>Status</small><b>${cur.absen ? 'Absen ✓' : 'Absen belum'} • ${cur.jurnal ? 'Jurnal ✓' : 'Jurnal belum'}</b></div></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn pri sm" data-act="dashAbsen" data-k="${cur.key}">${isAdmin() ? 'Lihat Absensi' : 'Isi Absensi'}</button><button class="btn vio sm" data-act="dashJurnal" data-k="${cur.key}">${isAdmin() ? 'Lihat Jurnal' : 'Tulis Jurnal'}</button></div>`;
+    } else detail = `<div><h2>Detail <b>Kelas</b></h2></div>${empty('school', 'Tidak ada sesi', 'Pilih hari lain pada kalender.')}`;
+    return `${phead("Pelajaran Hari Ini", `${BLN[dd.getMonth()]} ${pad(dd.getDate())}`)}
+    <div class="dash"><div style="min-width:0">
+      <div class="stats">
+        <div class="stat">${bub('school', 'g-vio')}<div><b>${kelasScope().length}</b><small>${isAdmin() ? 'Kelas' : 'Kelas diampu'}</small></div></div>
+        <div class="stat">${bub('users', 'g-blue')}<div><b>${aktif.length}</b><small>Siswa aktif</small></div></div>
+        <div class="stat">${bub('check', 'g-ora')}<div><b>${hP}</b><small>Kehadiran ${sel === t ? 'hari ini' : fmtD(sel)}</small></div></div>
+        <div class="stat">${bub('book', 'g-pink')}<div><b>${jm.length}</b><small>Jurnal bulan ini</small></div></div>
+      </div>
+      <div class="sec-h"><h2>Aksi <b>Cepat</b></h2></div>
+      <div class="qa">
+        <div class="qcard g-vio"><span class="qi">${ic('check', 20)}</span><b>${isAdmin() ? 'Rekap Absensi' : 'Absensi'}</b><small>${ses.length} sesi ${sel === t ? 'hari ini' : 'pada tanggal ini'}</small><button class="btn wht sm" data-go="absensi">Buka</button></div>
+        <div class="qcard g-pink"><span class="qi">${ic('book', 20)}</span><b>${isAdmin() ? 'Rekap Jurnal' : 'Jurnal'}</b><small>${jm.length} jurnal bulan ini</small><button class="btn wht sm" data-go="jurnal">Buka</button></div>
+        <div class="qcard g-ora"><span class="qi">${ic('chart', 20)}</span><b>${isAdmin() ? 'Rekap Nilai' : 'Nilai'}</b><small>${pen.length} penilaian</small><button class="btn wht sm" data-go="nilai">Buka</button></div>
+        <div class="qmore" data-go="bimbingan"><span class="mb">${ic('chevR', 18)}</span>Bimbingan</div>
+      </div>
+      <div class="sec-h"><h2>Rutinitas <b>Harian</b></h2></div>
+      <div class="dcard"><div class="strip">${strip}</div>
+        ${ses.length ? rows : emptyTl}
+        ${ses.length ? `<div class="prog"><div class="bar"><i style="width:${Math.max(pct, 12)}%"></i><span>Jurnal terisi</span></div><b>${pct}%</b></div>` : ''}
+      </div>
+    </div>
+    <aside class="rpanel">${detail}
+      <div class="dcard" style="padding:14px"><b style="color:var(--ink)">${isAdmin() ? 'Siswa Bimbingan Wali' : 'Siswa Bimbingan Saya'}</b>
+        <div style="display:flex;align-items:center;gap:10px;margin:10px 0">${wali.length ? `<div class="stack">${wali.slice(0, 5).map(s => avatar(s.nama)).join('')}</div><span class="muted">${wali.length} siswa</span>` : '<span class="muted">Belum ada siswa bimbingan</span>'}</div>
+        <button class="btn pri sm" data-go="bimbingan">Buka Bimbingan</button></div>
+    </aside></div>`;
+  }
+};
+ACT.dashDay = el => { S.dashDate = el.dataset.d; S.dashSel = null; renderView(true); };
+ACT.dashSel = el => { S.dashSel = el.dataset.k; renderView(true); };
+const sesByKey = k => (S._ses || []).find(s => s.key === k);
+ACT.dashAbsen = el => {
+  const s = sesByKey(el.dataset.k); if (!s) return; const tg = S.dashDate || today();
+  if (isAdmin()) { S.ab.tab = 'rekap'; S.ab.rk = Object.assign(S.ab.rk || {}, { dari: tg, sampai: tg, kelas: s.kelas_id, mapel: s.mapel_id }); }
+  else Object.assign(S.ab, { tab: 'input', tgl: tg, kelas: s.kelas_id, mapel: s.mapel_id });
+  go('absensi');
+};
+ACT.dashJurnal = el => {
+  const s = sesByKey(el.dataset.k); if (!s) return; const tg = S.dashDate || today();
+  if (isAdmin()) { Object.assign(S.jr, { bln: tg.slice(0, 7), kelas: s.kelas_id, mapel: s.mapel_id, guru: '' }); go('jurnal'); return; }
+  EDIT.jurnal(null, { tanggal: tg, kelas_id: s.kelas_id, mapel_id: s.mapel_id, jam_ke: s.jamTxt });
+};
+
+/* ============================= DATA KELAS ============================= */
+const kelasFields = () => [
+  { k: 'nama', l: 'Nama Kelas', req: 1, ph: 'mis. 7A' },
+  { k: 'tingkat', l: 'Tingkat', t: 'select', req: 1, num: 1, o: [{ v: 7, l: 'Kelas 7' }, { v: 8, l: 'Kelas 8' }, { v: 9, l: 'Kelas 9' }] },
+  { k: 'wali_kelas', l: 'Wali Kelas', ph: 'Nama wali kelas', w: 'full' }
+];
+EDIT.kelas = id => {
+  const rec = id ? K(id) : null, ta = taAktif();
+  crudForm({ table: 'kelas', title: 'Kelas', fields: kelasFields(), rec, defaults: { tingkat: 7, tahun_ajaran_id: ta ? ta.id : null }, rl: ['kelas', 'siswa', 'jadwal'] });
+};
+PAGES.kelas = {
+  async render() {
+    const rows = D.kelas.map((k, i) => {
+      const n = D.siswa.filter(s => s.kelas_id === k.id && s.aktif !== false).length;
+      return `<tr><td class="c muted">${i + 1}</td><td><div class="who"><span class="avatar ${AVC[i % 5]}">${esc(k.nama)}</span><div><b>Kelas ${esc(k.nama)}</b></div></div></td><td class="c">${k.tingkat}</td><td>${esc(k.wali_kelas || '-')}</td><td class="c"><span class="badge b-vio">${n} siswa</span></td>
+      <td class="r"><button class="ib" data-act="edit" data-t="kelas" data-id="${k.id}" title="Ubah">${ic('edit', 16)}</button><button class="ib bad" data-act="del" data-t="kelas" data-id="${k.id}" data-rl="kelas,siswa,jadwal" data-msg="Hapus kelas ${esc(k.nama)}? Jadwal, jurnal, absensi dan nilai kelas ini ikut terhapus; siswa menjadi tanpa kelas." title="Hapus">${ic('trash', 16)}</button></td></tr>`;
+    }).join('');
+    return `${phead('Data Kelas', `${D.kelas.length} kelas`, `<button class="btn pri" data-act="edit" data-t="kelas">${ic('plus', 16)} Tambah Kelas</button>`)}
+    <div class="card">${D.kelas.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th class="c">No</th><th>Kelas</th><th class="c">Tingkat</th><th>Wali Kelas</th><th class="c">Jumlah Siswa</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>` : empty('school', 'Belum ada kelas', 'Tambahkan kelas pertama Anda.', `<button class="btn pri" data-act="edit" data-t="kelas">${ic('plus', 16)} Tambah Kelas</button>`)}</div>`;
+  }
+};
+
+/* ============================= DATA SISWA ============================= */
+const guruOpts = () => (D.guru || []).filter(g => g.aktif !== false).map(g => ({ v: g.id, l: g.nama || g.username }));
+const siswaFields = () => [
+  { k: 'nama', l: 'Nama Lengkap', req: 1, w: 'full' },
+  { k: 'nis', l: 'NIS' }, { k: 'nisn', l: 'NISN' },
+  { k: 'jk', l: 'Jenis Kelamin', t: 'select', req: 1, o: [{ v: 'L', l: 'Laki-laki' }, { v: 'P', l: 'Perempuan' }] },
+  { k: 'kelas_id', l: 'Kelas', t: 'select', o: kelasOpts(), ph: '— Tanpa kelas —' },
+  { k: 'tempat_lahir', l: 'Tempat Lahir' }, { k: 'tgl_lahir', l: 'Tanggal Lahir', t: 'date' },
+  { k: 'nama_ortu', l: 'Nama Orang Tua/Wali' }, { k: 'no_hp_ortu', l: 'No. HP Orang Tua', t: 'tel' },
+  { k: 'alamat', l: 'Alamat', t: 'textarea', rows: 2, w: 'full' },
+  { k: 'guru_wali_id', l: 'Guru Wali (pembimbing)', t: 'select', o: guruOpts(), ph: '— Belum ditentukan —', w: 'full' },
+  { k: 'bimbingan_wali', l: 'Siswa bimbingan wali (guru wali)', t: 'check', w: 'full' },
+  { k: 'aktif', l: 'Siswa aktif', t: 'check', w: 'full' }
+];
+EDIT.siswa = id => {
+  if (!adminOnly()) return;
+  const rec = id ? SW(id) : null;
+  crudForm({ table: 'siswa', title: 'Siswa', fields: siswaFields(), rec, defaults: { jk: 'L', aktif: true, bimbingan_wali: false, kelas_id: S.sf.kelas || null }, rl: ['siswa'], wide: true,
+    map: v => ({ ...v, guru_wali_id: v.bimbingan_wali ? v.guru_wali_id : null }) });
+};
+function siswaFiltered() {
+  const f = S.sf, q = (f.q || '').toLowerCase();
+  return D.siswa.filter(s => (!f.kelas || s.kelas_id === f.kelas) && (!f.bim || (f.bim === 'ya' ? s.bimbingan_wali : !s.bimbingan_wali)) && (!q || s.nama.toLowerCase().includes(q) || String(s.nis || '').includes(q) || String(s.nisn || '').includes(q)));
+}
+function siswaList() {
+  const list = siswaFiltered().sort((a, b) => (K(a.kelas_id)?.nama || 'zz').localeCompare(K(b.kelas_id)?.nama || 'zz') || byNama(a, b));
+  const per = 50, pages = Math.max(1, Math.ceil(list.length / per)); S.sf.page = Math.min(Math.max(1, S.sf.page), pages);
+  const slice = list.slice((S.sf.page - 1) * per, S.sf.page * per), sel = S.sf.sel;
+  S._sfIds = slice.map(s => s.id);
+  const allSel = slice.length && slice.every(s => sel.has(s.id));
+  const adm = isAdmin();
+  const bulk = adm && sel.size ? `<div class="bulk"><span>${sel.size} dipilih</span><span class="sp"></span><button class="btn sm" data-act="bulkBim" data-v="1">Tetapkan guru wali</button><button class="btn sm" data-act="bulkBim" data-v="0">Bukan bimbingan</button><button class="btn sm" data-act="bulkKelas">Pindah kelas</button><button class="btn bad sm" data-act="bulkDel">${ic('trash', 14)} Hapus</button><button class="btn ghost sm" data-act="bulkClear">Batal</button></div>` : '';
+  if (!list.length) return bulk + empty('users', D.siswa.length ? 'Tidak ada siswa yang cocok' : 'Belum ada data siswa', D.siswa.length ? 'Ubah filter pencarian Anda.' : (isAdmin() ? 'Tambahkan manual atau impor dari Excel/CSV.' : 'Siswa muncul setelah Admin menetapkan mapel & kelas Anda di menu Mata Pelajaran.'));
+  return `${bulk}<div class="tbl-wrap"><table class="tbl"><thead><tr>${adm ? `<th class="c"><input type="checkbox" class="cb" data-act="selAll" ${allSel ? 'checked' : ''}></th>` : ''}<th>NIS</th><th>Nama</th><th class="c">L/P</th><th>Kelas</th><th class="c">Bimbingan Wali</th>${adm ? '<th></th>' : ''}</tr></thead><tbody>
+  ${slice.map(s => `<tr>${adm ? `<td class="c"><input type="checkbox" class="cb" data-act="selRow" data-id="${s.id}" ${sel.has(s.id) ? 'checked' : ''}></td>` : ''}<td class="muted">${esc(s.nis || '-')}</td>
+  <td><div class="who">${avatar(s.nama)}<div><b>${esc(s.nama)}</b><small>${esc(s.nama_ortu || '')}${s.no_hp_ortu ? ' • ' + esc(s.no_hp_ortu) : ''}</small></div></div></td><td class="c">${s.jk}</td>
+  <td>${s.kelas_id ? `<span class="badge b-vio">${esc(K(s.kelas_id)?.nama || '-')}</span>` : '<span class="muted">-</span>'}${s.aktif === false ? ' <span class="badge b-bad">Nonaktif</span>' : ''}</td>
+  <td class="c">${adm ? `<button class="badge ${s.bimbingan_wali ? 'b-ok' : ''}" data-act="togBim" data-id="${s.id}" title="Klik untuk mengubah">${s.bimbingan_wali ? '✓ Ya' : 'Bukan'}</button>` : `<span class="badge ${s.bimbingan_wali ? 'b-ok' : ''}">${s.bimbingan_wali ? '✓ Ya' : 'Bukan'}</span>`}${s.bimbingan_wali && s.guru_wali_id ? `<br><small class="muted">${esc(guruShort(s.guru_wali_id))}</small>` : s.bimbingan_wali && adm ? '<br><small style="color:var(--warn)">Guru wali belum dipilih</small>' : ''}</td>
+  ${adm ? `<td class="r"><button class="ib" data-act="edit" data-t="siswa" data-id="${s.id}" title="Ubah">${ic('edit', 16)}</button><button class="ib bad" data-act="del" data-t="siswa" data-id="${s.id}" data-rl="siswa" data-msg="Hapus siswa ${esc(s.nama)}? Absensi, nilai dan catatan bimbingannya ikut terhapus." title="Hapus">${ic('trash', 16)}</button></td>` : ''}</tr>`).join('')}
+  </tbody></table></div>
+  <div class="pager"><span>${list.length} siswa • Hal ${S.sf.page}/${pages}</span><button class="btn sm ghost" data-act="sfPage" data-d="-1" ${S.sf.page <= 1 ? 'disabled' : ''}>${ic('chevL', 14)}</button><button class="btn sm ghost" data-act="sfPage" data-d="1" ${S.sf.page >= pages ? 'disabled' : ''}>${ic('chevR', 14)}</button></div>`;
+}
+const refreshSiswaList = () => { const l = $('#sList'); if (l) l.innerHTML = siswaList(); };
+PAGES.siswa = {
+  async render() {
+    const f = S.sf;
+    return `${phead('Data Siswa', `${D.siswa.length} siswa`, isAdmin() ? `<button class="btn" data-act="impOpen">${ic('ul', 16)} Impor</button><button class="btn" data-act="siswaCsv">${ic('dl', 16)} Ekspor</button><button class="btn pri" data-act="edit" data-t="siswa">${ic('plus', 16)} Tambah Siswa</button>` : `${roTag('Hanya lihat')}<button class="btn" data-act="siswaCsv">${ic('dl', 16)} Ekspor</button>`)}
+    <div class="card"><div class="toolbar">
+      <input class="inp" id="sfq" data-in="sfq" placeholder="Cari nama / NIS…" value="${esc(f.q)}">
+      <select class="inp" data-ch="sfKelas">${optHTML(D.kelas.map(k => ({ v: k.id, l: k.nama })), f.kelas, 'Semua kelas')}</select>
+      <select class="inp" data-ch="sfBim">${optHTML([{ v: 'ya', l: 'Bimbingan wali' }, { v: 'tidak', l: 'Bukan bimbingan wali' }], f.bim, 'Semua status bimbingan')}</select>
+    </div><div id="sList">${siswaList()}</div></div>`;
+  }
+};
+let sfT;
+INP.sfq = el => { clearTimeout(sfT); sfT = setTimeout(() => { S.sf.q = el.value.trim(); S.sf.page = 1; refreshSiswaList(); }, 180); };
+CH.sfKelas = el => { S.sf.kelas = el.value; S.sf.page = 1; refreshSiswaList(); };
+CH.sfBim = el => { S.sf.bim = el.value; S.sf.page = 1; refreshSiswaList(); };
+ACT.sfPage = el => { S.sf.page += Number(el.dataset.d); refreshSiswaList(); };
+ACT.selRow = el => { el.checked ? S.sf.sel.add(el.dataset.id) : S.sf.sel.delete(el.dataset.id); refreshSiswaList(); };
+ACT.selAll = el => { (S._sfIds || []).forEach(id => el.checked ? S.sf.sel.add(id) : S.sf.sel.delete(id)); refreshSiswaList(); };
+ACT.bulkClear = () => { S.sf.sel.clear(); refreshSiswaList(); };
+ACT.togBim = async el => {
+  if (!adminOnly()) return; const s = SW(el.dataset.id); if (!s) return;
+  const v = !s.bimbingan_wali, patch = v ? { bimbingan_wali: true } : { bimbingan_wali: false, guru_wali_id: null };
+  try { await dbUpdate('siswa', s.id, patch); Object.assign(s, patch); refreshSiswaList(); } catch (e) { toastErr(e); }
+};
+ACT.bulkBim = async el => {
+  if (!adminOnly()) return;
+  const ids = [...S.sf.sel], v = el.dataset.v === '1';
+  const run = async patch => { for (const id of ids) await dbUpdate('siswa', id, patch); await reload('siswa'); S.sf.sel.clear(); toast(`${ids.length} siswa diperbarui`); renderView(true); };
+  if (!v) { try { await run({ bimbingan_wali: false, guru_wali_id: null }); } catch (e) { toastErr(e); } return; }
+  if (!guruOpts().length) { toast('Belum ada akun guru. Tambahkan di Pengaturan → Akun.', 'bad'); return; }
+  openForm({ title: `Tetapkan Guru Wali (${ids.length} siswa)`, submit: 'Terapkan', fields: [{ k: 'guru_wali_id', l: 'Guru wali', t: 'select', req: 1, o: guruOpts(), ph: '— Pilih guru —', w: 'full' }],
+    onSubmit: async x => { await run({ bimbingan_wali: true, guru_wali_id: x.guru_wali_id }); } });
+};
+ACT.bulkKelas = () => {
+  if (!adminOnly()) return;
+  const ids = [...S.sf.sel];
+  openForm({ title: `Pindah Kelas (${ids.length} siswa)`, fields: [{ k: 'kelas_id', l: 'Kelas tujuan', t: 'select', o: kelasOpts(), ph: '— Tanpa kelas —', w: 'full' }], submit: 'Pindahkan',
+    onSubmit: async v => { for (const id of ids) await dbUpdate('siswa', id, { kelas_id: v.kelas_id }); await reload('siswa'); S.sf.sel.clear(); toast('Siswa dipindahkan'); renderView(true); } });
+};
+ACT.bulkDel = async () => {
+  if (!adminOnly()) return;
+  const ids = [...S.sf.sel];
+  if (!await confirmBox(`Hapus ${ids.length} siswa terpilih? Absensi, nilai dan bimbingan mereka ikut terhapus.`)) return;
+  try { await dbDelete('siswa', [['id', 'in', ids]]); await reload('siswa'); S.sf.sel.clear(); toast('Siswa dihapus'); renderView(true); } catch (e) { toastErr(e); }
+};
+ACT.siswaCsv = () => {
+  const rows = [['NIS', 'NISN', 'Nama', 'JK', 'Tempat Lahir', 'Tgl Lahir', 'Kelas', 'Nama Ortu', 'No HP Ortu', 'Alamat', 'Bimbingan Wali']]
+    .concat(siswaFiltered().sort(byNama).map(s => [s.nis, s.nisn, s.nama, s.jk, s.tempat_lahir, s.tgl_lahir, K(s.kelas_id)?.nama, s.nama_ortu, s.no_hp_ortu, s.alamat, s.bimbingan_wali ? 'Ya' : 'Tidak']));
+  download('data-siswa.csv', toCSV(rows));
+};
+
+/* ---- Import siswa (CSV / Excel) ---- */
+const IMP_ALIAS = {
+  nis: ['nis', 'nomorinduk', 'nomorindukkesiswaan', 'noinduk'], nisn: ['nisn'],
+  nama: ['nama', 'namasiswa', 'namalengkap', 'namapesertadidik'], jk: ['jk', 'jeniskelamin', 'lp', 'gender', 'kelamin'],
+  tempat_lahir: ['tempatlahir', 'tempat', 'tmplahir'], tgl_lahir: ['tgllahir', 'tanggallahir', 'tanggal', 'ttl'],
+  kelas: ['kelas', 'rombel', 'namakelas'], nama_ortu: ['namaortu', 'namaorangtua', 'orangtua', 'namawali', 'ayah', 'namaayah'],
+  no_hp_ortu: ['nohportu', 'nohp', 'hp', 'telepon', 'notelp', 'nowa', 'nohpwa'], alamat: ['alamat'],
+  bimbingan_wali: ['bimbinganwali', 'bimbingan', 'guruwali', 'walibimbingan']
+};
+const normH = h => String(h || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+function toDateStr(v) {
+  if (v === '' || v == null) return null;
+  if (typeof v === 'number' && v > 1000) { const d = new Date(Math.round((v - 25569) * 86400000)); return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}`; }
+  const s = String(v).trim(); let m = s.match(/^(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})/);
+  if (m) return `${m[1]}-${pad(m[2])}-${pad(m[3])}`;
+  m = s.match(/^(\d{1,2})[-\/.](\d{1,2})[-\/.](\d{4})$/);
+  return m ? `${m[3]}-${pad(m[2])}-${pad(m[1])}` : null;
+}
+function buildImport(mx) {
+  if (mx.length < 2) throw new Error('File kosong atau tidak memiliki baris data');
+  const head = mx[0].map(normH), col = {};
+  for (const k in IMP_ALIAS) { const i = head.findIndex(h => IMP_ALIAS[k].includes(h)); if (i >= 0) col[k] = i; }
+  if (col.nama == null) throw new Error('Kolom "nama" tidak ditemukan. Unduh dan gunakan template.');
+  const raw = (r, k) => col[k] == null ? '' : (r[col[k]] ?? ''), g = (r, k) => String(raw(r, k)).trim();
+  const rows = [], bad = [];
+  mx.slice(1).forEach((r, i) => {
+    const nama = g(r, 'nama'); if (!nama) { bad.push(i + 2); return; }
+    rows.push({ nis: g(r, 'nis') || null, nisn: g(r, 'nisn') || null, nama, jk: /^(p|w)/i.test(g(r, 'jk')) ? 'P' : 'L', tempat_lahir: g(r, 'tempat_lahir') || null, tgl_lahir: toDateStr(raw(r, 'tgl_lahir')), kelasNama: g(r, 'kelas'), nama_ortu: g(r, 'nama_ortu') || null, no_hp_ortu: g(r, 'no_hp_ortu') || null, alamat: g(r, 'alamat') || null, bimbingan_wali: /^(ya|y|1|true|wali|v|x|ok)$/i.test(g(r, 'bimbingan_wali')), aktif: true });
+  });
+  return { rows, bad };
+}
+function loadXLSX() {
+  return new Promise((res, rej) => {
+    if (window.XLSX) return res(window.XLSX);
+    const s = document.createElement('script'); s.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+    s.onload = () => res(window.XLSX); s.onerror = () => rej(new Error('Gagal memuat pustaka Excel. Simpan file sebagai CSV lalu coba lagi.'));
+    document.head.appendChild(s);
+  });
+}
+ACT.impOpen = () => {
+  if (!adminOnly()) return;
+  S._imp = null;
+  openModal('Impor Data Siswa', `<div id="impBody"><p style="margin-bottom:12px">Unggah file <b>Excel (.xlsx)</b> atau <b>CSV</b>. Kolom: <i>nis, nisn, nama, jk, tempat_lahir, tgl_lahir, kelas, nama_ortu, no_hp_ortu, alamat, bimbingan_wali (Ya/Tidak)</i>. Siswa dengan NIS yang sudah ada akan diperbarui; kelas yang belum ada dibuat otomatis.</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="btn" data-act="impTpl">${ic('dl', 16)} Unduh Template</button><input type="file" id="impFile" accept=".csv,.xlsx,.xls,.txt" data-ch="impFile" class="inp" style="flex:1;min-width:200px"></div>
+  <div class="fld" style="margin-top:12px;max-width:420px"><label>Guru wali untuk siswa bimbingan di file ini</label><select id="impWali">${optHTML(guruOpts(), '', '— Tentukan nanti —')}</select></div><div id="impPrev"></div></div>`, { wide: true });
+};
+ACT.impTpl = () => download('template-siswa.csv', toCSV([['nis', 'nisn', 'nama', 'jk', 'tempat_lahir', 'tgl_lahir', 'kelas', 'nama_ortu', 'no_hp_ortu', 'alamat', 'bimbingan_wali'], ['2601001', '0012345678', 'Ahmad Pratama', 'L', 'Jambi', '2013-05-21', '7A', 'Budi Pratama', '081234567890', 'Jl. Merdeka No. 5', 'Ya'], ['2601002', '0012345679', 'Siti Aisyah', 'P', 'Jambi', '2013-08-02', '7A', 'Rina Aisyah', '081298765432', 'Jl. Melati No. 9', 'Tidak']]));
+CH.impFile = async el => {
+  const file = el.files[0], box = $('#impPrev'); if (!file || !box) return;
+  box.innerHTML = '<div class="loading" style="height:120px"><span class="spin"></span></div>';
+  try {
+    let mx;
+    if (/\.(xlsx|xls)$/i.test(file.name)) {
+      const X = await loadXLSX(), wb = X.read(await file.arrayBuffer(), { type: 'array' });
+      mx = X.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, raw: true, defval: '' });
+    } else mx = parseCSV(await file.text());
+    const imp = buildImport(mx); S._imp = imp;
+    const exist = new Set(D.siswa.map(s => s.nis).filter(Boolean));
+    const upd = imp.rows.filter(r => r.nis && exist.has(r.nis)).length, newK = [...new Set(imp.rows.map(r => r.kelasNama).filter(Boolean))].filter(n => !D.kelas.find(k => k.nama.toLowerCase() === n.toLowerCase()));
+    box.innerHTML = `<div class="counts" style="margin-top:14px"><span class="cnt">${imp.rows.length} baris valid</span><span class="cnt">${imp.rows.length - upd} baru</span><span class="cnt">${upd} diperbarui</span>${newK.length ? `<span class="cnt">Kelas baru: ${esc(newK.join(', '))}</span>` : ''}${imp.bad.length ? `<span class="cnt" style="color:var(--bad)">${imp.bad.length} baris dilewati (tanpa nama)</span>` : ''}</div>
+    <div class="tbl-wrap" style="max-height:240px"><table class="tbl"><thead><tr><th>NIS</th><th>Nama</th><th>JK</th><th>Kelas</th><th>Bimbingan</th></tr></thead><tbody>${imp.rows.slice(0, 8).map(r => `<tr><td>${esc(r.nis || '-')}</td><td>${esc(r.nama)}</td><td>${r.jk}</td><td>${esc(r.kelasNama || '-')}</td><td>${r.bimbingan_wali ? 'Ya' : 'Tidak'}</td></tr>`).join('')}</tbody></table></div>
+    ${imp.rows.length > 8 ? `<p class="muted" style="margin-top:6px">…dan ${imp.rows.length - 8} baris lainnya.</p>` : ''}
+    <div class="m-f" style="padding:14px 0 4px"><span class="sp"></span><button class="btn ghost" data-act="closeModal">Batal</button><button class="btn pri" data-act="impGo" ${imp.rows.length ? '' : 'disabled'}>Impor ${imp.rows.length} siswa</button></div>`;
+  } catch (e) { box.innerHTML = ''; toastErr(e); }
+};
+ACT.impGo = async btn => {
+  const imp = S._imp; if (!imp || !imp.rows.length) return; btn.disabled = true;
+  try {
+    const names = [...new Set(imp.rows.map(r => r.kelasNama).filter(Boolean))].filter(n => !D.kelas.find(k => k.nama.toLowerCase() === n.toLowerCase()));
+    if (names.length) { await dbInsert('kelas', names.map(n => ({ nama: n, tingkat: [7, 8, 9].includes(parseInt(n)) ? parseInt(n) : 7, tahun_ajaran_id: taAktif()?.id || null }))); await reload('kelas'); }
+    const km = new Map(D.kelas.map(k => [k.nama.toLowerCase(), k.id]));
+    const wali = ($('#impWali') || {}).value || null;
+    const mk = r => { const { kelasNama, ...x } = r; return { ...x, kelas_id: km.get((kelasNama || '').toLowerCase()) || null, guru_wali_id: x.bimbingan_wali ? wali : null }; };
+    const withNis = [...new Map(imp.rows.filter(r => r.nis).map(r => [r.nis, mk(r)])).values()], noNis = imp.rows.filter(r => !r.nis).map(mk);
+    if (withNis.length) await dbUpsert('siswa', withNis, 'nis');
+    if (noNis.length) await dbInsert('siswa', noNis);
+    await reload('siswa'); closeModal(); toast(`${withNis.length + noNis.length} siswa berhasil diimpor`); renderView(true);
+  } catch (e) { toastErr(e); btn.disabled = false; }
+};
+
+/* ============================ JADWAL PELAJARAN ============================ */
+EDIT.jadwal = (id, ds = {}) => {
+  if (!adminOnly()) return;
+  const rec = id ? D.jadwal.find(j => j.id === id) : null, opts = kmOpts();
+  if (!opts.length) { toast('Belum ada pengampu. Atur dulu di menu Mata Pelajaran (ceklist kelas & guru).', 'bad'); return; }
+  const recKm = rec ? `${rec.kelas_id}|${rec.mapel_id}` : '';
+  if (rec && !opts.some(o => o.v === recKm)) opts.push({ v: recKm, l: `${(K(rec.kelas_id) || {}).nama || '-'} — ${(M(rec.mapel_id) || {}).nama || '-'} (tanpa pengampu)` });
+  const fields = [
+    { k: 'hari', l: 'Hari', t: 'select', req: 1, num: 1, o: [1, 2, 3, 4, 5, 6].map(h => ({ v: h, l: HARI[h] })) },
+    { k: 'jam_ke', l: 'Jam ke-', t: 'select', req: 1, num: 1, o: D.jam_pelajaran.map(j => ({ v: j.jam_ke, l: `${j.jam_ke} (${hm(j.mulai)}-${hm(j.selesai)})` })) },
+    { k: 'km', l: 'Kelas — Mata Pelajaran (Guru)', t: 'select', req: 1, o: opts, ph: '— Pilih —', w: 'full' },
+    { k: 'ruang', l: 'Ruang', ph: 'mis. R. 101' }
+  ];
+  if (!rec) fields.push({ k: 'jumlah', l: 'Jumlah jam berurutan', t: 'number', min: 1, max: 4 });
+  const pre = S.jf.kelas ? (opts.find(o => o.v.startsWith(S.jf.kelas + '|')) || {}).v || '' : '';
+  openForm({
+    title: rec ? 'Ubah Jadwal' : 'Tambah Jadwal', fields,
+    note: '<div class="note">Guru pengampu mengikuti pengaturan di menu <b>Mata Pelajaran</b>. Satu guru tidak bisa mengajar di dua kelas pada jam yang sama.</div>',
+    values: rec ? { ...rec, km: recKm } : { hari: Number(ds.hari) || S.jf.hari || 1, jam_ke: Number(ds.jam) || D.jam_pelajaran[0]?.jam_ke, km: pre, jumlah: 1 },
+    onSubmit: async v => {
+      if (!D.jam_pelajaran.length) throw new Error('Atur jam pelajaran dulu di Pengaturan');
+      const [kelas_id, mapel_id] = kmSplit(v.km), gid = guruIdOf(mapel_id, kelas_id);
+      const n = rec ? 1 : Math.max(1, Math.min(4, v.jumlah || 1)), rows = [];
+      for (let i = 0; i < n; i++) {
+        const jk = v.jam_ke + i;
+        if (!jamOf(jk)) { if (i === 0) throw new Error(`Jam ke-${jk} belum ada di Pengaturan`); break; }
+        const ex = D.jadwal.find(x => x.hari === v.hari && x.jam_ke === jk && x.kelas_id === kelas_id && (!rec || x.id !== rec.id));
+        if (ex) throw new Error(`Kelas ${K(kelas_id)?.nama} pada ${HARI[v.hari]} jam ke-${jk} sudah terisi (${M(ex.mapel_id)?.nama || '-'})`);
+        const bt = gid && D.jadwal.find(x => x.hari === v.hari && x.jam_ke === jk && x.kelas_id !== kelas_id && guruIdOf(x.mapel_id, x.kelas_id) === gid && (!rec || x.id !== rec.id));
+        if (bt) throw new Error(`${guruNama(gid)} sudah mengajar di kelas ${K(bt.kelas_id)?.nama} pada ${HARI[v.hari]} jam ke-${jk}`);
+        rows.push({ hari: v.hari, jam_ke: jk, kelas_id, mapel_id, ruang: v.ruang });
+      }
+      if (rec) await dbUpdate('jadwal', rec.id, rows[0]); else await dbInsert('jadwal', rows);
+      await reload('jadwal'); toast('Jadwal tersimpan'); renderView(true);
+    },
+    onDelete: rec ? async () => { await dbDelete('jadwal', [['id', 'eq', rec.id]]); await reload('jadwal'); toast('Jadwal dihapus'); renderView(true); } : null
+  });
+};
+PAGES.jadwal = {
+  async render() {
+    const f = S.jf, tdy = hariIdx(today()), adm = isAdmin();
+    const list4 = (h, jk) => D.jadwal.filter(x => x.hari === h && x.jam_ke === jk && (!f.kelas || x.kelas_id === f.kelas)).sort((a, b) => String(K(a.kelas_id)?.nama).localeCompare(String(K(b.kelas_id)?.nama), 'id'));
+    const slot = e => {
+      const inner = `<b>${esc(K(e.kelas_id)?.nama)}</b><span>${esc(M(e.mapel_id)?.nama)}</span>${adm ? `<em>${esc(guruShort(guruIdOf(e.mapel_id, e.kelas_id)))}</em>` : ''}<i>${esc(e.ruang || '')}</i>`;
+      return adm ? `<button class="slot c${colorIdx(e.kelas_id)}" data-act="edit" data-t="jadwal" data-id="${e.id}">${inner}</button>` : `<div class="slot c${colorIdx(e.kelas_id)}">${inner}</div>`;
+    };
+    const cell = (h, jk) => {
+      const l = list4(h, jk), add = `<button class="slot-add ${l.length ? 'mini' : ''}" data-act="edit" data-t="jadwal" data-hari="${h}" data-jam="${jk}" title="Tambah">${ic('plus', l.length ? 12 : 16)}</button>`;
+      return `<div class="cellw">${l.map(slot).join('')}${adm && !(f.kelas && l.length) ? add : ''}${!adm && !l.length ? '<div class="slot-add" style="pointer-events:none;opacity:.4"></div>' : ''}</div>`;
+    };
+    if (!D.jam_pelajaran.length) return `${phead('Jadwal Pelajaran')}<div class="card">${empty('clock', 'Jam pelajaran belum diatur', adm ? 'Atur jam pelajaran terlebih dahulu.' : 'Admin belum mengatur jam pelajaran.', adm ? `<button class="btn pri" data-go="pengaturan" data-tab="jam">Atur Jam Pelajaran</button>` : '')}</div>`;
+    const grid = `<div class="jgrid"><table><thead><tr><th style="width:78px">Jam</th>${[1, 2, 3, 4, 5, 6].map(h => `<th class="${h === tdy ? 'today' : ''}">${HARI[h]}</th>`).join('')}</tr></thead><tbody>
+    ${D.jam_pelajaran.map(j => `<tr><td class="jt"><b>${j.jam_ke}</b><small>${hm(j.mulai)}–${hm(j.selesai)}</small></td>${[1, 2, 3, 4, 5, 6].map(h => `<td>${cell(h, j.jam_ke)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+    const list = `<div class="jlist"><div class="tabs">${[1, 2, 3, 4, 5, 6].map(h => `<button class="tab ${f.hari === h ? 'on' : ''}" data-act="jHari" data-h="${h}">${HARI[h].slice(0, 3)}</button>`).join('')}</div>
+    ${D.jam_pelajaran.map(j => `<div class="jrow"><div class="jt"><b>${j.jam_ke}</b><small>${hm(j.mulai)}</small></div>${cell(f.hari, j.jam_ke)}</div>`).join('')}</div>`;
+    const tot = D.jadwal.length;
+    return `${phead('Jadwal Pelajaran', adm ? `${tot} jam mengajar/minggu` : `${tot} jam mengajar Anda/minggu`, adm ? `<button class="btn pri" data-act="edit" data-t="jadwal">${ic('plus', 16)} Tambah Jadwal</button>` : roTag('Diatur oleh Admin'))}
+    <div class="card"><div class="toolbar"><select class="inp" data-ch="set" data-p="jf.kelas">${optHTML(kOpts(), f.kelas, 'Semua kelas')}</select><span class="muted">${adm ? 'Klik kotak untuk mengubah, atau tanda + untuk menambah. Guru pengampu tampil di tiap kotak.' : 'Jadwal mengajar Anda sesuai mapel & kelas yang ditugaskan Admin.'}</span></div>${grid}${list}</div>`;
+  }
+};
+ACT.jHari = el => { S.jf.hari = Number(el.dataset.h); renderView(true); };
+
+
+/* ====================== MATA PELAJARAN & PENGAMPU ====================== */
+const kelasUrut = () => [...D.kelas].sort((a, b) => a.tingkat - b.tingkat || a.nama.localeCompare(b.nama, 'id'));
+function pengampuChips(mid) {
+  const by = new Map();
+  D.penugasan.filter(p => p.mapel_id === mid).forEach(p => { const a = by.get(p.guru_id) || []; a.push(K(p.kelas_id)); by.set(p.guru_id, a); });
+  if (!by.size) return '<span class="muted">Belum ada pengampu</span>';
+  return `<div class="chips">${[...by].map(([g, ks]) => `<span class="chip"><b>${esc(guruShort(g))}</b><small>${ks.filter(Boolean).sort((a, b) => a.nama.localeCompare(b.nama, 'id')).map(k => esc(k.nama)).join(', ')}</small></span>`).join('')}</div>`;
+}
+PAGES.mapel = {
+  async render() {
+    if (!isAdmin()) return mapelGuru();
+    const tab = S.pm.tab, nP = D.penugasan.length;
+    const tabs = `<div class="tabs"><button class="tab ${tab === 'daftar' ? 'on' : ''}" data-act="tab" data-p="pm.tab" data-v="daftar">Daftar Mapel</button><button class="tab ${tab === 'matriks' ? 'on' : ''}" data-act="tab" data-p="pm.tab" data-v="matriks">Matriks Pengampu</button></div>`;
+    const head = phead('Mata Pelajaran', `${D.mapel.length} mapel • ${nP} penugasan`, `<button class="btn pri" data-act="edit" data-t="mapel">${ic('plus', 16)} Tambah Mapel</button>`);
+    if (!D.mapel.length) return `${head}<div class="card">${empty('grad', 'Belum ada mata pelajaran', '', `<button class="btn pri" data-act="edit" data-t="mapel">${ic('plus', 16)} Tambah Mapel</button>`)}</div>`;
+    let body;
+    if (tab === 'matriks') {
+      const kl = kelasUrut();
+      body = kl.length ? `<p class="muted" style="margin-bottom:10px">Klik sel untuk mengatur kelas & guru mata pelajaran tersebut.</p><div class="tbl-wrap"><table class="matrix pgm"><thead><tr><th class="nm">Mata Pelajaran</th>${kl.map(k => `<th>${esc(k.nama)}</th>`).join('')}</tr></thead><tbody>
+      ${D.mapel.map(m => `<tr><td class="nm"><b style="color:var(--ink)">${esc(m.nama)}</b></td>${kl.map(k => { const p = pgOf(m.id, k.id); return `<td class="pg ${p ? 'has' : ''}" data-act="pengampu" data-id="${m.id}" title="Atur pengampu ${esc(m.nama)}">${p ? esc(guruShort(p.guru_id)) : '·'}</td>`; }).join('')}</tr>`).join('')}</tbody></table></div>` : empty('school', 'Belum ada kelas', 'Tambahkan kelas di menu Data Kelas.');
+    } else {
+      body = `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Kode</th><th>Mata Pelajaran</th><th class="c">KKM</th><th>Guru & Kelas Pengampu</th><th></th></tr></thead><tbody>
+      ${D.mapel.map(m => `<tr><td class="muted">${esc(m.kode || '-')}</td><td><b>${esc(m.nama)}</b></td><td class="c">${m.kkm ?? '-'}</td><td>${pengampuChips(m.id)}</td>
+      <td class="r"><button class="btn sm pri" data-act="pengampu" data-id="${m.id}">${ic('check', 14)} Atur Pengampu</button><button class="ib" data-act="edit" data-t="mapel" data-id="${m.id}" title="Ubah mapel">${ic('edit', 16)}</button><button class="ib bad" data-act="del" data-t="mapel" data-id="${m.id}" data-rl="mapel,jadwal,penugasan" data-msg="Hapus mapel ${esc(m.nama)}? Penugasan, jadwal, jurnal, absensi dan nilai mapel ini ikut terhapus." title="Hapus">${ic('trash', 16)}</button></td></tr>`).join('')}</tbody></table></div>`;
+    }
+    return `${head}${tabs}<div class="card">${body}</div>`;
+  }
+};
+function mapelGuru() {
+  const ms = [...D.mapel].sort(byNama), wali = D.siswa.filter(s => s.bimbingan_wali && s.guru_wali_id === ME() && s.aktif !== false).length;
+  const head = phead('Mapel Saya', `${ms.length} mata pelajaran`, roTag('Ditetapkan oleh Admin'));
+  if (!ms.length) return `${head}<div class="card">${empty('grad', 'Belum ada mata pelajaran untuk Anda', 'Admin menetapkan mapel & kelas Anda di menu Mata Pelajaran. Hubungi Admin sekolah.')}</div>`;
+  return `${head}${wali ? `<div class="note" style="margin:0 0 14px">Anda juga guru wali untuk <b>${wali} siswa</b> (menu Bimbingan Wali).</div>` : ''}
+  <div style="display:grid;gap:14px">${ms.map(m => {
+    const ps = D.penugasan.filter(p => p.mapel_id === m.id && K(p.kelas_id)).sort((a, b) => K(a.kelas_id).tingkat - K(b.kelas_id).tingkat || K(a.kelas_id).nama.localeCompare(K(b.kelas_id).nama, 'id'));
+    return `<div class="card"><div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">${bub('grad', 'g-coral')}<div style="flex:1"><h3 style="color:var(--ink);font-size:16px">${esc(m.nama)}</h3><span class="muted">${esc(m.kode || '')}${m.kode ? ' • ' : ''}KKM ${m.kkm ?? '-'}</span></div></div>
+    <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Kelas</th><th class="c">Siswa</th><th class="c">Jam/minggu</th><th></th></tr></thead><tbody>${ps.map(p => {
+      const n = D.siswa.filter(s => s.kelas_id === p.kelas_id && s.aktif !== false).length, jm = D.jadwal.filter(j => j.kelas_id === p.kelas_id && j.mapel_id === m.id).length;
+      return `<tr><td><span class="badge b-vio">Kelas ${esc(K(p.kelas_id).nama)}</span></td><td class="c">${n}</td><td class="c">${jm}</td><td class="r">
+      <button class="btn sm" data-act="gotoWork" data-to="absensi" data-k="${p.kelas_id}" data-m="${m.id}">Absensi</button><button class="btn sm" data-act="gotoWork" data-to="jurnal" data-k="${p.kelas_id}" data-m="${m.id}">Jurnal</button><button class="btn sm" data-act="gotoWork" data-to="nilai" data-k="${p.kelas_id}" data-m="${m.id}">Nilai</button></td></tr>`;
+    }).join('')}</tbody></table></div></div>`;
+  }).join('')}</div>`;
+}
+ACT.gotoWork = el => {
+  const { to, k, m } = el.dataset;
+  if (to === 'absensi') Object.assign(S.ab, { tab: 'input', kelas: k, mapel: m });
+  if (to === 'jurnal') Object.assign(S.jr, { kelas: k, mapel: m });
+  if (to === 'nilai') Object.assign(S.nl, { tab: 'input', kelas: k, mapel: m });
+  go(to);
+};
+/* --- ceklist kelas + pilih guru untuk satu mata pelajaran --- */
+const pgRowSet = (row, on) => {
+  const cb = row.querySelector('input[type=checkbox]'), sel = row.querySelector('select'); cb.checked = on; row.classList.toggle('on', on); sel.disabled = !on;
+  if (on && !sel.value) { const g = guruOpts(); sel.value = (S._pgLast && g.some(x => x.v === S._pgLast)) ? S._pgLast : (g.length === 1 ? g[0].v : ''); }
+};
+ACT.pengampu = el => {
+  if (!adminOnly()) return;
+  const m = M(el.dataset.id); if (!m) return;
+  const guru = guruOpts();
+  if (!guru.length) { toast('Belum ada akun guru. Tambahkan dulu di Pengaturan → Akun.', 'bad'); return; }
+  if (!D.kelas.length) { toast('Belum ada kelas. Tambahkan dulu di menu Data Kelas.', 'bad'); return; }
+  const ex = new Map(D.penugasan.filter(p => p.mapel_id === m.id).map(p => [p.kelas_id, p.guru_id]));
+  const rows = kelasUrut().map(k => { const on = ex.has(k.id);
+    return `<div class="pgrow ${on ? 'on' : ''}"><label class="sw"><input type="checkbox" name="k_${k.id}" data-ch="pgToggle"${on ? ' checked' : ''}> <b>Kelas ${esc(k.nama)}</b></label><select class="inp" name="g_${k.id}" data-ch="pgGuru"${on ? '' : ' disabled'}>${optHTML(guru, ex.get(k.id) || '', '— Pilih guru —')}</select></div>`; }).join('');
+  openModal(`Pengampu — ${esc(m.nama)}`, `<form data-form="pengampu" data-id="${m.id}"><p class="muted" style="margin-bottom:12px">Centang kelas yang diajar mata pelajaran ini, lalu pilih guru pengampunya per kelas. Guru hanya melihat mapel & kelas yang dicentang untuknya.</p>
+  <div class="toolbar"><button type="button" class="btn sm" data-act="pgAll" data-v="1">Centang semua kelas</button><button type="button" class="btn sm ghost" data-act="pgAll" data-v="0">Kosongkan</button></div>
+  <div class="pglist">${rows}</div>
+  <div class="m-f" style="padding:16px 0 4px"><span class="sp"></span><button type="button" class="btn ghost" data-act="closeModal">Batal</button><button class="btn pri" type="submit">Simpan Pengampu</button></div></form>`, { wide: true });
+};
+CH.pgToggle = el => pgRowSet(el.closest('.pgrow'), el.checked);
+CH.pgGuru = el => { if (el.value) S._pgLast = el.value; };
+ACT.pgAll = el => $$('.pgrow').forEach(r => pgRowSet(r, el.dataset.v === '1'));
+FORM.pengampu = async f => {
+  if (!isAdmin()) return;
+  const mid = f.dataset.id, m = M(mid), btn = f.querySelector('[type=submit]'); btn.disabled = true;
+  try {
+    const want = new Map();
+    D.kelas.forEach(k => { const c = f.elements['k_' + k.id]; if (c && c.checked) { const g = f.elements['g_' + k.id].value; if (!g) throw new Error(`Pilih guru untuk kelas ${k.nama}`); want.set(k.id, g); } });
+    const cur = D.penugasan.filter(p => p.mapel_id === mid);
+    const lepas = cur.filter(p => !want.has(p.kelas_id)), ganti = cur.filter(p => want.has(p.kelas_id) && want.get(p.kelas_id) !== p.guru_id), baru = [...want.keys()].filter(k => !cur.some(p => p.kelas_id === k));
+    for (const p of ganti) {
+      const g = want.get(p.kelas_id);
+      for (const j of D.jadwal.filter(x => x.mapel_id === mid && x.kelas_id === p.kelas_id)) {
+        const bt = D.jadwal.find(x => x.hari === j.hari && x.jam_ke === j.jam_ke && x.id !== j.id && x.kelas_id !== j.kelas_id && guruIdOf(x.mapel_id, x.kelas_id) === g);
+        if (bt) throw new Error(`${guruNama(g)} sudah mengajar di kelas ${K(bt.kelas_id)?.nama} pada ${HARI[j.hari]} jam ke-${j.jam_ke}; jadwal bentrok.`);
+      }
+    }
+    const jdLepas = D.jadwal.filter(j => j.mapel_id === mid && lepas.some(p => p.kelas_id === j.kelas_id));
+    if (lepas.length && !await confirmBox(`Lepas ${m.nama} dari kelas ${lepas.map(p => K(p.kelas_id)?.nama).join(', ')}?${jdLepas.length ? ` ${jdLepas.length} jam jadwal ikut dihapus.` : ''} Jurnal, absensi & nilai yang sudah ada tetap tersimpan (terlihat oleh Admin).`, 'Lepas')) { btn.disabled = false; return; }
+    if (jdLepas.length) await dbDelete('jadwal', [['id', 'in', jdLepas.map(j => j.id)]]);
+    if (lepas.length) await dbDelete('penugasan', [['id', 'in', lepas.map(p => p.id)]]);
+    const up = [...want].filter(([k]) => baru.includes(k) || ganti.some(p => p.kelas_id === k)).map(([k, g]) => ({ mapel_id: mid, kelas_id: k, guru_id: g }));
+    if (up.length) await dbUpsert('penugasan', up, 'mapel_id,kelas_id');
+    await reload('penugasan', 'jadwal'); closeModal(); toast('Pengampu tersimpan'); renderView(true);
+  } catch (e) { toastErr(e); btn.disabled = false; }
+};
+ACT.tab = el => { setPath(S, el.dataset.p, el.dataset.v); renderView(true); };
+const monthRange = bln => { const [y, m] = bln.split('-').map(Number); return [`${bln}-01`, `${bln}-${pad(new Date(y, m, 0).getDate())}`]; };
+
+/* ============================ JURNAL MENGAJAR ============================ */
+EDIT.jurnal = async (id, ds = {}) => {
+  if (isAdmin()) { toast('Jurnal diinput oleh guru. Admin hanya dapat melihat rekap.', 'bad'); return; }
+  let rec = null;
+  if (id) rec = (S._jrRows || []).find(x => x.id === id) || (await dbList('jurnal', { f: [['id', 'eq', id]] }))[0];
+  const opts = kmOpts();
+  if (!opts.length) { toast('Anda belum memiliki mapel & kelas. Hubungi Admin untuk penugasan di menu Mata Pelajaran.', 'bad'); return; }
+  const recKm = rec ? `${rec.kelas_id}|${rec.mapel_id}` : '';
+  if (rec && !opts.some(o => o.v === recKm)) opts.push({ v: recKm, l: `${(K(rec.kelas_id) || {}).nama || '-'} — ${(M(rec.mapel_id) || {}).nama || '-'}` });
+  const fields = [
+    { k: 'tanggal', l: 'Tanggal', t: 'date', req: 1 },
+    { k: 'jam_ke', l: 'Jam ke-', ph: 'mis. 1-2' },
+    { k: 'km', l: 'Kelas — Mata Pelajaran', t: 'select', req: 1, o: opts, ph: '— Pilih —', w: 'full' },
+    { k: 'materi', l: 'Materi / Topik Pembelajaran', t: 'textarea', req: 1, rows: 2, w: 'full', ph: 'Materi yang diajarkan' },
+    { k: 'kegiatan', l: 'Kegiatan Pembelajaran', t: 'textarea', rows: 3, w: 'full', ph: 'Metode & langkah kegiatan' },
+    { k: 'catatan', l: 'Catatan / Refleksi', t: 'textarea', rows: 2, w: 'full', ph: 'Kendala, tindak lanjut, siswa yang perlu perhatian' }
+  ];
+  const pre = ds.kelas_id && ds.mapel_id ? `${ds.kelas_id}|${ds.mapel_id}` : (S.jr.kelas && S.jr.mapel ? `${S.jr.kelas}|${S.jr.mapel}` : (opts.length === 1 ? opts[0].v : ''));
+  openForm({
+    title: rec ? 'Ubah Jurnal' : 'Tulis Jurnal Mengajar', fields, wide: true,
+    values: rec ? { ...rec, km: recKm } : { tanggal: ds.tanggal || today(), km: pre, jam_ke: ds.jam_ke || '' },
+    onSubmit: async v => {
+      const [kelas_id, mapel_id] = kmSplit(v.km), { km, ...rest } = v, row = { ...rest, kelas_id, mapel_id };
+      if (rec) await dbUpdate('jurnal', rec.id, row); else await dbInsert('jurnal', [row]);
+      toast('Jurnal tersimpan'); renderView(true);
+    },
+    onDelete: rec ? async () => { await dbDelete('jurnal', [['id', 'eq', rec.id]]); toast('Jurnal dihapus'); renderView(true); } : null
+  });
+};
+async function jurnalRows() {
+  const j = S.jr; j.bln = j.bln || today().slice(0, 7);
+  const [a, b] = monthRange(j.bln), f = [['tanggal', 'gte', a], ['tanggal', 'lte', b]];
+  if (j.kelas) f.push(['kelas_id', 'eq', j.kelas]); if (j.mapel) f.push(['mapel_id', 'eq', j.mapel]);
+  S._jrRows = await dbList('jurnal', { f, order: [['tanggal', false], ['created_at', false]] });
+  if (isAdmin() && j.guru) S._jrRows = S._jrRows.filter(r => guruIdOf(r.mapel_id, r.kelas_id) === j.guru);
+  return S._jrRows;
+}
+PAGES.jurnal = {
+  async render() {
+    const j = S.jr, adm = isAdmin();
+    if (j.kelas && !kelasScope().some(k => k.id === j.kelas)) j.kelas = '';
+    if (j.mapel && j.kelas && !mapelFor(j.kelas).some(m => m.id === j.mapel)) j.mapel = '';
+    const rows = await jurnalRows();
+    const body = rows.map(r => `<tr><td style="white-space:nowrap"><b>${fmtD(r.tanggal)}</b><br><small class="muted">${HARI[hariIdx(r.tanggal)]}</small></td><td><span class="badge b-vio">${esc(K(r.kelas_id)?.nama || '-')}</span></td><td>${esc(M(r.mapel_id)?.nama || '-')}</td>${adm ? `<td>${esc(guruShort(guruIdOf(r.mapel_id, r.kelas_id)))}</td>` : ''}<td class="c">${esc(r.jam_ke || '-')}</td>
+      <td style="min-width:220px"><b>${esc(r.materi)}</b>${r.kegiatan ? `<br><small class="muted">${esc(r.kegiatan)}</small>` : ''}${r.catatan ? `<br><small style="color:var(--pink2)">Catatan: ${esc(r.catatan)}</small>` : ''}</td>
+      ${adm ? '' : `<td class="r"><button class="ib" data-act="edit" data-t="jurnal" data-id="${r.id}">${ic('edit', 16)}</button><button class="ib bad" data-act="del" data-t="jurnal" data-id="${r.id}" data-rl="kelas" data-msg="Hapus jurnal ini?">${ic('trash', 16)}</button></td>`}</tr>`).join('');
+    const mapelAll = (j.kelas ? mapelFor(j.kelas) : [...D.mapel].sort(byNama)).map(m => ({ v: m.id, l: m.nama }));
+    return `${phead(adm ? 'Rekap Jurnal Mengajar' : 'Jurnal Mengajar', `${rows.length} jurnal`, `${adm ? roTag('Diisi oleh guru') : ''}<button class="btn" data-act="jrPrint">${ic('print', 16)} Cetak</button><button class="btn" data-act="jrCsv">${ic('dl', 16)} Ekspor</button>${adm ? '' : `<button class="btn pri" data-act="edit" data-t="jurnal">${ic('plus', 16)} Tulis Jurnal</button>`}`)}
+    <div class="card"><div class="toolbar"><input class="inp" type="month" value="${j.bln}" data-ch="set" data-p="jr.bln">
+    <select class="inp" data-ch="set" data-p="jr.kelas">${optHTML(kOpts(), j.kelas, 'Semua kelas')}</select>
+    <select class="inp" data-ch="set" data-p="jr.mapel">${optHTML(mapelAll, j.mapel, 'Semua mapel')}</select>
+    ${adm ? `<select class="inp" data-ch="set" data-p="jr.guru">${optHTML(guruOpts(), j.guru, 'Semua guru')}</select>` : ''}</div>
+    ${rows.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Tanggal</th><th>Kelas</th><th>Mapel</th>${adm ? '<th>Guru</th>' : ''}<th class="c">Jam</th><th>Materi & Kegiatan</th>${adm ? '' : '<th></th>'}</tr></thead><tbody>${body}</tbody></table></div>` : empty('book', 'Belum ada jurnal', adm ? 'Tidak ada jurnal dari guru pada filter ini.' : 'Tidak ada jurnal pada filter ini.', adm ? '' : `<button class="btn pri" data-act="edit" data-t="jurnal">${ic('plus', 16)} Tulis Jurnal</button>`)}</div>`;
+  }
+};
+const jrTable = () => ({ head: ['No', 'Tanggal', 'Kelas', 'Mapel', ...(isAdmin() ? ['Guru'] : []), 'Jam', 'Materi', 'Kegiatan', 'Catatan'], rows: (S._jrRows || []).slice().reverse().map((r, i) => [i + 1, fmtD(r.tanggal), K(r.kelas_id)?.nama, M(r.mapel_id)?.nama, ...(isAdmin() ? [guruShort(guruIdOf(r.mapel_id, r.kelas_id))] : []), r.jam_ke, r.materi, r.kegiatan, r.catatan]) });
+ACT.jrCsv = () => { const t = jrTable(); download(`jurnal-${S.jr.bln}.csv`, toCSV([t.head, ...t.rows])); };
+ACT.jrPrint = () => { const t = jrTable(), [y, m] = S.jr.bln.split('-'), j = S.jr, gid = isAdmin() ? (j.guru || (j.kelas && j.mapel ? guruIdOf(j.mapel, j.kelas) : null)) : null; printHTML(`JURNAL MENGAJAR — ${BLN[Number(m) - 1].toUpperCase()} ${y}`, tableHTML(t.head, t.rows), true, guruTtd(gid)); };
+
+/* ============================== DAFTAR HADIR ============================== */
+function abDefaults() {
+  const a = S.ab; a.tgl = a.tgl || today();
+  if (isAdmin()) a.tab = 'rekap';
+  const ks = kelasScope();
+  if (!a.kelas || !ks.some(k => k.id === a.kelas)) a.kelas = ks[0]?.id || '';
+  if (!a.mapel || !mapelFor(a.kelas).some(m => m.id === a.mapel)) a.mapel = mapelFor(a.kelas)[0]?.id || '';
+  a.rk = a.rk || { dari: today().slice(0, 8) + '01', sampai: today(), kelas: '', mapel: undefined };
+  if (!a.rk.kelas || !ks.some(k => k.id === a.rk.kelas)) a.rk.kelas = a.kelas;
+  const mk = mapelFor(a.rk.kelas);
+  if (a.rk.mapel === undefined || (a.rk.mapel && !mk.some(m => m.id === a.rk.mapel))) a.rk.mapel = isAdmin() ? '' : (mk.some(m => m.id === a.mapel) ? a.mapel : (mk[0]?.id || ''));
+}
+const abCountsHTML = () => {
+  const c = { H: 0, S: 0, I: 0, A: 0, D: 0 }; Object.values(S.ab.stat || {}).forEach(x => c[x.st]++);
+  return Object.keys(STATUS).map(k => `<span class="cnt"><i class="${k}">${k}</i>${STATUS[k]} ${c[k]}</span>`).join('') + `<span class="cnt">Total ${Object.keys(S.ab.stat || {}).length}</span>`;
+};
+async function abInput() {
+  const { tgl, kelas, mapel } = S.ab;
+  if (!kelas || !mapel) return empty('check', 'Belum ada mapel & kelas', 'Admin perlu menetapkan mapel dan kelas Anda di menu Mata Pelajaran.');
+  const sis = D.siswa.filter(s => s.kelas_id === kelas && s.aktif !== false).sort(byNama);
+  if (!sis.length) return empty('users', 'Kelas ini belum memiliki siswa', 'Admin perlu menambahkan atau mengimpor siswa terlebih dahulu.');
+  const ex = await dbList('absensi', { f: [['tanggal', 'eq', tgl], ['kelas_id', 'eq', kelas], ['mapel_id', 'eq', mapel]] });
+  const em = new Map(ex.map(x => [x.siswa_id, x]));
+  S.ab.stat = {}; sis.forEach(s => { const e = em.get(s.id); S.ab.stat[s.id] = { st: e ? e.status : 'H', ket: e?.keterangan || '' }; });
+  S.ab.saved = ex.length > 0;
+  return `${hariIdx(tgl) === 7 ? '<div class="note" style="margin:0 0 12px">Tanggal ini jatuh pada hari Minggu.</div>' : ''}
+  <div class="toolbar"><span class="badge ${S.ab.saved ? 'b-ok' : 'b-warn'}">${S.ab.saved ? '✓ Sudah tersimpan' : 'Belum disimpan'}</span><span class="sp"></span><button class="btn sm" data-act="abAll">Semua Hadir</button><button class="btn pri" data-act="abSave">${ic('ok', 16)} Simpan Absensi</button></div>
+  <div class="counts" id="abCnt">${abCountsHTML()}</div>
+  <div class="tbl-wrap"><table class="tbl"><thead><tr><th class="c">No</th><th>Nama Siswa</th><th>Kehadiran</th><th>Keterangan</th></tr></thead><tbody>
+  ${sis.map((s, i) => `<tr data-sid="${s.id}"><td class="c muted">${i + 1}</td><td><div class="who">${avatar(s.nama)}<div><b>${esc(s.nama)}</b><small>${esc(s.nis || '')}</small></div></div></td>
+  <td><div class="seg">${Object.keys(STATUS).map(k => `<button class="${k} ${S.ab.stat[s.id].st === k ? 'on' : ''}" data-act="abSet" data-sid="${s.id}" data-st="${k}" title="${STATUS[k]}">${k}</button>`).join('')}</div></td>
+  <td><input class="inp ket" data-in="abKet" data-sid="${s.id}" value="${esc(S.ab.stat[s.id].ket)}" placeholder="Opsional"></td></tr>`).join('')}</tbody></table></div>`;
+}
+ACT.abSet = el => {
+  const { sid, st } = el.dataset; S.ab.stat[sid].st = st;
+  el.closest('tr').querySelectorAll('.seg button').forEach(b => b.classList.toggle('on', b.dataset.st === st));
+  $('#abCnt').innerHTML = abCountsHTML();
+};
+INP.abKet = el => { if (S.ab.stat[el.dataset.sid]) S.ab.stat[el.dataset.sid].ket = el.value; };
+ACT.abAll = () => { Object.values(S.ab.stat).forEach(x => x.st = 'H'); $$('tr[data-sid]').forEach(tr => tr.querySelectorAll('.seg button').forEach(b => b.classList.toggle('on', b.dataset.st === 'H'))); $('#abCnt').innerHTML = abCountsHTML(); };
+ACT.abSave = async el => {
+  const { tgl, kelas, mapel } = S.ab; el.disabled = true;
+  try {
+    const rows = Object.entries(S.ab.stat).map(([siswa_id, x]) => ({ tanggal: tgl, kelas_id: kelas, mapel_id: mapel, siswa_id, status: x.st, keterangan: x.ket ? x.ket.trim() || null : null }));
+    await dbUpsert('absensi', rows, 'tanggal,kelas_id,mapel_id,siswa_id');
+    toast(`Absensi ${rows.length} siswa tersimpan`); renderView(true);
+  } catch (e) { toastErr(e); el.disabled = false; }
+};
+async function abRekap() {
+  const r = S.ab.rk;
+  if (!r.kelas) return empty('check', isAdmin() ? 'Belum ada kelas' : 'Belum ada kelas untuk Anda', isAdmin() ? 'Tambahkan kelas di menu Data Kelas.' : 'Admin menetapkan mapel & kelas Anda di menu Mata Pelajaran.');
+  const f = [['kelas_id', 'eq', r.kelas], ['tanggal', 'gte', r.dari], ['tanggal', 'lte', r.sampai]];
+  if (r.mapel) f.push(['mapel_id', 'eq', r.mapel]);
+  const data = await dbList('absensi', { f, order: [['tanggal']] });
+  const sis = D.siswa.filter(s => s.kelas_id === r.kelas && s.aktif !== false).sort(byNama);
+  const dates = [...new Set(data.map(x => x.tanggal))].sort(), showM = !!r.mapel && dates.length > 0 && dates.length <= 31;
+  const idx = {}; data.forEach(x => (idx[x.siswa_id] = idx[x.siswa_id] || []).push(x));
+  const rows = sis.map((s, i) => {
+    const rec = idx[s.id] || [], c = { H: 0, S: 0, I: 0, A: 0, D: 0 }, by = {};
+    rec.forEach(x => { c[x.status]++; by[x.tanggal] = x.status; });
+    return { s, c, tot: rec.length, pct: rec.length ? Math.round((c.H + c.D) / rec.length * 100) : null, by, no: i + 1 };
+  });
+  const head = ['No', 'NIS', 'Nama', ...(showM ? dates.map(d => `${pd(d).getDate()}/${pd(d).getMonth() + 1}`) : []), 'H', 'S', 'I', 'A', 'D', '% Hadir'];
+  const body = rows.map(x => [x.no, x.s.nis || '', x.s.nama, ...(showM ? dates.map(d => x.by[d] || '') : []), x.c.H, x.c.S, x.c.I, x.c.A, x.c.D, x.pct == null ? '-' : x.pct + '%']);
+  S._rk = { head, body, kelas: K(r.kelas)?.nama, mapel: r.mapel ? M(r.mapel)?.nama : 'Semua Mapel', gid: r.mapel ? guruIdOf(r.mapel, r.kelas) : null };
+  const tot = { H: 0, S: 0, I: 0, A: 0, D: 0 }; rows.forEach(x => Object.keys(tot).forEach(k => tot[k] += x.c[k]));
+  const all = Object.values(tot).reduce((a, b) => a + b, 0), pAll = all ? Math.round((tot.H + tot.D) / all * 100) : null;
+  if (!data.length) return empty('check', 'Belum ada data absensi', 'Tidak ada data pada rentang/kelas/mapel ini.');
+  return `<div class="counts"><span class="cnt">${dates.length} hari pertemuan</span>${Object.keys(STATUS).map(k => `<span class="cnt"><i class="${k}">${k}</i>${STATUS[k]} ${tot[k]}</span>`).join('')}<span class="cnt">Kehadiran ${pAll}%</span></div>
+  ${!showM ? `<p class="muted" style="margin-bottom:8px">${r.mapel ? 'Rentang lebih dari 31 hari — hanya total yang ditampilkan.' : 'Pilih satu mapel untuk melihat tabel harian.'}</p>` : ''}
+  <div class="tbl-wrap"><table class="matrix"><thead><tr><th class="nm">Nama Siswa</th>${showM ? dates.map(d => `<th>${pd(d).getDate()}<br><small>${HARI[hariIdx(d)].slice(0, 3)}</small></th>`).join('') : ''}<th>H</th><th>S</th><th>I</th><th>A</th><th>D</th><th>%</th></tr></thead><tbody>
+  ${rows.map(x => `<tr><td class="nm"><b style="color:var(--ink)">${x.no}. ${esc(x.s.nama)}</b></td>${showM ? dates.map(d => `<td class="m-${x.by[d] || ''}">${x.by[d] || '·'}</td>`).join('') : ''}<td>${x.c.H}</td><td>${x.c.S}</td><td>${x.c.I}</td><td>${x.c.A}</td><td>${x.c.D}</td><td><span class="badge ${x.pct == null ? '' : x.pct >= 90 ? 'b-ok' : x.pct >= 75 ? 'b-warn' : 'b-bad'}">${x.pct == null ? '-' : x.pct + '%'}</span></td></tr>`).join('')}</tbody></table></div>
+  <p class="muted" style="margin-top:8px;font-size:12px">% hadir = (Hadir + Dispensasi) ÷ total pertemuan siswa.</p>`;
+}
+PAGES.absensi = {
+  async render() {
+    abDefaults(); const a = S.ab, r = a.rk, adm = isAdmin();
+    const tabs = adm ? '' : `<div class="tabs"><button class="tab ${a.tab === 'input' ? 'on' : ''}" data-act="tab" data-p="ab.tab" data-v="input">Input Absensi</button><button class="tab ${a.tab === 'rekap' ? 'on' : ''}" data-act="tab" data-p="ab.tab" data-v="rekap">Rekap Kehadiran</button></div>`;
+    if (a.tab === 'input') {
+      return `${phead('Daftar Hadir', fmtLong(a.tgl))}${tabs}<div class="card"><div class="toolbar"><input class="inp" type="date" value="${a.tgl}" data-ch="set" data-p="ab.tgl">${selCtl('ab.kelas', kOpts(), a.kelas)}${selCtl('ab.mapel', mOpts(a.kelas), a.mapel)}</div>${await abInput()}</div>`;
+    }
+    const sm = today().slice(5, 7) >= '07' ? [today().slice(0, 4) + '-07-01', today().slice(0, 4) + '-12-31'] : [(Number(today().slice(0, 4)) - 0) + '-01-01', today().slice(0, 4) + '-06-30'];
+    return `${phead('Rekap Kehadiran', K(r.kelas) ? `Kelas ${K(r.kelas).nama}` : '', `${adm ? roTag('Diisi oleh guru') : ''}<button class="btn" data-act="rkPrint">${ic('print', 16)} Cetak</button><button class="btn" data-act="rkCsv">${ic('dl', 16)} Ekspor</button>`)}${tabs}
+    <div class="card"><div class="toolbar">${selCtl('ab.rk.kelas', kOpts(), r.kelas)}${selCtl('ab.rk.mapel', mOpts(r.kelas), r.mapel, 'Semua mapel')}${adm && r.mapel ? `<span class="badge b-vio">Guru: ${esc(guruNama(guruIdOf(r.mapel, r.kelas)))}</span>` : ''}<input class="inp" type="date" value="${r.dari}" data-ch="set" data-p="ab.rk.dari"><span class="muted">s/d</span><input class="inp" type="date" value="${r.sampai}" data-ch="set" data-p="ab.rk.sampai">
+    <button class="btn sm ghost" data-act="rkRange" data-a="${today().slice(0, 8)}01" data-b="${today()}">Bulan ini</button><button class="btn sm ghost" data-act="rkRange" data-a="${sm[0]}" data-b="${sm[1]}">Semester ini</button></div>${await abRekap()}</div>`;
+  }
+};
+ACT.rkRange = el => { S.ab.rk.dari = el.dataset.a; S.ab.rk.sampai = el.dataset.b; renderView(true); };
+ACT.rkCsv = () => { const t = S._rk; if (!t) return; download(`rekap-hadir-${t.kelas}.csv`, toCSV([t.head, ...t.body])); };
+ACT.rkPrint = () => { const t = S._rk; if (!t) return; printHTML(`REKAP KEHADIRAN SISWA — KELAS ${t.kelas} • ${t.mapel}`, `<p class="meta">Periode ${fmtD(S.ab.rk.dari)} s/d ${fmtD(S.ab.rk.sampai)}</p>${tableHTML(t.head, t.body)}`, t.head.length > 12, guruTtd(isAdmin() ? t.gid : null)); };
+
+/* ================================ BUKU NILAI ================================ */
+const predikat = (n, kkm) => n >= 90 ? 'A' : n >= Math.max(kkm, 80) ? 'B' : n >= kkm ? 'C' : 'D';
+function nilaiAkhir(avg) {
+  const ws = JENIS.map(j => Number(D.sekolah[BOBOT_KEY[j]]) || 0), allZero = ws.every(w => !w);
+  let sw = 0, sum = 0;
+  JENIS.forEach((j, i) => { if (avg[j] == null) return; const w = allZero ? 1 : ws[i]; sw += w; sum += avg[j] * w; });
+  return sw ? sum / sw : null;
+}
+function nlDefaults() {
+  const n = S.nl; if (isAdmin()) n.tab = 'rekap';
+  const ks = kelasScope();
+  if (!n.kelas || !ks.some(k => k.id === n.kelas)) n.kelas = ks[0]?.id || '';
+  if (!n.mapel || !mapelFor(n.kelas).some(m => m.id === n.mapel)) n.mapel = mapelFor(n.kelas)[0]?.id || '';
+}
+async function nlData() {
+  const { kelas, mapel } = S.nl, ta = taAktif();
+  const f = [['kelas_id', 'eq', kelas], ['mapel_id', 'eq', mapel]]; if (ta) f.push(['tahun_ajaran_id', 'eq', ta.id]);
+  const pen = await dbList('penilaian', { f, order: [['tanggal'], ['created_at']] }); S._pen = pen;
+  const nilai = pen.length ? await dbList('nilai', { f: [['penilaian_id', 'in', pen.map(p => p.id)]] }) : [];
+  const nm = new Map(nilai.map(x => [x.penilaian_id + ':' + x.siswa_id, x.nilai]));
+  return { pen, nm, sis: D.siswa.filter(s => s.kelas_id === kelas && s.aktif !== false).sort(byNama) };
+}
+EDIT.penilaian = id => {
+  if (isAdmin()) { toast('Penilaian diinput oleh guru. Admin hanya dapat melihat rekap.', 'bad'); return; }
+  const rec = id ? (S._pen || []).find(p => p.id === id) : null, { kelas, mapel } = S.nl, ta = taAktif();
+  openForm({
+    title: rec ? 'Ubah Penilaian' : 'Penilaian Baru', fields: [
+      { k: 'jenis', l: 'Jenis', t: 'select', req: 1, o: JENIS.map(j => ({ v: j, l: j })) },
+      { k: 'tanggal', l: 'Tanggal', t: 'date', req: 1 },
+      { k: 'judul', l: 'Judul / Keterangan', req: 1, w: 'full', ph: 'mis. UH 2 - Aljabar' }],
+    values: rec || { jenis: 'Tugas', tanggal: today() },
+    onSubmit: async v => {
+      if (rec) await dbUpdate('penilaian', rec.id, v); else await dbInsert('penilaian', [{ ...v, kelas_id: kelas, mapel_id: mapel, tahun_ajaran_id: ta ? ta.id : null }]);
+      toast('Penilaian tersimpan'); renderView(true);
+    },
+    onDelete: rec ? async () => { await dbDelete('penilaian', [['id', 'eq', rec.id]]); toast('Penilaian dihapus'); renderView(true); } : null
+  });
+};
+async function nlInput() {
+  const { kelas, mapel } = S.nl;
+  if (!kelas || !mapel) return empty('chart', 'Belum ada mapel & kelas', 'Admin perlu menetapkan mapel dan kelas Anda di menu Mata Pelajaran.');
+  const { pen, nm, sis } = await nlData();
+  if (!sis.length) return empty('users', 'Kelas ini belum memiliki siswa', 'Admin perlu menambahkan siswa ke kelas ini.');
+  if (!pen.length) return empty('chart', 'Belum ada penilaian', 'Buat penilaian pertama (Tugas, UH, UTS, UAS atau Praktik).', `<button class="btn pri" data-act="edit" data-t="penilaian">${ic('plus', 16)} Penilaian Baru</button>`);
+  const kkm = kkmOf(mapel);
+  return `<div class="toolbar"><span class="badge b-vio">KKM ${kkm}</span><span class="muted" id="nlDirty">Belum ada perubahan</span><span class="sp"></span><button class="btn sm" data-act="edit" data-t="penilaian">${ic('plus', 14)} Penilaian Baru</button><button class="btn pri" data-act="nlSave">${ic('ok', 16)} Simpan Nilai</button></div>
+  <div class="tbl-wrap"><table class="matrix"><thead><tr><th class="nm">Nama Siswa</th>${pen.map(p => `<th><span class="jn j-${p.jenis}">${p.jenis}</span><b title="${esc(p.judul)}">${esc(p.judul)}</b><small>${fmtD(p.tanggal)}</small><button class="ib" style="width:26px;height:26px" data-act="edit" data-t="penilaian" data-id="${p.id}" title="Ubah/Hapus">${ic('edit', 13)}</button></th>`).join('')}</tr></thead><tbody>
+  ${sis.map((s, i) => `<tr><td class="nm"><b style="color:var(--ink)">${i + 1}. ${esc(s.nama)}</b></td>${pen.map(p => { const v = nm.get(p.id + ':' + s.id); return `<td><input class="nl-in ${v != null && v < kkm ? 'low' : ''}" type="number" min="0" max="100" step="any" inputmode="decimal" data-in="nlIn" data-pid="${p.id}" data-sid="${s.id}" data-o="${v ?? ''}" value="${v ?? ''}"></td>`; }).join('')}</tr>`).join('')}</tbody>
+  <tfoot><tr><td class="nm">Rata-rata</td>${pen.map(p => `<td id="avg-${p.id}">-</td>`).join('')}</tr></tfoot></table></div>`;
+}
+function nlRecalc() {
+  const kkm = kkmOf(S.nl.mapel), by = {}; let dirty = 0;
+  $$('.nl-in').forEach(i => {
+    const v = i.value === '' ? null : Number(i.value);
+    (by[i.dataset.pid] = by[i.dataset.pid] || []).push(v);
+    const ch = i.value !== i.dataset.o; if (ch) dirty++;
+    i.classList.toggle('dirty', ch); i.classList.toggle('low', v != null && v < kkm);
+  });
+  Object.entries(by).forEach(([pid, arr]) => { const a = arr.filter(x => x != null && !isNaN(x)); const e = $('#avg-' + pid); if (e) e.textContent = a.length ? f1(a.reduce((x, y) => x + y, 0) / a.length) : '-'; });
+  const d = $('#nlDirty'); if (d) d.textContent = dirty ? `${dirty} perubahan belum disimpan` : 'Belum ada perubahan';
+}
+INP.nlIn = () => nlRecalc();
+ACT.nlSave = async el => {
+  const ins = $$('.nl-in').filter(i => i.value !== i.dataset.o); if (!ins.length) { toast('Tidak ada perubahan'); return; }
+  const ups = [], del = [];
+  for (const i of ins) {
+    if (i.value === '') { del.push(i); continue; }
+    const v = Number(i.value); if (isNaN(v) || v < 0 || v > 100) { toast('Nilai harus antara 0 – 100', 'bad'); i.focus(); return; }
+    ups.push({ penilaian_id: i.dataset.pid, siswa_id: i.dataset.sid, nilai: v });
+  }
+  el.disabled = true;
+  try {
+    await dbUpsert('nilai', ups, 'penilaian_id,siswa_id');
+    for (const i of del) await dbDelete('nilai', [['penilaian_id', 'eq', i.dataset.pid], ['siswa_id', 'eq', i.dataset.sid]]);
+    toast(`${ins.length} nilai tersimpan`); renderView(true);
+  } catch (e) { toastErr(e); el.disabled = false; }
+};
+async function nlRekap() {
+  const { kelas, mapel } = S.nl;
+  if (!kelas || !mapel) return empty('chart', isAdmin() ? 'Belum ada pengampu' : 'Belum ada mapel & kelas', isAdmin() ? 'Tetapkan guru pengampu di menu Mata Pelajaran.' : 'Admin menetapkan mapel & kelas Anda di menu Mata Pelajaran.');
+  const { pen, nm, sis } = await nlData(), kkm = kkmOf(mapel);
+  if (!pen.length || !sis.length) return empty('chart', 'Belum ada data nilai', isAdmin() ? 'Guru belum membuat penilaian / mengisi nilai untuk kelas dan mapel ini.' : 'Buat penilaian dan isi nilai pada tab Input Nilai.');
+  const rows = sis.map((s, i) => {
+    const avg = {};
+    JENIS.forEach(j => { const v = pen.filter(p => p.jenis === j).map(p => nm.get(p.id + ':' + s.id)).filter(x => x != null); avg[j] = v.length ? v.reduce((a, b) => a + Number(b), 0) / v.length : null; });
+    const fin = nilaiAkhir(avg); return { no: i + 1, s, avg, fin, pr: fin == null ? '-' : predikat(fin, kkm), ok: fin != null && fin >= kkm };
+  });
+  const fins = rows.map(r => r.fin).filter(x => x != null);
+  const st = { avg: fins.length ? fins.reduce((a, b) => a + b, 0) / fins.length : null, max: fins.length ? Math.max(...fins) : null, min: fins.length ? Math.min(...fins) : null, tuntas: fins.length ? Math.round(rows.filter(r => r.ok).length / fins.length * 100) : null };
+  const used = JENIS.filter(j => pen.some(p => p.jenis === j));
+  const head = ['No', 'NIS', 'Nama', ...used, 'Nilai Akhir', 'Predikat', 'Keterangan'];
+  const body = rows.map(r => [r.no, r.s.nis || '', r.s.nama, ...used.map(j => r.avg[j] == null ? '-' : f1(r.avg[j])), f1(r.fin), r.pr, r.fin == null ? '-' : r.ok ? 'Tuntas' : 'Belum Tuntas']);
+  S._nr = { head, body, kelas: K(kelas)?.nama, mapel: M(mapel)?.nama, kkm, st, gid: guruIdOf(mapel, kelas) };
+  return `<div class="sumcards"><div class="stat">${bub('chart', 'g-vio')}<div><b>${f1(st.avg)}</b><small>Rata-rata kelas</small></div></div><div class="stat">${bub('trophy', 'g-ora')}<div><b>${f1(st.max)}</b><small>Tertinggi</small></div></div><div class="stat">${bub('chevL', 'g-pink')}<div><b>${f1(st.min)}</b><small>Terendah</small></div></div><div class="stat">${bub('check', 'g-blue')}<div><b>${st.tuntas ?? '-'}%</b><small>Tuntas (KKM ${kkm})</small></div></div></div>
+  <div class="tbl-wrap"><table class="tbl"><thead><tr><th class="c">No</th><th>Nama</th>${used.map(j => `<th class="c">${j}</th>`).join('')}<th class="c">Nilai Akhir</th><th class="c">Predikat</th><th>Ket.</th></tr></thead><tbody>
+  ${rows.map(r => `<tr><td class="c muted">${r.no}</td><td><div class="who">${avatar(r.s.nama)}<div><b>${esc(r.s.nama)}</b><small>${esc(r.s.nis || '')}</small></div></div></td>${used.map(j => `<td class="c">${r.avg[j] == null ? '<span class="muted">-</span>' : f1(r.avg[j])}</td>`).join('')}<td class="c"><b>${f1(r.fin)}</b></td><td class="c"><span class="badge ${r.pr === 'A' ? 'b-ok' : r.pr === 'B' ? 'b-vio' : r.pr === 'C' ? 'b-warn' : r.pr === 'D' ? 'b-bad' : ''}">${r.pr}</span></td><td>${r.fin == null ? '-' : r.ok ? '<span class="badge b-ok">Tuntas</span>' : '<span class="badge b-bad">Belum tuntas</span>'}</td></tr>`).join('')}</tbody></table></div>
+  <p class="muted" style="margin-top:8px;font-size:12px">Nilai akhir = rata-rata tiap jenis dibobot (${JENIS.map(j => `${j} ${D.sekolah[BOBOT_KEY[j]] ?? 0}%`).join(', ')}). Predikat: A ≥ 90, B ≥ 80, C ≥ KKM, D &lt; KKM.</p>`;
+}
+PAGES.nilai = {
+  async render() {
+    nlDefaults(); const n = S.nl, adm = isAdmin();
+    const tabs = adm ? '' : `<div class="tabs"><button class="tab ${n.tab === 'input' ? 'on' : ''}" data-act="tab" data-p="nl.tab" data-v="input">Input Nilai</button><button class="tab ${n.tab === 'rekap' ? 'on' : ''}" data-act="tab" data-p="nl.tab" data-v="rekap">Rekap Nilai</button></div>`;
+    const ctl = `<div class="toolbar">${selCtl('nl.kelas', kOpts(), n.kelas)}${selCtl('nl.mapel', mOpts(n.kelas), n.mapel)}${adm && n.mapel ? `<span class="badge b-vio">Guru: ${esc(guruNama(guruIdOf(n.mapel, n.kelas)))}</span>` : ''}${taAktif() ? `<span class="badge">${esc(taAktif().tahun)} • ${esc(taAktif().semester)}</span>` : ''}</div>`;
+    const acts = n.tab === 'rekap' ? `${adm ? roTag('Diisi oleh guru') : ''}<button class="btn" data-act="nrPrint">${ic('print', 16)} Cetak</button><button class="btn" data-act="nrCsv">${ic('dl', 16)} Ekspor</button>` : '';
+    return `${phead(adm ? 'Rekap Buku Nilai' : 'Buku Nilai', K(n.kelas) ? `Kelas ${K(n.kelas).nama}` : '', acts)}${tabs}<div class="card">${ctl}${n.tab === 'input' ? await nlInput() : await nlRekap()}</div>`;
+  }
+};
+ACT.nrCsv = () => { const t = S._nr; if (!t) return; download(`rekap-nilai-${t.kelas}.csv`, toCSV([t.head, ...t.body])); };
+ACT.nrPrint = () => { const t = S._nr; if (!t) return; printHTML(`REKAP NILAI — KELAS ${t.kelas} • ${t.mapel}`, `<p class="meta">KKM ${t.kkm} • Rata-rata kelas ${f1(t.st.avg)} • Tuntas ${t.st.tuntas ?? '-'}%</p>${tableHTML(t.head, t.body)}`, false, guruTtd(t.gid)); };
+/* ============================ BIMBINGAN GURU WALI ============================ */
+const waliList = () => D.siswa.filter(s => s.bimbingan_wali && s.aktif !== false && (isAdmin() || s.guru_wali_id === ME()));
+EDIT.bimbingan = async (id, ds = {}) => {
+  if (isAdmin()) { toast('Catatan bimbingan diisi oleh guru wali. Admin hanya dapat melihat.', 'bad'); return; }
+  const rec = id ? (S._bim || []).find(x => x.id === id) : null;
+  const sisOpts = waliList().sort(byNama).map(s => ({ v: s.id, l: `${s.nama} (${K(s.kelas_id)?.nama || '-'})` }));
+  if (rec && !sisOpts.find(o => o.v === rec.siswa_id)) { const s = SW(rec.siswa_id); if (s) sisOpts.push({ v: s.id, l: s.nama }); }
+  if (!sisOpts.length) { toast('Anda belum membimbing siswa. Admin menetapkan guru wali di menu Data Siswa.', 'bad'); return; }
+  openForm({
+    title: rec ? 'Ubah Catatan Bimbingan' : 'Catatan Bimbingan Baru', wide: true,
+    fields: [
+      { k: 'siswa_id', l: 'Siswa', t: 'select', req: 1, o: sisOpts, w: 'full' },
+      { k: 'tanggal', l: 'Tanggal', t: 'date', req: 1 },
+      { k: 'aspek', l: 'Aspek', t: 'select', req: 1, o: ASPEK.map(a => ({ v: a, l: a })) },
+      { k: 'topik', l: 'Topik', req: 1, w: 'full', ph: 'mis. Kesulitan memahami pecahan / Kedisiplinan / Minat seni' },
+      { k: 'catatan', l: 'Catatan / Hasil Pengamatan', t: 'textarea', rows: 3, w: 'full', req: 1 },
+      { k: 'tindak_lanjut', l: 'Tindak Lanjut', t: 'textarea', rows: 2, w: 'full' },
+      { k: 'status', l: 'Status', t: 'select', req: 1, o: ['Baru', 'Proses', 'Selesai'].map(a => ({ v: a, l: a })) }],
+    values: rec || { siswa_id: ds.sid || S.bim.sid || sisOpts[0].v, tanggal: today(), aspek: ds.aspek && ASPEK.includes(ds.aspek) ? ds.aspek : (ASPEK.includes(S.bim.aspek) ? S.bim.aspek : 'Akademik'), status: 'Baru' },
+    onSubmit: async v => {
+      if (rec) await dbUpdate('bimbingan', rec.id, v); else await dbInsert('bimbingan', [v]);
+      S.bim.sid = v.siswa_id; toast('Catatan bimbingan tersimpan'); renderView(true);
+    },
+    onDelete: rec ? async () => { await dbDelete('bimbingan', [['id', 'eq', rec.id]]); toast('Catatan dihapus'); renderView(true); } : null
+  });
+};
+PAGES.bimbingan = {
+  async render() {
+    S._bim = await dbList('bimbingan', { order: [['tanggal', false], ['created_at', false]] });
+    const b = S.bim, adm = isAdmin(), wali = waliList().filter(s => (!b.kelas || s.kelas_id === b.kelas) && (!b.guru || s.guru_wali_id === b.guru)).sort((x, y) => (K(x.kelas_id)?.nama || '').localeCompare(K(y.kelas_id)?.nama || '') || byNama(x, y));
+    const ids = new Set(waliList().map(s => s.id)), notes = S._bim.filter(n => ids.has(n.siswa_id));
+    const cnt = a => notes.filter(n => n.aspek === a).length;
+    if (!waliList().length) return `${phead('Bimbingan Guru Wali')}<div class="card">${adm ? empty('heart', 'Belum ada siswa bimbingan wali', 'Tandai siswa sebagai "Bimbingan Wali" dan pilih guru walinya pada menu Data Siswa.', `<button class="btn pri" data-go="siswa">Ke Data Siswa</button>`) : empty('heart', 'Anda belum membimbing siswa', 'Admin menetapkan Anda sebagai guru wali pada menu Data Siswa. Hubungi Admin sekolah.')}</div>`;
+    const sel = b.sid && ids.has(b.sid) ? SW(b.sid) : null;
+    if (!sel) b.sid = null;
+    const side = wali.map(s => {
+      const nn = S._bim.filter(n => n.siswa_id === s.id);
+      return `<button class="bim-item ${b.sid === s.id ? 'on' : ''}" data-act="bimSel" data-id="${s.id}">${avatar(s.nama)}<div style="flex:1;min-width:0"><b>${esc(s.nama)}</b><small>Kelas ${esc(K(s.kelas_id)?.nama || '-')} • ${nn.length} catatan${adm ? ' • ' + esc(guruShort(s.guru_wali_id)) : ''}</small></div>${ic('chevR', 16)}</button>`;
+    }).join('') || `<p class="muted" style="padding:10px">Tidak ada siswa di kelas ini.</p>`;
+    let detail = empty('heart', 'Pilih siswa', 'Pilih siswa di sebelah kiri untuk melihat dan menambah catatan bimbingan.');
+    if (sel) {
+      const mine = S._bim.filter(n => n.siswa_id === sel.id), shown = mine.filter(n => b.aspek === 'Semua' || n.aspek === b.aspek);
+      detail = `<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px"><button class="btn sm ghost back" data-act="bimBack">${ic('chevL', 14)} Kembali</button>${avatar(sel.nama, 1)}<div style="flex:1;min-width:150px"><h3 style="color:var(--ink);font-size:17px">${esc(sel.nama)}</h3><span class="muted">Kelas ${esc(K(sel.kelas_id)?.nama || '-')} • NIS ${esc(sel.nis || '-')}${adm ? ' • Guru wali: ' + esc(guruNama(sel.guru_wali_id)) : ''}</span></div>
+      <button class="btn sm" data-act="bimPrint">${ic('print', 14)} Cetak</button>${adm ? '' : `<button class="btn pri sm" data-act="edit" data-t="bimbingan" data-sid="${sel.id}">${ic('plus', 14)} Catatan</button>`}</div>
+      <div class="tabs">${['Semua', ...ASPEK].map(a => `<button class="tab ${b.aspek === a ? 'on' : ''}" data-act="tab" data-p="bim.aspek" data-v="${a}">${a}<em>${a === 'Semua' ? mine.length : mine.filter(n => n.aspek === a).length}</em></button>`).join('')}</div>
+      ${shown.length ? shown.map(n => `<div class="nt"><div class="meta"><span class="badge ${ASPEK_BADGE[n.aspek]}">${n.aspek}</span><span>${fmtD(n.tanggal)}</span><span class="badge ${n.status === 'Selesai' ? 'b-ok' : n.status === 'Proses' ? 'b-warn' : ''}">${n.status}</span><span class="sp"></span>${adm ? '' : `<button class="ib" data-act="edit" data-t="bimbingan" data-id="${n.id}">${ic('edit', 15)}</button><button class="ib bad" data-act="del" data-t="bimbingan" data-id="${n.id}" data-rl="kelas" data-msg="Hapus catatan bimbingan ini?">${ic('trash', 15)}</button>`}</div>
+      <h4>${esc(n.topik || '-')}</h4><div>${esc(n.catatan || '')}</div>${n.tindak_lanjut ? `<div class="tl"><b>Tindak lanjut:</b> ${esc(n.tindak_lanjut)}</div>` : ''}</div>`).join('') : empty('heart', 'Belum ada catatan', `Belum ada catatan ${b.aspek === 'Semua' ? '' : b.aspek.toLowerCase()} untuk siswa ini.`, adm ? '' : `<button class="btn pri sm" data-act="edit" data-t="bimbingan" data-sid="${sel.id}" data-aspek="${b.aspek}">${ic('plus', 14)} Tambah Catatan</button>`)}`;
+    }
+    return `${phead('Bimbingan Guru Wali', `${waliList().length} siswa`, adm ? roTag('Diisi oleh guru wali') : `<button class="btn pri" data-act="edit" data-t="bimbingan" data-sid="${b.sid || ''}">${ic('plus', 16)} Catatan Baru</button>`)}
+    <div class="aspek3">${ASPEK.map(a => `<div class="acard ${ASPEK_CLS[a]}" style="cursor:pointer" data-act="bimAspek" data-a="${a}"><b>${cnt(a)}</b><small>Catatan ${a}</small></div>`).join('')}</div>
+    <div class="bim-wrap ${sel ? 'has-sel' : ''}"><div class="bim-side"><div class="toolbar"><select class="inp" style="max-width:none;width:100%" data-ch="set" data-p="bim.kelas">${optHTML(kelasOpts(), b.kelas, 'Semua kelas')}</select>${adm ? `<select class="inp" style="max-width:none;width:100%" data-ch="set" data-p="bim.guru">${optHTML(guruOpts(), b.guru, 'Semua guru wali')}</select>` : ''}</div><div class="bim-list">${side}</div></div>
+    <div class="bim-detail card">${detail}</div></div>`;
+  }
+};
+ACT.bimSel = el => { S.bim.sid = el.dataset.id; S.bim.aspek = 'Semua'; renderView(true); };
+ACT.bimBack = () => { S.bim.sid = null; renderView(true); };
+ACT.bimAspek = el => { S.bim.aspek = el.dataset.a; renderView(true); };
+ACT.bimPrint = () => {
+  const s = SW(S.bim.sid); if (!s) return;
+  const mine = (S._bim || []).filter(n => n.siswa_id === s.id).sort((a, b) => a.tanggal.localeCompare(b.tanggal));
+  printHTML(`LAPORAN BIMBINGAN GURU WALI`, `<p class="meta"><b>${esc(s.nama)}</b> • Kelas ${esc(K(s.kelas_id)?.nama || '-')} • NIS ${esc(s.nis || '-')}</p>${tableHTML(['No', 'Tanggal', 'Aspek', 'Topik', 'Catatan', 'Tindak Lanjut', 'Status'], mine.map((n, i) => [i + 1, fmtD(n.tanggal), n.aspek, n.topik, n.catatan, n.tindak_lanjut, n.status]))}`, true, guruTtd(isAdmin() ? s.guru_wali_id : null));
+};
+
+/* ============================ PENGATURAN SEKOLAH ============================ */
+const profilFields = () => [
+  { k: 'nama_sekolah', l: 'Nama Sekolah', req: 1, w: 'full' }, { k: 'npsn', l: 'NPSN' }, { k: 'alamat', l: 'Alamat Sekolah', w: 'full' },
+  { k: 'kepala_sekolah', l: 'Kepala Sekolah' }, { k: 'nip_kepsek', l: 'NIP Kepala Sekolah' }
+];
+const bobotFields = () => [
+  { k: 'kkm_default', l: 'KKM Default', t: 'number', min: 0, max: 100 },
+  ...JENIS.map(j => ({ k: BOBOT_KEY[j], l: `Bobot ${j} (%)`, t: 'number', min: 0, max: 100 }))
+];
+async function saveSekolah(v) {
+  if (D.sekolah.id) await dbUpdate('sekolah', D.sekolah.id, v); else await dbInsert('sekolah', [v]);
+  await reload('sekolah'); toast('Pengaturan tersimpan');
+}
+FORM.profil = async f => {
+  if (!adminOnly()) return; const b = f.querySelector('[type=submit]'); b.disabled = true;
+  try { await saveSekolah(readForm(f, profilFields())); renderView(true); } catch (e) { toastErr(e); } b.disabled = false;
+};
+FORM.bobot = async f => {
+  if (!adminOnly()) return; const b = f.querySelector('[type=submit]'); b.disabled = true;
+  try { const v = readForm(f, bobotFields()); Object.keys(v).forEach(k => { if (v[k] == null) v[k] = 0; }); await saveSekolah(v); renderView(true); } catch (e) { toastErr(e); } b.disabled = false;
+};
+const roForm = (name, fields, vals, submit) => `<form data-form="${name}" ${S.role !== 'admin' ? 'data-ro="1"' : ''}><div class="frm">${fields.map(f => fieldHTML(f, vals[f.k])).join('')}</div>${S.role === 'admin' ? `<div class="m-f" style="padding:16px 0 0"><span class="sp"></span><button class="btn pri" type="submit">${submit}</button></div>` : `<div class="note">Bagian ini hanya dapat diubah oleh <b>Admin</b>.</div>`}</form>`;
+EDIT.ta = id => {
+  if (!adminOnly()) return; const rec = id ? D.tahun_ajaran.find(t => t.id === id) : null;
+  crudForm({ table: 'tahun_ajaran', title: 'Tahun Ajaran', rec, rl: ['tahun_ajaran'], defaults: { semester: 'Ganjil', aktif: false }, fields: [{ k: 'tahun', l: 'Tahun Ajaran', req: 1, ph: '2026/2027' }, { k: 'semester', l: 'Semester', t: 'select', req: 1, o: [{ v: 'Ganjil', l: 'Ganjil' }, { v: 'Genap', l: 'Genap' }] }], after: () => { renderShell(); go('pengaturan'); } });
+};
+ACT.taAktif = async el => {
+  if (!adminOnly()) return;
+  try { for (const t of D.tahun_ajaran.filter(t => t.aktif && t.id !== el.dataset.id)) await dbUpdate('tahun_ajaran', t.id, { aktif: false }); await dbUpdate('tahun_ajaran', el.dataset.id, { aktif: true }); await reload('tahun_ajaran'); toast('Tahun ajaran aktif diubah'); renderShell(); go('pengaturan'); } catch (e) { toastErr(e); }
+};
+EDIT.jam = id => {
+  if (!adminOnly()) return;
+  const rec = id ? D.jam_pelajaran.find(j => j.id === id) : null;
+  crudForm({ table: 'jam_pelajaran', title: 'Jam Pelajaran', rec, rl: ['jam_pelajaran', 'jadwal'], defaults: { jam_ke: (D.jam_pelajaran.length ? Math.max(...D.jam_pelajaran.map(j => j.jam_ke)) : 0) + 1 },
+    fields: [{ k: 'jam_ke', l: 'Jam ke-', t: 'number', req: 1, min: 1 }, { k: 'mulai', l: 'Mulai', t: 'time', req: 1 }, { k: 'selesai', l: 'Selesai', t: 'time', req: 1 }, { k: 'keterangan', l: 'Keterangan', ph: 'mis. Setelah istirahat' }] });
+};
+EDIT.mapel = id => {
+  if (!adminOnly()) return;
+  const rec = id ? M(id) : null;
+  crudForm({ table: 'mapel', title: 'Mata Pelajaran', rec, rl: ['mapel', 'jadwal', 'penugasan'], defaults: { kkm: Number(D.sekolah.kkm_default) || 75 },
+    fields: [{ k: 'nama', l: 'Nama Mata Pelajaran', req: 1, w: 'full' }, { k: 'kode', l: 'Kode', ph: 'mis. MTK' }, { k: 'kkm', l: 'KKM', t: 'number', min: 0, max: 100 }] });
+};
+EDIT.pengguna = id => {
+  if (!adminOnly()) return; const rec = id ? (S._peng || []).find(p => p.id === id) : null;
+  openForm({
+    title: rec ? 'Ubah Akun Guru' : 'Tambah Akun Guru', note: rec ? '<div class="note">Kosongkan password jika tidak ingin mengubahnya. Username tidak dapat diubah.</div>' : '',
+    fields: [{ k: 'username', l: 'Username', req: 1, ro: !!rec }, { k: 'nama', l: 'Nama Lengkap (beserta gelar)', req: 1 }, { k: 'nip', l: 'NIP', ph: 'Opsional — tampil di cetak laporan' }, { k: 'password', l: rec ? 'Password Baru' : 'Password', t: 'password', req: rec ? 0 : 1, ph: 'minimal 6 karakter' }],
+    values: rec || {},
+    onSubmit: async v => {
+      if (v.password && v.password.length < 6) throw new Error('Password minimal 6 karakter');
+      await dbRpc('admin_set_pengguna', { p_username: v.username, p_nama: v.nama, p_nip: v.nip || null, p_password: v.password || null });
+      await reload('guru'); toast('Akun guru tersimpan'); renderView(true);
+    }
+  });
+};
+ACT.pengAktif = async el => {
+  if (!adminOnly()) return; const p = (S._peng || []).find(x => x.id === el.dataset.id); if (!p) return;
+  try { await dbUpdate('pengguna', p.id, { aktif: p.aktif === false }); await reload('guru'); renderView(true); } catch (e) { toastErr(e); }
+};
+FORM.gantiPw = async f => {
+  const lama = f.elements.lama.value, baru = f.elements.baru.value, ulang = f.elements.ulang.value;
+  try {
+    if (baru.length < 6) throw new Error('Password baru minimal 6 karakter');
+    if (baru !== ulang) throw new Error('Konfirmasi password tidak sama');
+    await dbRpc('ganti_password_pengguna', { p_username: S.user.username, p_lama: lama, p_baru: baru });
+    f.reset(); toast('Password berhasil diganti');
+  } catch (e) { toastErr(e); }
+};
+ACT.backup = async () => {
+  try {
+    const out = { dibuat: new Date().toISOString(), aplikasi: 'GuruKu' };
+    for (const t of ['sekolah', 'tahun_ajaran', 'kelas', 'siswa', 'mapel', 'penugasan', 'jam_pelajaran', 'jadwal', 'jurnal', 'absensi', 'penilaian', 'nilai', 'bimbingan']) out[t] = await dbList(t);
+    download(`cadangan-guruku-${today()}.json`, JSON.stringify(out, null, 1), 'application/json'); toast('Cadangan diunduh');
+  } catch (e) { toastErr(e); }
+};
+PAGES.pengaturan = {
+  async render() {
+    const t = S.pg.tab, adm = S.role === 'admin';
+    const tabs = [['profil', 'Profil Sekolah'], ['ta', 'Tahun Ajaran'], ['jam', 'Jam Pelajaran'], ['penilaian', 'Penilaian'], ['akun', adm ? 'Akun Guru' : 'Akun Saya'], ['data', 'Data']];
+    if (t === 'mapel') S.pg.tab = 'profil';
+    let body = '';
+    if (t === 'profil') body = `<div class="card">${roForm('profil', profilFields(), D.sekolah, 'Simpan Profil')}</div>`;
+    else if (t === 'penilaian') body = `<div class="card">${roForm('bobot', bobotFields(), D.sekolah, 'Simpan Pengaturan')}<div class="note">Bobot menentukan nilai akhir di Rekap Nilai. Total bobot disarankan 100%. Jenis yang belum memiliki nilai otomatis diabaikan.</div></div>`;
+    else if (t === 'ta') body = `<div class="card">${adm ? `<div class="toolbar"><button class="btn pri" data-act="edit" data-t="ta">${ic('plus', 16)} Tambah Tahun Ajaran</button></div>` : '<div class="note" style="margin:0 0 12px">Tahun ajaran hanya dapat diubah oleh Admin.</div>'}
+      ${D.tahun_ajaran.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Tahun Ajaran</th><th>Semester</th><th>Status</th><th></th></tr></thead><tbody>${D.tahun_ajaran.map(x => `<tr><td><b>${esc(x.tahun)}</b></td><td>${esc(x.semester)}</td><td>${x.aktif ? '<span class="badge b-ok">✓ Aktif</span>' : '<span class="badge">Tidak aktif</span>'}</td><td class="r">${adm ? `${x.aktif ? '' : `<button class="btn sm" data-act="taAktif" data-id="${x.id}">Jadikan aktif</button>`}<button class="ib" data-act="edit" data-t="ta" data-id="${x.id}">${ic('edit', 16)}</button><button class="ib bad" data-act="del" data-t="tahun_ajaran" data-id="${x.id}" data-msg="Hapus tahun ajaran ini?">${ic('trash', 16)}</button>` : ''}</td></tr>`).join('')}</tbody></table></div>` : empty('cal', 'Belum ada tahun ajaran', '')}</div>`;
+    else if (t === 'jam') body = `<div class="card">${adm ? `<div class="toolbar"><button class="btn pri" data-act="edit" data-t="jam">${ic('plus', 16)} Tambah Jam</button></div>` : '<div class="note" style="margin:0 0 12px">Jam pelajaran hanya dapat diubah oleh Admin.</div>'}${D.jam_pelajaran.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th class="c">Jam ke-</th><th>Mulai</th><th>Selesai</th><th>Keterangan</th><th></th></tr></thead><tbody>${D.jam_pelajaran.map(j => `<tr><td class="c"><b>${j.jam_ke}</b></td><td>${hm(j.mulai)}</td><td>${hm(j.selesai)}</td><td class="muted">${esc(j.keterangan || '')}</td><td class="r">${adm ? `<button class="ib" data-act="edit" data-t="jam" data-id="${j.id}">${ic('edit', 16)}</button><button class="ib bad" data-act="del" data-t="jam_pelajaran" data-id="${j.id}" data-rl="jam_pelajaran" data-msg="Hapus jam ke-${j.jam_ke}?">${ic('trash', 16)}</button>` : ''}</td></tr>`).join('')}</tbody></table></div>` : empty('clock', 'Belum ada jam pelajaran', '')}</div>`;
+    else if (t === 'akun') {
+      if (adm) {
+        await reload('guru'); S._peng = D.guru;
+        body = `<div class="card"><div class="toolbar"><button class="btn pri" data-act="edit" data-t="pengguna">${ic('plus', 16)} Tambah Akun Guru</button></div>${S._peng.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Username</th><th>Nama</th><th>NIP</th><th class="c">Pengampu</th><th>Status</th><th></th></tr></thead><tbody>${S._peng.map(p => { const ps = D.penugasan.filter(x => x.guru_id === p.id); return `<tr><td><b>${esc(p.username)}</b></td><td>${esc(p.nama || '-')}</td><td class="muted">${esc(p.nip || '-')}</td><td class="c"><span class="badge b-vio">${new Set(ps.map(x => x.mapel_id)).size} mapel • ${ps.length} kelas</span></td><td><button class="badge ${p.aktif === false ? 'b-bad' : 'b-ok'}" data-act="pengAktif" data-id="${p.id}">${p.aktif === false ? 'Nonaktif' : 'Aktif'}</button></td><td class="r"><button class="ib" data-act="edit" data-t="pengguna" data-id="${p.id}">${ic('edit', 16)}</button><button class="ib bad" data-act="del" data-t="pengguna" data-id="${p.id}" data-rl="guru,penugasan,siswa" data-msg="Hapus akun ${esc(p.username)}? Penugasan mapel guru ini ikut dihapus (jurnal, absensi, nilai tetap tersimpan).">${ic('trash', 16)}</button></td></tr>`; }).join('')}</tbody></table></div>` : empty('user', 'Belum ada akun guru', 'Tambahkan akun guru, lalu tetapkan mapel & kelasnya di menu Mata Pelajaran.')}
+        <div class="note">Anda masuk sebagai <b>Admin</b> (${esc(S.user.email || '')}). Password admin dikelola di Supabase → Authentication → Users. Mapel & kelas tiap guru diatur di menu <b>Mata Pelajaran</b>.</div></div>`;
+      } else body = `<div class="card" style="max-width:460px;margin-bottom:14px"><h3 style="color:var(--ink);margin-bottom:10px">Profil Saya</h3><div class="irow" style="margin-bottom:8px">${bub('user', 'g-vio')}<div><small>Nama</small><b>${esc(S.user.nama || '-')}</b></div></div><div class="irow" style="margin-bottom:8px">${bub('file', 'g-blue')}<div><small>Username • NIP</small><b>${esc(S.user.username || '-')} • ${esc(S.user.nip || '-')}</b></div></div><p class="muted">Nama dan NIP ini tampil pada tanda tangan laporan cetak. Perubahan data diminta ke Admin.</p></div>
+      <div class="card" style="max-width:460px"><h3 style="color:var(--ink);margin-bottom:12px">Ganti Password</h3><form data-form="gantiPw" style="display:flex;flex-direction:column;gap:12px"><div class="fld"><label>Password lama</label><input name="lama" type="password" required autocomplete="current-password"></div><div class="fld"><label>Password baru</label><input name="baru" type="password" required minlength="6" autocomplete="new-password"></div><div class="fld"><label>Ulangi password baru</label><input name="ulang" type="password" required autocomplete="new-password"></div><button class="btn pri" type="submit">Simpan Password</button></form></div>`;
+    } else body = `<div class="card" style="max-width:560px"><h3 style="color:var(--ink);margin-bottom:6px">Cadangan Data</h3><p style="margin-bottom:14px">Unduh ${adm ? 'seluruh data' : 'data Anda'} (kelas, siswa, jadwal, jurnal, absensi, nilai, bimbingan) sebagai file JSON.</p><button class="btn pri" data-act="backup">${ic('dl', 16)} Unduh Cadangan</button>
+      <div class="note"><b>Mode:</b> ${IS_PREVIEW ? 'Preview (data uji di memori browser — tidak tersimpan)' : 'Terhubung ke Supabase'}<br><b>Peran:</b> ${adm ? 'Admin' : 'Guru'}</div></div>`;
+    return `${phead('Pengaturan', adm ? 'Sekolah & aplikasi' : 'Akun & informasi sekolah')}<div class="tabs">${tabs.map(([id, l]) => `<button class="tab ${t === id ? 'on' : ''}" data-act="tab" data-p="pg.tab" data-v="${id}">${l}</button>`).join('')}</div>${body}`;
+  },
+  after() { if (S.role !== 'admin') $$('form[data-ro] input,form[data-ro] select,form[data-ro] textarea').forEach(e => { e.disabled = true; }); }
+};
+
+/* ================================= MULAI ================================= */
+(async function init() {
+  try { document.body.style.overflow = 'hidden'; } catch (e) { /* abaikan */ }
+  setupPWA();
+  if (sbError) { root.innerHTML = `<div class="login"><div class="lcard"><h2>Tidak dapat memuat Supabase</h2><p class="sub">${esc(sbError.message || sbError)}</p><p class="sub">Periksa koneksi internet lalu muat ulang halaman.</p></div></div>`; return; }
+  if (!IS_PREVIEW && (SUPABASE_URL.startsWith('URL_') || SUPABASE_ANON_KEY.startsWith('ANON_'))) {
+    root.innerHTML = `<div class="login"><div class="lcard"><h2>Supabase belum dikonfigurasi</h2><p class="sub">Isi SUPABASE_URL dan SUPABASE_ANON_KEY di bagian atas skrip, atau kembalikan IS_PREVIEW = true.</p></div></div>`; return;
+  }
+  await autoSetupDatabase();
+  if (await bootAuth()) await enterApp(); else renderLogin();
+})();
+</script>
+</body>
+</html>
